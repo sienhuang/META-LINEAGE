@@ -1,1 +1,6 @@
 .env
+
+# Raw/generated lineage datasets are kept locally, not in Git.
+/hive_sqls_full.csv
+/huiyaoye_moonton_com_20230105190150_full.csv
+/knowledge_base/catalog/generated/column_lineage.json
