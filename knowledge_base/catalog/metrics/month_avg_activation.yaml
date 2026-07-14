@@ -1,0 +1,34 @@
+# ============================================================================
+# 完整四层口径样例 · 月均活跃度
+# A 层(formula/hint/dimensions) 来自 P1 自动解析；
+# C 层(dataset_sql/wide_table) 是 P2 示例数据(需 MySQL 权限填真值)；
+# D 层(etl) 是 P4 示例数据(需解析真实 Spark 任务填真值)。
+# 标注 [示例] 的字段即等 P2/P3/P4 用真值替换。
+# ============================================================================
+metric: month_avg_activation
+name_cn: 月均活跃度
+category: core-dau
+tier: 头部                       # 高频核心指标，人工精校
+
+# --- A 层 · 展示指标 (P1 自动) ---
+formula: "sum(indicator_map['avg_active_cnt']) / cast(sum(indicator_map['mau']) as decimal(38,0))"
+hint: "月度指标不受日期筛选器控制；自然月粒度下，月均DAU/MAU = (sum(月每日活跃玩家数)/月总天数) / 月去重活跃玩家数"
+dimensions: [logymd]
+filters: getCommonMonthlyFixedFilters
+scopes: [mlbb]
+source_ref: "src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:102"
+
+# --- B 层 · 引用的底层指标 (P1 自动抽名) ---
+base_indicators: [avg_active_cnt, mau]
+
+# --- C 层 · 数据来源 (P2 示例, 待 MySQL 真值) ---
+dataset_id: "300016"
+dataset_sql: "[示例] SELECT logymd, indicator_map FROM dws.dws_mlbb_indicator_wide_1d WHERE ..."
+wide_table: "doris.dws_mlbb_indicator_wide_1d"
+
+# --- D 层 · 终极口径指针 (P4 示例, 待解析真实 Spark 任务) ---
+etl:
+  - base: avg_active_cnt
+    task_type: spark_sql
+  - base: mau
+    task_type: spark_sql

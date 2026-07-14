@@ -1,0 +1,43 @@
+# ============================================================================
+# 表格知识 · C 层 Doris 指标宽表（口径链里"指标"读的那张表）
+# 表是知识库的另一大支柱，独立服务: Text-to-SQL / 资产发现 / 数仓开发。
+# 标注 [示例] 的字段等抽取(extract_metadata.py 读 Doris information_schema)填真值。
+# ============================================================================
+table: dws_mlbb_indicator_wide_1d
+db: dws
+engine: doris
+layer: DWS
+domain: mlbb                       # 产品线/业务域
+name_cn: MLBB 指标宽表(日)          # [示例]
+description: >
+  [示例] MLBB 产品线的指标宽表，一行一天，核心指标装在 indicator_map(MAP) 列里，
+  另有部分高频指标拍平成直接列。datasetId=300016 等多个 dataset 直接 select 它。
+grain: 天 (logymd 唯一)             # [示例]
+tier: 头部                          # 被多个核心指标引用 → 头部表
+owner: "[示例] 数仓-MLBB组"
+status: 在用
+
+update:
+  type: 增量
+  frequency: 每日 T+1
+  partition: logymd
+
+# ⚠️ 这张表的特殊性: 指标以两种形态并存(对 Text-to-SQL 取数至关重要)
+columns:
+  - {name: logymd,       type: DATE,                        cn: 日期,       partition: true}
+  - {name: indicator_map, type: "MAP<STRING,DECIMAL>",      cn: 指标字典,
+     desc: "key=底层指标名(如 mau/avg_active_cnt), value=已聚合值。取数: indicator_map['mau']"}
+  - {name: pcu,          type: BIGINT,                      cn: 最高同时在线, desc: "[示例] 直接列形态的底层指标，取数: 直接 pcu"}
+  - {name: acu,          type: BIGINT,                      cn: 平均同时在线, desc: "[示例] 直接列"}
+
+# 这张表里有哪些底层指标(B 层) —— 资产发现/Text-to-SQL 的关键
+contains_base_indicators:
+  in_map: [mau, avg_active_cnt]      # [示例] = SELECT DISTINCT map_keys(indicator_map)
+  as_column: [pcu, acu]              # [示例] = 普通列里的指标
+
+# 血缘 —— 连到 D 层物理源表 与 A 层指标
+lineage:
+  upstream: ["[示例] dwd.dwd_mlbb_user_active_di", "[示例] dwd.dwd_mlbb_pay_di"]
+  built_by: "spark_sql://etl/dws_mlbb_indicator_wide_1d"   # D 层 ETL 任务
+  used_by_datasets: ["300016"]                              # C 层 dataset
+  used_by_metrics: [month_avg_activation]                   # A 层指标(反向链接)

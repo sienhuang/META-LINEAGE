@@ -1,0 +1,265 @@
+# value  `value`
+
+**业务口径**: 有登录行为的去重玩家数
+
+## 怎么算
+**公式**: `sum(pure_reten_day2)/sum(pure_reten_day2_total)`
+
+依赖的底层指标:
+- [[pure_reten_day2]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day2`
+- [[pure_reten_day2_total]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day2_total`
+- [[day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_cnt`
+- [[day_amt]] (?) — `⚠️待D层` [待补] · 取数 `day_amt`
+- [[register_reten_cnt_2]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2`
+- [[register_reten_cnt_2_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2_total`
+- [[register_cnt_yd]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt_yd`
+- [[register_reten2]] (?) — `⚠️待D层` [待补] · 取数 `register_reten2`
+- [[active_cnt]] (?) — `UNION_BRANCH_COLUMN[7]` [已确认] · 取数 `active_cnt`
+- [[register_cnt]] (?) — `UNION_BRANCH_COLUMN[5]` [已确认] · 取数 `register_cnt`
+- [[pay_amt]] (?) — `UNION_BRANCH_COLUMN[10]` [已确认] · 取数 `pay_amt`
+- [[create_role_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt`
+- [[login_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt`
+- [[rank_distribute_role_array]] (?) — `⚠️待D层` [待补] · 取数 `rank_distribute_role_array`
+- [[new_user_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `new_user_battle_cnt`
+- [[recall_user_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `recall_user_battle_cnt`
+- [[product_money]] (?) — `product_money` [已确认] · 取数 `product_money`
+- [[roleid]] (?) — `t_charge.roleid` [已确认] · 取数 `roleid`
+- [[edge_value]] (?) — `⚠️待D层` [待补] · 取数 `edge_value`
+- [[third_product_money]] (?) — `⚠️待D层` [待补] · 取数 `third_product_money`
+- [[pay_amt_daily]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt_daily`
+- [[pay_cnt]] (?) — `COALESCE(pay_cnt, 0) AS pay_cnt` [已确认] · 取数 `pay_cnt`
+
+## 数据来源
+- 宽表: [[ads_gamebi_roger_primary_di]], [[realtime_login]], [[realtime_charge]], [[realtime_create_role_test]], [[realtime_recurring]], [[ads_gamebi_roger_primary_di_us]], [[ads_decismart_reten_ltv_df]], [[realtime_basic_login]], [[dm_finance_role_zone_tz_di]], [[realtime_basic_create_role_retention]], [[realtime_basic_create_role]], [[realtime_basic_charge]], [[ads_decismart_rank_analysis]], [[ads_decismart_new_recall_battle_funnel]], [[realtime_create_role_retention]], [[realtime_create_role]], [[realtime_create_role_retention]], [[dm_finance_user_channel_tz_di]], [[realtime_charge_cnt]], [[ads_realtime_batch_data_di]]
+- dataset: ['300196', '300024', '300035', '300036', '300037', '300369', '300270', '300402', '300365', '300423', '300172', '300420', '300404', '300409', '300410', '300411', '300124', '300126', '300128', '300169', '300182', '300147', '300149', '300150', '300179', '200001', '300184', '300187', '300185', '300249', '300230', '300231', '300233', '300234', '300314', '300360', '300311', '300406', '300273', '300274', '300288', '300280', '300282', '300281', '300283', '300285', '300284', '300286', '300302']  · 产品线 scope: ['mlbb', 'lovania_cn', 'sgame_cn', 'tgame', 'aoz', 'wefly5', 'mlcn', 'wefly_cn', 'wegame', 'zgame_cn']
+
+## 字段生成逻辑(D 层)
+- **pure_reten_day2** @ `mt_ads.ads_gamebi_roger_primary_di`
+  - 口径指针: `etl://mt_ads.ads_gamebi_roger_primary_di:pure_reten_day2`(D 层未自动解析,待补)
+- **pure_reten_day2_total** @ `mt_ads.ads_gamebi_roger_primary_di`
+  - 口径指针: `etl://mt_ads.ads_gamebi_roger_primary_di:pure_reten_day2_total`(D 层未自动解析,待补)
+- **day_cnt** @ `mt_ads_realtime.realtime_basic_login`
+  - 口径指针: `etl://mt_ads_realtime.realtime_basic_login:day_cnt`(D 层未自动解析,待补)
+- **day_amt** @ `mt_ads_realtime.realtime_basic_charge`
+  - 口径指针: `etl://mt_ads_realtime.realtime_basic_charge:day_amt`(D 层未自动解析,待补)
+- **register_reten_cnt_2** @ `mt_ads.ads_decismart_reten_ltv_df`
+  - 口径指针: `etl://mt_ads.ads_decismart_reten_ltv_df:register_reten_cnt_2`(D 层未自动解析,待补)
+- **register_reten_cnt_2_total** @ `mt_ads.ads_decismart_reten_ltv_df`
+  - 口径指针: `etl://mt_ads.ads_decismart_reten_ltv_df:register_reten_cnt_2_total`(D 层未自动解析,待补)
+- **register_cnt_yd** @ `mt_ads_realtime.ads_mlbb_realtime_batch_data_di`
+  - 口径指针: `etl://mt_ads_realtime.ads_mlbb_realtime_batch_data_di:register_cnt_yd`(D 层未自动解析,待补)
+- **register_reten2** @ `mt_ads_realtime.ads_mlbb_realtime_batch_data_di`
+  - 口径指针: `etl://mt_ads_realtime.ads_mlbb_realtime_batch_data_di:register_reten2`(D 层未自动解析,待补)
+- **active_cnt** @ `mt_ads.ads_gamebi_roger_primary_di_us`
+  - 跨任务血缘链(`mt_ads.ads_gamebi_roger_primary_di_us.active_cnt`):
+    - d0 `mt_ads.ads_gamebi_roger_primary_di_us.active_cnt` ⇐ `subquery:job.100048520_0:final_insert_branch_1.active_cnt` [derived] `UNION_BRANCH_COLUMN[7]`
+    - d0 `mt_ads.ads_gamebi_roger_primary_di_us.active_cnt` ⇐ `subquery:job.100048520_0:final_insert_branch_2.active_cnt` [derived] `UNION_BRANCH_COLUMN[7]`
+    - d1 `subquery:job.100048520_0:final_insert_branch_1.active_cnt` ⇐ `mt_ads.ads_gamebi_roger_primary_di.active_cnt` [direct] `active_cnt /*	活跃玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100020886_2:subquery_2.active_cnt` [direct] `active_cnt /*	活跃玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100021029_2:subquery_8.active_cnt` [direct] `active_cnt /*	活跃玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100033108_0:t1.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100033187_0:b.active_days` [aggregated] `COALESCE(SUM(b.active_days), 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100037206_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100022588_2:b.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100025287_0:subquery_2.active_cnt` [direct] `active_cnt /*	活跃玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100030100_0:subquery_7.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100031072_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100031311_1:t2.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100037162_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100039140_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100041395_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100041408_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100041407_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100041406_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.active_cnt` ⇐ `subquery:job.100041409_1:a.active_cnt` [derived] `COALESCE(active_cnt, 0) AS active_cnt`
+- **register_cnt** @ `mt_ads.ads_gamebi_roger_primary_di_us`
+  - 跨任务血缘链(`mt_ads.ads_gamebi_roger_primary_di_us.register_cnt`):
+    - d0 `mt_ads.ads_gamebi_roger_primary_di_us.register_cnt` ⇐ `subquery:job.100048520_0:final_insert_branch_1.register_cnt` [derived] `UNION_BRANCH_COLUMN[5]`
+    - d0 `mt_ads.ads_gamebi_roger_primary_di_us.register_cnt` ⇐ `subquery:job.100048520_0:final_insert_branch_2.register_cnt` [derived] `UNION_BRANCH_COLUMN[5]`
+    - d1 `subquery:job.100048520_0:final_insert_branch_1.register_cnt` ⇐ `mt_ads.ads_gamebi_roger_primary_di.register_cnt` [direct] `register_cnt /*	新增玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100020886_2:subquery_2.register_cnt` [direct] `register_cnt /*	新增玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100021029_2:subquery_8.register_cnt` [direct] `register_cnt /*	新增玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100033108_0:t1.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100037206_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100022588_2:b.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100025287_0:subquery_2.register_cnt` [direct] `register_cnt /*	新增玩家数 */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100030100_0:subquery_7.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100031072_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100031311_1:t2.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100037162_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100039140_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100041395_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100041408_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100041407_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100041406_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100041409_1:a.register_cnt` [derived] `COALESCE(register_cnt, 0) AS register_cnt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.register_cnt` ⇐ `subquery:job.100052167_1:t3.register_cnt` [derived] `COALESCE(t3.register_cnt, 0) AS register_cnt`
+- **pay_amt** @ `mt_ads.ads_gamebi_roger_primary_di_us`
+  - 跨任务血缘链(`mt_ads.ads_gamebi_roger_primary_di_us.pay_amt`):
+    - d0 `mt_ads.ads_gamebi_roger_primary_di_us.pay_amt` ⇐ `subquery:job.100048520_0:final_insert_branch_1.pay_amt` [derived] `UNION_BRANCH_COLUMN[10]`
+    - d0 `mt_ads.ads_gamebi_roger_primary_di_us.pay_amt` ⇐ `subquery:job.100048520_0:final_insert_branch_2.pay_amt` [derived] `UNION_BRANCH_COLUMN[10]`
+    - d1 `subquery:job.100048520_0:final_insert_branch_1.pay_amt` ⇐ `mt_ads.ads_gamebi_roger_primary_di.pay_amt` [direct] `pay_amt /*	付费金额(美分) */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100020886_2:subquery_2.pay_amt` [direct] `pay_amt /*	付费金额(美分) */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100021029_2:subquery_8.pay_amt` [direct] `pay_amt /*	付费金额(美分) */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100033108_0:t1.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100037206_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100022588_2:b.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100025287_0:subquery_2.pay_amt` [direct] `pay_amt /*	付费金额(美分) */`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100030100_0:subquery_7.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100031072_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100031311_1:t2.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100037162_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100039140_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100041395_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100041408_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100041407_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100041406_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100041409_1:a.pay_amt` [derived] `COALESCE(pay_amt, 0) AS pay_amt`
+    - d2 `mt_ads.ads_gamebi_roger_primary_di.pay_amt` ⇐ `subquery:job.100052167_1:t3.pay_amt` [derived] `COALESCE(t3.pay_amt, 0) AS pay_amt`
+- **create_role_day_cnt** @ `mt_ads_realtime.realtime_basic_create_role_retention`
+  - 口径指针: `etl://mt_ads_realtime.realtime_basic_create_role_retention:create_role_day_cnt`(D 层未自动解析,待补)
+- **login_day_cnt** @ `mt_ads_realtime.realtime_basic_create_role_retention`
+  - 口径指针: `etl://mt_ads_realtime.realtime_basic_create_role_retention:login_day_cnt`(D 层未自动解析,待补)
+- **rank_distribute_role_array** @ `test.ads_decismart_rank_analysis`
+  - 口径指针: `etl://test.ads_decismart_rank_analysis:rank_distribute_role_array`(D 层未自动解析,待补)
+- **new_user_battle_cnt** @ `test.ads_decismart_new_recall_battle_funnel`
+  - 口径指针: `etl://test.ads_decismart_new_recall_battle_funnel:new_user_battle_cnt`(D 层未自动解析,待补)
+- **recall_user_battle_cnt** @ `test.ads_decismart_new_recall_battle_funnel`
+  - 口径指针: `etl://test.ads_decismart_new_recall_battle_funnel:recall_user_battle_cnt`(D 层未自动解析,待补)
+- **product_money** @ `mt_dm.dm_finance_role_zone_tz_di`
+  - 跨任务血缘链(`mt_dm.dm_finance_role_zone_tz_di.product_money`):
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.product_money` ⇐ `cte:job.100041175_1:t_charge.product_money` [direct] `product_money`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.product_money` ⇐ `cte:job.100041367_1:t_charge.product_money` [direct] `product_money`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.product_money` ⇐ `cte:job.100041902_1:t_charge.product_money` [direct] `product_money`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.product_money` ⇐ `cte:job.100041174_1:t_charge.product_money` [direct] `product_money`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.product_money` ⇐ `cte:job.100041176_1:t_charge.product_money` [direct] `product_money`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.product_money` ⇐ `cte:job.100042046_1:t_charge.product_money` [direct] `product_money`
+    - d1 `cte:job.100041175_1:t_charge.product_money` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.product_money` [aggregated] `SUM(product_money) AS product_money /* 定价流水 */`
+    - d1 `cte:job.100041367_1:t_charge.product_money` ⇐ `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.product_money` [aggregated] `SUM(product_money) AS product_money /* 定价流水 */`
+    - d1 `cte:job.100041902_1:t_charge.product_money` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.product_money` [aggregated] `SUM(product_money) AS product_money /* 定价流水 */`
+    - d1 `cte:job.100041174_1:t_charge.product_money` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.product_money` [aggregated] `SUM(product_money) AS product_money /* 定价流水 */`
+    - d1 `cte:job.100041176_1:t_charge.product_money` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.product_money` [aggregated] `SUM(product_money) AS product_money /* 定价流水 */`
+    - d1 `cte:job.100042046_1:t_charge.product_money` ⇐ `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.product_money` [aggregated] `SUM(product_money) AS product_money /* 定价流水 */`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100041772_0:t2.product_money` [direct] `product_money`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100041891_0:t2.product_money` [direct] `product_money`
+    - d2 `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100042035_0:t2.product_money` [direct] `product_money`
+    - d2 `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100042024_0:t2.product_money` [direct] `product_money`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100041772_0:t2.product_money` [direct] `product_money`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100041891_0:t2.product_money` [direct] `product_money`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100041772_0:t2.product_money` [direct] `product_money`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.product_money` ⇐ `subquery:job.100041891_0:t2.product_money` [direct] `product_money`
+- **roleid** @ `mt_dm.dm_finance_role_zone_tz_di`
+  - 跨任务血缘链(`mt_dm.dm_finance_role_zone_tz_di.roleid`):
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.roleid` ⇐ `cte:job.100041175_1:t_charge.roleid` [direct] `t_charge.roleid`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.roleid` ⇐ `cte:job.100041367_1:t_charge.roleid` [direct] `t_charge.roleid`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.roleid` ⇐ `cte:job.100041902_1:t_charge.roleid` [direct] `t_charge.roleid`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.roleid` ⇐ `cte:job.100041174_1:t_charge.roleid` [direct] `t_charge.roleid`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.roleid` ⇐ `cte:job.100041176_1:t_charge.roleid` [direct] `t_charge.roleid`
+    - d0 `mt_dm.dm_finance_role_zone_tz_di.roleid` ⇐ `cte:job.100042046_1:t_charge.roleid` [direct] `t_charge.roleid`
+    - d1 `cte:job.100041175_1:t_charge.roleid` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.roleid` [direct] `roleid`
+    - d1 `cte:job.100041367_1:t_charge.roleid` ⇐ `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.roleid` [direct] `roleid`
+    - d1 `cte:job.100041902_1:t_charge.roleid` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.roleid` [direct] `roleid`
+    - d1 `cte:job.100041174_1:t_charge.roleid` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.roleid` [direct] `roleid`
+    - d1 `cte:job.100041176_1:t_charge.roleid` ⇐ `mt_dwm.dwm_charge_role_zone_tz_di.roleid` [direct] `roleid`
+    - d1 `cte:job.100042046_1:t_charge.roleid` ⇐ `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100041772_0:t2.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100041891_0:t2.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100042035_0:t2.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_mcgg_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100042024_0:t2.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100041772_0:t2.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100041891_0:t2.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100041772_0:t2.roleid` [direct] `roleid`
+    - d2 `mt_dwm.dwm_charge_role_zone_tz_di.roleid` ⇐ `subquery:job.100041891_0:t2.roleid` [direct] `roleid`
+- **edge_value** @ `mt_dm.dm_finance_user_channel_tz_di`
+  - 口径指针: `etl://mt_dm.dm_finance_user_channel_tz_di:edge_value`(D 层未自动解析,待补)
+- **third_product_money** @ `mt_dm.dm_finance_role_zone_tz_di`
+  - 口径指针: `etl://mt_dm.dm_finance_role_zone_tz_di:third_product_money`(D 层未自动解析,待补)
+- **pay_amt_daily** @ `mt_ads_realtime.realtime_basic_login`
+  - 口径指针: `etl://mt_ads_realtime.realtime_basic_login:pay_amt_daily`(D 层未自动解析,待补)
+- **pay_cnt** @ `mt_ads.ads_decismart_pay_cube_di`
+  - 跨任务血缘链(`mt_ads.ads_decismart_pay_cube_di.pay_cnt`):
+    - d0 `mt_ads.ads_decismart_pay_cube_di.pay_cnt` ⇐ `subquery:job.100025712_1:subquery_18.pay_cnt` [derived] `COALESCE(pay_cnt, 0) AS pay_cnt`
+    - d0 `mt_ads.ads_decismart_pay_cube_di.pay_cnt` ⇐ `subquery:job.100026014_1:subquery_18.pay_cnt` [derived] `COALESCE(pay_cnt, 0) AS pay_cnt`
+    - d1 `subquery:job.100025712_1:subquery_18.pay_cnt` ⇐ `cte:job.100025712_1:account_pay_di.roleid` [aggregated] `SUM(IF(NOT pay_di.roleid IS NULL, 1, 0)) AS pay_cnt /* 充值人数 */`
+    - d1 `subquery:job.100026014_1:subquery_18.pay_cnt` ⇐ `cte:job.100026014_1:account_pay_di.roleid` [aggregated] `SUM(IF(NOT pay_di.roleid IS NULL, 1, 0)) AS pay_cnt /* 充值人数 */`
+    - d2 `cte:job.100025712_1:account_pay_di.roleid` ⇐ `mt_dwm.dwm_charge_role_zone_di.roleid` [direct] `roleid`
+    - d2 `cte:job.100026014_1:account_pay_di.roleid` ⇐ `mt_dwm.dwm_charge_role_zone_di.roleid` [direct] `roleid`
+
+## 各产品线实例
+- [[value__aoz__300423]] (scope=aoz, dataset=300423, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__aoz__300172]] (scope=aoz, dataset=300172, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__aoz__300420]] (scope=aoz, dataset=300420, 宽表=mt_ads_realtime.realtime_basic_create_role_retention)
+- [[value__aoz__300402]] (scope=aoz, dataset=300402, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__aoz__300404]] (scope=aoz, dataset=300404, 宽表=mt_ads_realtime.realtime_basic_create_role)
+- [[value__aoz__300409]] (scope=aoz, dataset=300409, 宽表=mt_ads_realtime.realtime_basic_charge)
+- [[value__aoz__300410]] (scope=aoz, dataset=300410, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__aoz__300411]] (scope=aoz, dataset=300411, 宽表=mt_ads_realtime.realtime_basic_create_role_retention)
+- [[value__lovania_cn__300369]] (scope=lovania_cn, dataset=300369, 宽表=mt_ads.ads_gamebi_roger_primary_di_us)
+- [[value__lovania_cn__300270]] (scope=lovania_cn, dataset=300270, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__lovania_cn__300402]] (scope=lovania_cn, dataset=300402, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__lovania_cn__300365]] (scope=lovania_cn, dataset=300365, 宽表=mt_dm.dm_finance_role_zone_tz_di)
+- [[value__mlbb__300196]] (scope=mlbb, dataset=300196, 宽表=mt_ads.ads_gamebi_roger_primary_di)
+- [[value__mlbb__300024]] (scope=mlbb, dataset=300024, 宽表=mt_ads_realtime.realtime_login)
+- [[value__mlbb__300035]] (scope=mlbb, dataset=300035, 宽表=mt_ads_realtime.realtime_charge)
+- [[value__mlbb__300036]] (scope=mlbb, dataset=300036, 宽表=mt_ads_realtime.realtime_create_role_test)
+- [[value__mlbb__300037]] (scope=mlbb, dataset=300037, 宽表=mt_ads_realtime.realtime_recurring)
+- [[value__mlbb__300124]] (scope=mlbb, dataset=300124, 宽表=test.ads_decismart_rank_analysis)
+- [[value__mlbb__300126]] (scope=mlbb, dataset=300126, 宽表=test.ads_decismart_new_recall_battle_funnel)
+- [[value__mlbb__300128]] (scope=mlbb, dataset=300128, 宽表=test.ads_decismart_new_recall_battle_funnel)
+- [[value__mlbb__300172]] (scope=mlbb, dataset=300172, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__mlbb__300169]] (scope=mlbb, dataset=300169, 宽表=mt_ads_realtime_pre.realtime_create_role_retention)
+- [[value__mlbb__300182]] (scope=mlbb, dataset=300182, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__mlbb__300147]] (scope=mlbb, dataset=300147, 宽表=mt_ads_realtime.realtime_login)
+- [[value__mlbb__300149]] (scope=mlbb, dataset=300149, 宽表=mt_ads_realtime.realtime_charge)
+- [[value__mlbb__300150]] (scope=mlbb, dataset=300150, 宽表=mt_ads_realtime.realtime_create_role)
+- [[value__mlbb__300179]] (scope=mlbb, dataset=300179, 宽表=mt_ads_realtime.realtime_create_role_retention)
+- [[value__mlbb__300184]] (scope=mlbb, dataset=300184, 宽表=mt_ads_realtime.realtime_login)
+- [[value__mlbb__300187]] (scope=mlbb, dataset=300187, 宽表=mt_ads_realtime.realtime_charge)
+- [[value__mlbb__300185]] (scope=mlbb, dataset=300185, 宽表=mt_ads_realtime.realtime_create_role)
+- [[value__mlbb__300249]] (scope=mlbb, dataset=300249, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__mlbb__300230]] (scope=mlbb, dataset=300230, 宽表=mt_ads_realtime.realtime_login)
+- [[value__mlbb__300231]] (scope=mlbb, dataset=300231, 宽表=mt_ads_realtime.realtime_charge)
+- [[value__mlbb__300233]] (scope=mlbb, dataset=300233, 宽表=mt_ads_realtime.realtime_create_role)
+- [[value__mlbb__300234]] (scope=mlbb, dataset=300234, 宽表=mt_ads_realtime.realtime_create_role_retention)
+- [[value__mlbb__300314]] (scope=mlbb, dataset=300314, 宽表=mt_dm.dm_finance_role_zone_tz_di)
+- [[value__mlbb__300360]] (scope=mlbb, dataset=300360, 宽表=mt_dm.dm_finance_user_channel_tz_di)
+- [[value__mlbb__300311]] (scope=mlbb, dataset=300311, 宽表=mt_dm.dm_finance_role_zone_tz_di)
+- [[value__mlbb__300406]] (scope=mlbb, dataset=300406, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__mlcn__300024]] (scope=mlcn, dataset=300024, 宽表=mt_ads_realtime.realtime_login)
+- [[value__mlcn__300035]] (scope=mlcn, dataset=300035, 宽表=mt_ads_realtime.realtime_charge)
+- [[value__mlcn__300036]] (scope=mlcn, dataset=300036, 宽表=mt_ads_realtime.realtime_create_role_test)
+- [[value__mlcn__200001]] (scope=mlcn, dataset=200001, 宽表=—)
+- [[value__sgame_cn__300369]] (scope=sgame_cn, dataset=300369, 宽表=mt_ads.ads_gamebi_roger_primary_di_us)
+- [[value__sgame_cn__300270]] (scope=sgame_cn, dataset=300270, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__sgame_cn__300402]] (scope=sgame_cn, dataset=300402, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__sgame_cn__300365]] (scope=sgame_cn, dataset=300365, 宽表=mt_dm.dm_finance_role_zone_tz_di)
+- [[value__tgame__300423]] (scope=tgame, dataset=300423, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__tgame__300172]] (scope=tgame, dataset=300172, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__tgame__300420]] (scope=tgame, dataset=300420, 宽表=mt_ads_realtime.realtime_basic_create_role_retention)
+- [[value__tgame__300402]] (scope=tgame, dataset=300402, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__tgame__300404]] (scope=tgame, dataset=300404, 宽表=mt_ads_realtime.realtime_basic_create_role)
+- [[value__tgame__300409]] (scope=tgame, dataset=300409, 宽表=mt_ads_realtime.realtime_basic_charge)
+- [[value__tgame__300410]] (scope=tgame, dataset=300410, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__tgame__300411]] (scope=tgame, dataset=300411, 宽表=mt_ads_realtime.realtime_basic_create_role_retention)
+- [[value__wefly5__300423]] (scope=wefly5, dataset=300423, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__wefly5__300172]] (scope=wefly5, dataset=300172, 宽表=mt_ads.ads_decismart_reten_ltv_df)
+- [[value__wefly5__300420]] (scope=wefly5, dataset=300420, 宽表=mt_ads_realtime.realtime_basic_create_role_retention)
+- [[value__wefly5__300402]] (scope=wefly5, dataset=300402, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__wefly5__300404]] (scope=wefly5, dataset=300404, 宽表=mt_ads_realtime.realtime_basic_create_role)
+- [[value__wefly5__300409]] (scope=wefly5, dataset=300409, 宽表=mt_ads_realtime.realtime_basic_charge)
+- [[value__wefly5__300410]] (scope=wefly5, dataset=300410, 宽表=mt_ads_realtime.realtime_basic_login)
+- [[value__wefly5__300411]] (scope=wefly5, dataset=300411, 宽表=mt_ads_realtime.realtime_basic_create_role_retention)
+- [[value__wefly_cn__300273]] (scope=wefly_cn, dataset=300273, 宽表=mt_ads_realtime.realtime_create_role)
+- [[value__wefly_cn__300274]] (scope=wefly_cn, dataset=300274, 宽表=mt_ads_realtime.realtime_charge)
+- [[value__wefly_cn__300288]] (scope=wefly_cn, dataset=300288, 宽表=mt_ads_realtime.realtime_create_role)
+- [[value__wegame__300280]] (scope=wegame, dataset=300280, 宽表=mt_ads_realtime.realtime_login)
+- [[value__wegame__300282]] (scope=wegame, dataset=300282, 宽表=mt_ads_realtime.realtime_create_role)
+- [[value__wegame__300281]] (scope=wegame, dataset=300281, 宽表=mt_ads_realtime.realtime_charge)
+- [[value__wegame__300283]] (scope=wegame, dataset=300283, 宽表=mt_ads_realtime.realtime_charge_cnt)
+- [[value__wegame__300285]] (scope=wegame, dataset=300285, 宽表=mt_ads_realtime.realtime_login)
+- [[value__wegame__300284]] (scope=wegame, dataset=300284, 宽表=mt_ads_realtime.realtime_login)
+- [[value__wegame__300286]] (scope=wegame, dataset=300286, 宽表=mt_ads_realtime.realtime_charge_cnt)
+- [[value__zgame_cn__300302]] (scope=zgame_cn, dataset=300302, 宽表=mt_ads_realtime.ads_realtime_batch_data_di)
+
+## 元信息
+- 分类: retention · tier: 长尾

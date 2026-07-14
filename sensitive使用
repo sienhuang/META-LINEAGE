@@ -1,0 +1,19 @@
+
+uv run python temp_query_lineage.py <csv> --limit 0 --quiet --out query_lineage_full.csv
+
+
+uv run python temp_query_lineage.py '<输入.csv>' --limit 0 --quiet --out <输出.csv>
+
+uv run python temp_query_lineage.py '/Users/huangsien/Downloads/huiyaoye_moonton_com_20230105190150-15044425 (1).csv' --limit 0 --quiet --out huiyaoye_moonton_com_20230105190150_full.csv
+
+uv run python temp_query_lineage.py '/Users/huangsien/Downloads/hive_sqls (1).csv'  --limit 0 --quiet --out hive_sqls_full.csv 
+
+
+
+uv run python mask_sensitive.py huiyaoye_moonton_com_20230105190150_full.csv -x /Users/huangsien/Downloads/AI敏感字段屏蔽.xlsx -o hive_sql_full_sentivies.csv
+
+
+uv run python mask_sensitive.py hive_sqls_full.csv -x /Users/huangsien/Downloads/AI敏感字段屏蔽.xlsx -o hive_sql_full_sentivies.csv
+
+
+/Users/huangsien/PycharmProjects/MetaWIKI/sensitive使用

@@ -1,0 +1,10 @@
+# 在线时长 · wefly_cn  `在线时长__wefly_cn`
+
+> 逻辑指标 [[在线时长]] 在产品线 **wefly_cn** 的实例
+
+- **公式**: `if(sum(active_cnt) = 0, 0 , sum(online_dur)/sum(active_cnt)/60)`
+- **业务口径**: 累计人均在线时长，单位为分钟 (从零点起至该时刻登出玩家的在线时长总和 ÷ 同期活跃玩家数)
+- 宽表: mt_ads_realtime.realtime_create_role  (dataset 300282)
+- dataset SQL: `mysql://ba/data_set#300282`
+- 维度: ['logymd', 'point']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/WeflyCnRealTime/Component/SecondaryIndicators/const.ts:110

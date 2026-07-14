@@ -1,0 +1,10 @@
+# 小重连次数均值 · mcgg  `小重连次数均值__mcgg`
+
+> 逻辑指标 [[小重连次数均值]] 在产品线 **mcgg** 的实例
+
+- **公式**: ` SUM(indicator_map['smallreconnect_per10min_cnt']) / cast(SUM(indicator_map['smallreconnect_per10min_battle_cnt']) as decimal(38,0))`
+- **业务口径**: 角色各对局(smallreconnect_num/battletime*600)的和 / 角色战斗总场次,相当于平均10分钟小重连次数
+- 宽表: mt_ads_pre.ads_gamebi_roger_secondary_di  (dataset 300016)
+- dataset SQL: `mysql://ba/data_set#300016`
+- 维度: ['logymd']  · 过滤: ['<dynamic>']
+- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:703

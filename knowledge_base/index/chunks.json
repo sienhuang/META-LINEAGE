@@ -1,0 +1,2152 @@
+[
+  {
+    "id": "metric::month_avg_activation",
+    "ref": "wiki/metrics/month_avg_activation.md",
+    "text": "# 月均活跃度  `month_avg_activation`\n\n**业务口径**: 月度指标不受日期筛选器控制；自然月粒度下，月均DAU/MAU = (sum(月每日活跃玩家数)/月总天数) / 月去重活跃玩家数\n\n## 怎么算\n**公式**: `sum(indicator_map['avg_active_cnt']) / cast(sum(indicator_map['mau']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[avg_active_cnt]] (日均活跃) — `[示例] sum(active_cnt) / count(distinct logymd)` [草稿] · 取数 `indicator_map['avg_active_cnt']`\n- [[mau]] (月活跃用户数(去重)) — `[示例] count(distinct uid)  -- 自然月内去重` [草稿] · 取数 `indicator_map['mau']`\n\n## 数据来源\n- 宽表: [[dws_mlbb_indicator_wide_1d]]  (dataset 300016)\n- 维度: ['logymd']  · 过滤: getCommonMonthlyFixedFilters\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 头部\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:102",
+    "meta": {
+      "type": "metric",
+      "tier": "头部",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::month_avg_ctr",
+    "ref": "wiki/metrics/month_avg_ctr.md",
+    "text": "# 月均扑脸CTR  `month_avg_ctr`\n\n**业务口径**: 月度指标不受日期筛选器控制;\n自然月粒度下，(月扑脸点击总pv) / (月扑脸点击曝光总pv)\n\n## 怎么算\n**公式**: `cast(sum(indicator_map['click_pv']) as decimal(38,0))/cast(sum(indicator_map['exposure_pv']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[click_pv]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['click_pv']`\n- [[exposure_pv]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['exposure_pv']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:150",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::online",
+    "ref": "wiki/metrics/online.md",
+    "text": "# PCU & ACU  `online`\n\n**业务口径**: PCU: 最大同时在线玩家数\nACU: 平均同时在线玩家数\n\n## 怎么算\n**公式**: `online_num`\n\n依赖的底层指标:\n- [[acu]] (?) — `⚠️待D层` [待补] · 取数 `acu`\n- [[online_num]] (?) — `⚠️待D层` [待补] · 取数 `online_num`\n- [[pcu]] (?) — `⚠️待D层` [待补] · 取数 `pcu`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200013', '300004', '300008', '300040', '300041', '300148', '300151', '300162', '300174', '300175', '300188', '300200', '300229', '300235', '300280', '300287', '300371'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mcgg', 'mla', 'mlbb', 'mlcn', 'nova_cn', 'wefly_cn', 'zgame', 'zgame_cn'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:192",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mcgg",
+        "mla",
+        "mlbb",
+        "mlcn",
+        "nova_cn",
+        "wefly_cn",
+        "zgame",
+        "zgame_cn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pureNewUser",
+    "ref": "wiki/metrics/pureNewUser.md",
+    "text": "# 纯净新增玩家数  `pureNewUser`\n\n**业务口径**: 当日新注册且排除回流切号、模拟器和小号回流后的去重玩家数\n\n## 怎么算\n**公式**: `sum(pure_register_cnt)`\n\n依赖的底层指标:\n- [[pure_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pure_register_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300012'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:248",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::newUser",
+    "ref": "wiki/metrics/newUser.md",
+    "text": "# 新增次/7/30留率  `newUser`\n\n**业务口径**: 新增次留率：(T日新增、且T+1日登录的去重玩家数) / (T日新增的去重玩家数) * 100%\n新增7留率：(T日新增、且T+6日登录的去重玩家数) / (T日新增的去重玩家数) * 100%\n新增30留率：(T日新增、且T+29日登录的去重玩家数) / (T日新增的去重玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(register_day30)/sum(register_day1)`\n\n依赖的底层指标:\n- [[register_day1]] (?) — `⚠️待D层` [待补] · 取数 `register_day1`\n- [[register_day2]] (?) — `⚠️待D层` [待补] · 取数 `register_day2`\n- [[register_day30]] (?) — `⚠️待D层` [待补] · 取数 `register_day30`\n- [[register_day7]] (?) — `⚠️待D层` [待补] · 取数 `register_day7`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300012'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:296",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::oldUser30Day",
+    "ref": "wiki/metrics/oldUser30Day.md",
+    "text": "# 老用户次/7/30留率  `oldUser30Day`\n\n**业务口径**: 老用户次留率：(T日新增天数>30日的活跃玩家数、且T+1日登录的去重玩家数) / (T日新增天数>30日的活跃玩家数) * 100%\n老用户7留率：(T日新增天数>30日的活跃玩家数、且T+6日登录的去重玩家数) / (T日新增天数>30日的活跃玩家数) * 100%\n老用户30留率：(T日新增天数>30日的活跃玩家数、且T+29日登录的去重玩家数) / (T日新增天数>30日的活跃玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(old_reten_day30)/sum(old_reten_day1)`\n\n依赖的底层指标:\n- [[old_reten_day1]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day1`\n- [[old_reten_day2]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day2`\n- [[old_reten_day30]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day30`\n- [[old_reten_day7]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day7`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300012'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:352",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::retention30DayRate",
+    "ref": "wiki/metrics/retention30DayRate.md",
+    "text": "# 30日回流率  `retention30DayRate`\n\n**业务口径**: T-30~T-1期间未登录、且T日有登录玩家/T-30~T-1期间未登录玩家\n\n## 怎么算\n**公式**: `sum(recurring_cnt_30days)/sum(nologin_cnt_30days)`\n\n依赖的底层指标:\n- [[nologin_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `nologin_cnt_30days`\n- [[recurring_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `recurring_cnt_30days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300012'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:414",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::retention30Day",
+    "ref": "wiki/metrics/retention30Day.md",
+    "text": "# 30日回流玩家次/30留率  `retention30Day`\n\n**业务口径**: 30日回流玩家次留率：(T日回流、且T+1日登录的去重玩家数) / (T日回流的去重玩家数) * 100%\n30日回流玩家30留率：(T日回流、且T+29日登录的去重玩家数) / (T日回流的去重玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(recurring_day30)/ sum(recurring_day1)`\n\n依赖的底层指标:\n- [[recurring_day1]] (?) — `⚠️待D层` [待补] · 取数 `recurring_day1`\n- [[recurring_day2]] (?) — `⚠️待D层` [待补] · 取数 `recurring_day2`\n- [[recurring_day30]] (?) — `⚠️待D层` [待补] · 取数 `recurring_day30`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300012'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:456",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::2usd_pay_cnt",
+    "ref": "wiki/metrics/2usd_pay_cnt.md",
+    "text": "# 月度2美金付费率  `2usd_pay_cnt`\n\n**业务口径**: 月度指标不受日期筛选器控制;\n自然月粒度下，(当月累计付费达2美金的玩家数) / (月均DAU) * 100%\n\n## 怎么算\n**公式**: `sum(pay_cnt_month)/sum(active_cnt)`\n\n依赖的底层指标:\n- [[2usd_pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['2usd_pay_cnt']`\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[avg_active_cnt]] (日均活跃) — `[示例] sum(active_cnt) / count(distinct logymd)` [草稿] · 取数 `indicator_map['avg_active_cnt']`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n- [[pay_cnt_month]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt_month`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016', '300254'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:511",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::actual_pay_rate",
+    "ref": "wiki/metrics/actual_pay_rate.md",
+    "text": "# 月度实收率  `actual_pay_rate`\n\n**业务口径**: 月度指标不受日期筛选器控制;\n自然月粒度下，(月度实收美金金额) / (月度商品定价总金额) * 100%\n\n## 怎么算\n**公式**: `sum(actual_pay_amt)/sum(cast(pay_amt as decimal(38, 0)))`\n\n依赖的底层指标:\n- [[actual_pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `actual_pay_amt`\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016', '300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:559",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::recharge",
+    "ref": "wiki/metrics/recharge.md",
+    "text": "# 新增玩家充值渗透率  `recharge`\n\n**业务口径**: (当日活跃且新增第30天且30天内充值过的玩家) / (当日活跃且新增第30天的玩家) * 100%\n\n## 怎么算\n**公式**: `sum(active_register_pay_30d_cnt)/sum(active_register_30d_cnt)`\n\n依赖的底层指标:\n- [[active_register_30d_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_register_30d_cnt`\n- [[active_register_pay_30d_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_register_pay_30d_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300012'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:609",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::recharge30Day",
+    "ref": "wiki/metrics/recharge30Day.md",
+    "text": "# 近30日充值渗透率  `recharge30Day`\n\n**业务口径**: (当日活跃且近30天内充值过的玩家) / (当日活跃玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(active_pay_30d_cnt)/sum(active_cnt)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[active_pay_30d_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_pay_30d_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300012'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:652",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::heroOwn",
+    "ref": "wiki/metrics/heroOwn.md",
+    "text": "# 英雄拥有情况  `heroOwn`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `active_cnt`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300055'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:701",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::heroOwnRate",
+    "ref": "wiki/metrics/heroOwnRate.md",
+    "text": "# 英雄拥有率  `heroOwnRate`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `ifnull(sum(resource_num) / sum(active_cnt),0)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[resource_array]] (?) — `⚠️待D层` [待补] · 取数 `resource_array`\n- [[resource_num]] (?) — `⚠️待D层` [待补] · 取数 `resource_num`\n- [[resoure_active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `resoure_active_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300056'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:793",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::skinOwn",
+    "ref": "wiki/metrics/skinOwn.md",
+    "text": "# 皮肤拥有情况  `skinOwn`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `active_cnt`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300053'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:850",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::skinOwnRate",
+    "ref": "wiki/metrics/skinOwnRate.md",
+    "text": "# 皮肤拥有率  `skinOwnRate`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `ifnull(sum(resource_num) / sum(active_cnt), 0)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[resource_array]] (?) — `⚠️待D层` [待补] · 取数 `resource_array`\n- [[resource_num]] (?) — `⚠️待D层` [待补] · 取数 `resource_num`\n- [[resoure_active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `resoure_active_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300054'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:942",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::carden_fill_rate",
+    "ref": "wiki/metrics/carden_fill_rate.md",
+    "text": "# 卡顿满足率  `carden_fill_rate`\n\n**业务口径**: (平均每10分钟大卡次数<=2的角色战斗总场次) / (角色战斗总场次) * 100%\n\n## 怎么算\n**公式**: `sum(indicator_map['carden_caton_cnt_hightall'])/cast(sum(indicator_map['carden_battle_cnt_hightall']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[carden_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt']`\n- [[carden_battle_cnt_high]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_high']`\n- [[carden_battle_cnt_hightall]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_hightall']`\n- [[carden_battle_cnt_low]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_low']`\n- [[carden_battle_cnt_mid]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_mid']`\n- [[carden_caton_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt']`\n- [[carden_caton_cnt_high]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_high']`\n- [[carden_caton_cnt_hightall]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_hightall']`\n- [[carden_caton_cnt_low]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_low']`\n- [[carden_caton_cnt_mid]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_mid']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1005",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::memory_fill_rate",
+    "ref": "wiki/metrics/memory_fill_rate.md",
+    "text": "# 内存  `memory_fill_rate`\n\n**业务口径**: 角色当日各对局内存求和 / 角色战斗总场次  单位为M\n\n## 怎么算\n**公式**: `sum(indicator_map['memory_pss_6g_greater_64bit'])/cast(sum(indicator_map['memory_battle_cnt_6g_greater_64bit']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[memory_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt']`\n- [[memory_battle_cnt_2g_32bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt_2g_32bit']`\n- [[memory_battle_cnt_2g_64bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt_2g_64bit']`\n- [[memory_battle_cnt_6g_32bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt_6g_32bit']`\n- [[memory_battle_cnt_6g_64bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt_6g_64bit']`\n- [[memory_battle_cnt_6g_greater_32bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt_6g_greater_32bit']`\n- [[memory_battle_cnt_6g_greater_64bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt_6g_greater_64bit']`\n- [[memory_pss]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_pss']`\n- [[memory_pss_2g_32bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_pss_2g_32bit']`\n- [[memory_pss_2g_64bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_pss_2g_64bit']`\n- [[memory_pss_6g_32bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_pss_6g_32bit']`\n- [[memory_pss_6g_64bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_pss_6g_64bit']`\n- [[memory_pss_6g_greater_32bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_pss_6g_greater_32bit']`\n- [[memory_pss_6g_greater_64bit]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_pss_6g_greater_64bit']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300205'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1080",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::elec_fill_rate",
+    "ref": "wiki/metrics/elec_fill_rate.md",
+    "text": "# 功耗  `elec_fill_rate`\n\n**业务口径**: (角色各对局电流均值的和) / (角色战斗总场次) 单位为mA\n\n## 怎么算\n**公式**: `sum(indicator_map['elec_ma_hightall'])/cast(sum(indicator_map['elec_battle_cnt_hightall']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[elec_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_battle_cnt']`\n- [[elec_battle_cnt_high]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_battle_cnt_high']`\n- [[elec_battle_cnt_hightall]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_battle_cnt_hightall']`\n- [[elec_battle_cnt_low]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_battle_cnt_low']`\n- [[elec_battle_cnt_mid]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_battle_cnt_mid']`\n- [[elec_ma]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_ma']`\n- [[elec_ma_high]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_ma_high']`\n- [[elec_ma_hightall]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_ma_hightall']`\n- [[elec_ma_low]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_ma_low']`\n- [[elec_ma_mid]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_ma_mid']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1164",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::network_fill_rate",
+    "ref": "wiki/metrics/network_fill_rate.md",
+    "text": "# 网络满足率  `network_fill_rate`\n\n**业务口径**: 一局比赛中ping值跳跃到100ms以上的次数占总体ping次数的占比小于等于5%的场次的占比\n\n## 怎么算\n**公式**: `sum(network_stdping_cnt)/sum(network_battle_cnt)`\n\n依赖的底层指标:\n- [[network_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_battle_cnt`\n- [[network_stdping_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_stdping_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016', '300098'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1245",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::download_complete_rate",
+    "ref": "wiki/metrics/download_complete_rate.md",
+    "text": "# 增量下载完成率  `download_complete_rate`\n\n**业务口径**: (T日增量下载完成角色数 + T日增量下载未完成但 [T+1: T+2] 首次登录时增量下载完成的角色数）/ (T日登录总角色数) * 100%\n\n## 怎么算\n**公式**: `sum(indicator_map['download_complete_cnt'])/cast(sum(indicator_map['download_login_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[download_complete_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['download_complete_cnt']`\n- [[download_login_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['download_login_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1288",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::packageSize",
+    "ref": "wiki/metrics/packageSize.md",
+    "text": "# 增量包体大小  `packageSize`\n\n**业务口径**: 每日玩家的增量包体中位数 单位为G，数据可计算最早时间为 2023-07-01\n\n## 怎么算\n**公式**: `sum(indicator_map['gamepackage_size_64g_more'])/1024`\n\n依赖的底层指标:\n- [[gamepackage_size]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['gamepackage_size']`\n- [[gamepackage_size_16g]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['gamepackage_size_16g']`\n- [[gamepackage_size_32g]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['gamepackage_size_32g']`\n- [[gamepackage_size_64g]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['gamepackage_size_64g']`\n- [[gamepackage_size_64g_more]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['gamepackage_size_64g_more']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300017'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1331",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::login",
+    "ref": "wiki/metrics/login.md",
+    "text": "# 登录转化率  `login`\n\n**业务口径**: （进入主城看到主界面角色数）/（点击MLBB图标角色数）*100%；数据可计算最早时间为 2024-09-19\n\n## 怎么算\n**公式**: `sum(indicator_map['login_sucess_cnt'])/cast(sum(indicator_map['login_auth_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[login_auth_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['login_auth_cnt']`\n- [[login_sucess_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['login_sucess_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1408",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::online_duration_avg",
+    "ref": "wiki/metrics/online_duration_avg.md",
+    "text": "# 赛季人均在线时长  `online_duration_avg`\n\n**业务口径**: 赛季指标不受日期筛选器控制，且以赛季前80天作为计算窗口期\n(总赛季累计在线时长) / (总赛季活跃玩家) 单位为分钟\n\n## 怎么算\n**公式**: `sum(indicator_map['season_online_dur'])/cast(sum(indicator_map['season_active_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[season_active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['season_active_cnt']`\n- [[season_online_dur]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['season_online_dur']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1457",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::ranklevel_complete_rate",
+    "ref": "wiki/metrics/ranklevel_complete_rate.md",
+    "text": "# 新增玩家30日段位达成率  `ranklevel_complete_rate`\n\n**业务口径**: 新增玩家30日[大师/宗师]段位达成率:(纯净新增玩家注册后30日内[大师/宗师]及以上段位达成玩家)/(当日新增注册玩家数)*100%\n数据更新周期为T+29\n\n## 怎么算\n**公式**: `sum(indicator_map['ranklevel_grandmaster_cnt'])/cast(sum(indicator_map['pure_register_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[pure_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pure_register_cnt`\n- [[ranklevel_grandmaster_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['ranklevel_grandmaster_cnt']`\n- [[ranklevel_master_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['ranklevel_master_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1508",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::balance_rate",
+    "ref": "wiki/metrics/balance_rate.md",
+    "text": "# 平衡局占比  `balance_rate`\n\n**业务口径**: 排位匹配战斗中，在“跌宕、翻盘、碾压、小优、均衡”范围内，标签不为“碾压”的对局场数占比；数据可计算最早时间为 2024-02-14\n\n## 怎么算\n**公式**: `sum(indicator_map['balance_cnt'])/cast(sum(indicator_map['balance_battle_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[balance_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['balance_battle_cnt']`\n- [[balance_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['balance_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300017'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1559",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::table_drill",
+    "ref": "wiki/metrics/table_drill.md",
+    "text": "# 指标汇总  `table_drill`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `—`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['aoz', 'lovania_cn', 'mlbb', 'mlcn', 'sgame_cn', 'tgame', 'wefly5', 'wefly_cn', 'zgame_cn'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/Component/TableCard/const.ts:14",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "aoz",
+        "lovania_cn",
+        "mlbb",
+        "mlcn",
+        "sgame_cn",
+        "tgame",
+        "wefly5",
+        "wefly_cn",
+        "zgame_cn"
+      ]
+    }
+  },
+  {
+    "id": "metric::active_cnt",
+    "ref": "wiki/metrics/active_cnt.md",
+    "text": "# 日均DAU  `active_cnt`\n\n**业务口径**: (所选日期按天活跃玩家数进行累计)/(所选日期的总天数)\n\n## 怎么算\n**公式**: `sum(active_cnt)/sum(active_cnt_kpi)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[active_cnt_kpi]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_kpi`\n- [[day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_cnt`\n- [[point_cnt]] (?) — `⚠️待D层` [待补] · 取数 `point_cnt`\n- [[st_mau]] (?) — `⚠️待D层` [待补] · 取数 `st_mau`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008', '200014', '300005', '300018', '300024', '300064', '300144', '300147', '300161', '300184', '300225', '300230', '300246', '300368', '300406'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mla', 'mlbb', 'mlcn', 'zgame', 'zgame_cn'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/const.ts:23",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mla",
+        "mlbb",
+        "mlcn",
+        "zgame",
+        "zgame_cn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_amt",
+    "ref": "wiki/metrics/pay_amt.md",
+    "text": "# 日均收入金额  `pay_amt`\n\n**业务口径**: 所选日期的日均收入金额\n\n## 怎么算\n**公式**: `sum(pay_amt)/sum(pay_amt_kpi)`\n\n依赖的底层指标:\n- [[day_amt]] (?) — `⚠️待D层` [待补] · 取数 `day_amt`\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n- [[pay_amt_kpi]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt_kpi`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n- [[point_amt]] (?) — `⚠️待D层` [待补] · 取数 `point_amt`\n- [[st_income]] (?) — `⚠️待D层` [待补] · 取数 `st_income`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008', '200014', '300005', '300019', '300035', '300064', '300089', '300094', '300145', '300149', '300161', '300187', '300226', '300231', '300246', '300368', '300406'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mla', 'mlbb', 'mlcn', 'zgame', 'zgame_cn'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/const.ts:96",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mla",
+        "mlbb",
+        "mlcn",
+        "zgame",
+        "zgame_cn"
+      ]
+    }
+  },
+  {
+    "id": "metric::register_cnt",
+    "ref": "wiki/metrics/register_cnt.md",
+    "text": "# 日均新增玩家数  `register_cnt`\n\n**业务口径**: 所选日期的日均新增玩家数\n\n## 怎么算\n**公式**: `sum(register_cnt)/sum(register_cnt_kpi)`\n\n依赖的底层指标:\n- [[day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_cnt`\n- [[point_cnt]] (?) — `⚠️待D层` [待补] · 取数 `point_cnt`\n- [[register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt`\n- [[register_cnt_kpi]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt_kpi`\n- [[st_downloads]] (?) — `⚠️待D层` [待补] · 取数 `st_downloads`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200004', '200008', '200014', '300005', '300020', '300036', '300064', '300146', '300150', '300161', '300185', '300227', '300233', '300246', '300368', '300406'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mla', 'mlbb', 'mlcn', 'zgame', 'zgame_cn'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/const.ts:179",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mla",
+        "mlbb",
+        "mlcn",
+        "zgame",
+        "zgame_cn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pure_reten_day",
+    "ref": "wiki/metrics/pure_reten_day.md",
+    "text": "# 纯净新增留存  `pure_reten_day`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(pure_reten_day30)/sum(pure_reten_day30_total)`\n\n依赖的底层指标:\n- [[pure_reten_day2]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day2`\n- [[pure_reten_day2_total]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day2_total`\n- [[pure_reten_day30]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day30`\n- [[pure_reten_day30_total]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day30_total`\n- [[pure_reten_day7]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day7`\n- [[pure_reten_day7_total]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day7_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300196'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: retention · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/const.ts:254",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "retention",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::recurring_cnt_30days",
+    "ref": "wiki/metrics/recurring_cnt_30days.md",
+    "text": "# 日均回流玩家数  `recurring_cnt_30days`\n\n**业务口径**: (所选日期按天回流玩家数进行累计)/(所选日期的总天数)\n\n## 怎么算\n**公式**: `active_cnt-new_active_cnt-recurring_cnt_30days`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_cnt`\n- [[new_active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `new_active_cnt`\n- [[point_cnt]] (?) — `⚠️待D层` [待补] · 取数 `point_cnt`\n- [[recurring_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `recurring_cnt_30days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300005', '300023', '300037', '300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/BusinessOverview/const.ts:372",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::active",
+    "ref": "wiki/metrics/active.md",
+    "text": "# 区域  `active`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `pure_register_cnt`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[acu]] (?) — `⚠️待D层` [待补] · 取数 `acu`\n- [[carden_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt']`\n- [[carden_caton_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt']`\n- [[create_role_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt`\n- [[create_role_day_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt_7d`\n- [[day_amt]] (?) — `⚠️待D层` [待补] · 取数 `day_amt`\n- [[day_battle_cnt_country_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_country_fm`\n- [[day_black_cnt_country_fz]] (?) — `⚠️待D层` [待补] · 取数 `day_black_cnt_country_fz`\n- [[day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_cnt`\n- [[login_auth_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['login_auth_cnt']`\n- [[login_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt`\n- [[login_day_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt_7d`\n- [[login_sucess_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['login_sucess_cnt']`\n- [[meas_value]] (?) — `⚠️待D层` [待补] · 取数 `meas_value`\n- [[network_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_battle_cnt`\n- [[network_stdping_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_stdping_cnt`\n- [[online_dur]] (?) — `⚠️待D层` [待补] · 取数 `online_dur`\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n- [[pcu]] (?) — `⚠️待D层` [待补] · 取数 `pcu`\n- [[pure_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pure_register_cnt`\n- [[recurring_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `recurring_cnt_30days`\n- [[register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt`\n- [[register_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt_7d`\n- [[register_cnt_yd]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt_yd`\n- [[register_reten2]] (?) — `⚠️待D层` [待补] · 取数 `register_reten2`\n- [[register_reten7]] (?) — `⚠️待D层` [待补] · 取数 `register_reten7`\n- [[register_reten_cnt_2]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2`\n- [[register_reten_cnt_2_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2_total`\n- [[register_reten_cnt_30]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_30`\n- [[register_reten_cnt_30_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_30_total`\n- [[register_reten_cnt_7]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_7`\n- [[register_reten_cnt_7_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_7_total`\n- [[user_download_login_cnt]] (?) — `⚠️待D层` [待补] · 取数 `user_download_login_cnt`\n- [[user_storage_download_complete_cnt]] (?) — `⚠️待D层` [待补] · 取数 `user_storage_download_complete_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300008', '300009', '300015', '300172', '300196', '300197', '300263', '300264', '300366', '300372', '300401', '300403', '300405', '300406', '300407', '300413', '300414'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['aoz', 'lovania_cn', 'mcgg', 'mlbb', 'mlcn', 'sgame_cn', 'tgame', 'wefly5'] · tier: 长尾\n- 来源代码: src/views/CommonCnOverview/Component/CascaderTable/const.ts:27",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "aoz",
+        "lovania_cn",
+        "mcgg",
+        "mlbb",
+        "mlcn",
+        "sgame_cn",
+        "tgame",
+        "wefly5"
+      ]
+    }
+  },
+  {
+    "id": "metric::channel",
+    "ref": "wiki/metrics/channel.md",
+    "text": "# 渠道  `channel`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `pay_amt/100`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[active_cnt_kpi]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_kpi`\n- [[acu]] (?) — `⚠️待D层` [待补] · 取数 `acu`\n- [[consume_amt]] (?) — `⚠️待D层` [待补] · 取数 `consume_amt`\n- [[create_role_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt`\n- [[create_role_day_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt_7d`\n- [[day_amt]] (?) — `⚠️待D层` [待补] · 取数 `day_amt`\n- [[day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_cnt`\n- [[login_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt`\n- [[login_day_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt_7d`\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n- [[pay_amt_kpi]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt_kpi`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n- [[pcu]] (?) — `⚠️待D层` [待补] · 取数 `pcu`\n- [[pure_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pure_register_cnt`\n- [[register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt`\n- [[register_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt_7d`\n- [[register_cnt_kpi]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt_kpi`\n- [[register_cnt_yd]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt_yd`\n- [[register_reten2]] (?) — `⚠️待D层` [待补] · 取数 `register_reten2`\n- [[register_reten7]] (?) — `⚠️待D层` [待补] · 取数 `register_reten7`\n- [[register_reten_cnt_2]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2`\n- [[register_reten_cnt_2_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2_total`\n- [[register_reten_cnt_3]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_3`\n- [[register_reten_cnt_3_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_3_total`\n- [[register_reten_cnt_7]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_7`\n- [[register_reten_cnt_7_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_7_total`\n- [[total_actual_amt]] (?) — `⚠️待D层` [待补] · 取数 `total_actual_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300172', '300218', '300266', '300270', '300307', '300368', '300369', '300400', '300401', '300402', '300403', '300405', '300406', '300407', '300416', '300417', '300418', '300419', '300420', '300423'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['aoz', 'lovania_cn', 'mlbb', 'mlcn', 'sgame_cn', 'tgame', 'wefly5'] · tier: 长尾\n- 来源代码: src/views/CommonCnOverview/Component/CascaderTable/const.ts:106",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "aoz",
+        "lovania_cn",
+        "mlbb",
+        "mlcn",
+        "sgame_cn",
+        "tgame",
+        "wefly5"
+      ]
+    }
+  },
+  {
+    "id": "metric::cq_300199_1200",
+    "ref": "wiki/metrics/cq_300199_1200.md",
+    "text": "# meta commonQuery 300199  `cq_300199_1200`\n\n**业务口径**: store 内配置枚举 / meta 查询\n\n## 怎么算\n**公式**: `—`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300199'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['common'] · tier: 长尾\n- 来源代码: src/views/CommonCnOverview/store.ts:1200",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "common"
+      ]
+    }
+  },
+  {
+    "id": "metric::cq_300199_1366",
+    "ref": "wiki/metrics/cq_300199_1366.md",
+    "text": "# meta commonQuery 300199  `cq_300199_1366`\n\n**业务口径**: store 内配置枚举 / meta 查询\n\n## 怎么算\n**公式**: `—`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300199'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['common'] · tier: 长尾\n- 来源代码: src/views/CommonCnRealTime/store.ts:1366",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "common"
+      ]
+    }
+  },
+  {
+    "id": "metric::cq_300199_1177",
+    "ref": "wiki/metrics/cq_300199_1177.md",
+    "text": "# meta commonQuery 300199  `cq_300199_1177`\n\n**业务口径**: store 内配置枚举 / meta 查询\n\n## 怎么算\n**公式**: `—`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300199'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['common'] · tier: 长尾\n- 来源代码: src/views/CommonOverseaOverview/store.ts:1177",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "common"
+      ]
+    }
+  },
+  {
+    "id": "metric::cq_300199_1334",
+    "ref": "wiki/metrics/cq_300199_1334.md",
+    "text": "# meta commonQuery 300199  `cq_300199_1334`\n\n**业务口径**: store 内配置枚举 / meta 查询\n\n## 怎么算\n**公式**: `—`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300199'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['common'] · tier: 长尾\n- 来源代码: src/views/CommonOverseaRealTime/store.ts:1334",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "common"
+      ]
+    }
+  },
+  {
+    "id": "metric::new_retention",
+    "ref": "wiki/metrics/new_retention.md",
+    "text": "# 新增留存  `new_retention`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(login_day_cnt_7d)/sum(create_role_day_cnt_7d)`\n\n依赖的底层指标:\n- [[create_role_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt`\n- [[create_role_day_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt_7d`\n- [[login_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt`\n- [[login_day_cnt_7d]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt_7d`\n- [[register_reten_cnt_2]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2`\n- [[register_reten_cnt_2_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_2_total`\n- [[register_reten_cnt_30]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_30`\n- [[register_reten_cnt_30_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_30_total`\n- [[register_reten_cnt_7]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_7`\n- [[register_reten_cnt_7_total]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt_7_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200000', '200001', '300058', '300168', '300169', '300172', '300178', '300179', '300182', '300194', '300196', '300213', '300214', '300216', '300228', '300234', '300249'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: retention · 产品线: ['default', 'mla', 'mlbb', 'mlcn', 'nova_cn', 'wefly_cn', 'zgame', 'zgame_cn'] · tier: 长尾\n- 来源代码: src/views/CompetitiveOverview/const.ts:261",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "retention",
+      "scopes": [
+        "default",
+        "mla",
+        "mlbb",
+        "mlcn",
+        "nova_cn",
+        "wefly_cn",
+        "zgame",
+        "zgame_cn"
+      ]
+    }
+  },
+  {
+    "id": "metric::compet_overlap_rate",
+    "ref": "wiki/metrics/compet_overlap_rate.md",
+    "text": "# 竞品重合度  `compet_overlap_rate`\n\n**业务口径**: (竞品重合玩家数)/(MLBB大盘玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(compet_act_cnt)/sum(mlbb_act_cnt)`\n\n依赖的底层指标:\n- [[compet_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `compet_act_cnt`\n- [[mlbb_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_act_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300061'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/Competitor/CompetitorAnalysis/Component/SecondaryIndicators/const.ts:16",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::compet_day_login_duration_avg",
+    "ref": "wiki/metrics/compet_day_login_duration_avg.md",
+    "text": "# 竞品在线时长  `compet_day_login_duration_avg`\n\n**业务口径**: (当日重合玩家累计在线时长)/(重合玩家数)，单位为分钟\n\n## 怎么算\n**公式**: `COALESCE(sum(mlbb_day_login_duration)/sum(mlbb_act_cnt)/60,0)`\n\n依赖的底层指标:\n- [[compet_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `compet_act_cnt`\n- [[compet_day_login_duration]] (?) — `⚠️待D层` [待补] · 取数 `compet_day_login_duration`\n- [[mlbb_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_act_cnt`\n- [[mlbb_day_login_duration]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_day_login_duration`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300061'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/Competitor/CompetitorAnalysis/Component/SecondaryIndicators/const.ts:81",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::compet_reten_cnt_2days_rate",
+    "ref": "wiki/metrics/compet_reten_cnt_2days_rate.md",
+    "text": "# 竞品重合次留  `compet_reten_cnt_2days_rate`\n\n**业务口径**: (T+1日登录的重合玩家去重) / (T日重合玩家去重) * 100%\n\n## 怎么算\n**公式**: `sum(mlbb_reten_cnt_2days)/sum(mlbb_act_cnt)`\n\n依赖的底层指标:\n- [[compet_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `compet_act_cnt`\n- [[compet_reten_cnt_2days]] (?) — `⚠️待D层` [待补] · 取数 `compet_reten_cnt_2days`\n- [[mlbb_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_act_cnt`\n- [[mlbb_reten_cnt_2days]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_reten_cnt_2days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300061'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/Competitor/CompetitorAnalysis/Component/SecondaryIndicators/const.ts:144",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::compet_reten_cnt_7days_rate",
+    "ref": "wiki/metrics/compet_reten_cnt_7days_rate.md",
+    "text": "# 竞品重合7留  `compet_reten_cnt_7days_rate`\n\n**业务口径**: (T+6日登录的重合玩家去重) / (T日重合玩家去重) * 100%\n\n## 怎么算\n**公式**: `sum(mlbb_reten_cnt_7days)/sum(mlbb_act_cnt)`\n\n依赖的底层指标:\n- [[compet_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `compet_act_cnt`\n- [[compet_reten_cnt_7days]] (?) — `⚠️待D层` [待补] · 取数 `compet_reten_cnt_7days`\n- [[mlbb_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_act_cnt`\n- [[mlbb_reten_cnt_7days]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_reten_cnt_7days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300061'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/Competitor/CompetitorAnalysis/Component/SecondaryIndicators/const.ts:209",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::compet_reten_cnt_30days_rate",
+    "ref": "wiki/metrics/compet_reten_cnt_30days_rate.md",
+    "text": "# 竞品重合30留  `compet_reten_cnt_30days_rate`\n\n**业务口径**: (T+29日登录的重合玩家去重) / (T日重合玩家去重) * 100%\n\n## 怎么算\n**公式**: `sum(mlbb_reten_cnt_30days)/sum(mlbb_act_cnt)`\n\n依赖的底层指标:\n- [[compet_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `compet_act_cnt`\n- [[compet_reten_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `compet_reten_cnt_30days`\n- [[mlbb_act_cnt]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_act_cnt`\n- [[mlbb_reten_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `mlbb_reten_cnt_30days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300061'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/Competitor/CompetitorAnalysis/Component/SecondaryIndicators/const.ts:274",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::meas_value",
+    "ref": "wiki/metrics/meas_value.md",
+    "text": "# 模块  `meas_value`\n\n**业务口径**: 每个赛季版本问卷中，对于战场现状表示满意的人群占比；长周期筛选下展示最近一次得分；由于指标计算为黑盒，无法按区域聚合，数据将不受区域筛选器影响，但受国家筛选器影响\n\n## 怎么算\n**公式**: `meas_value`\n\n依赖的底层指标:\n- [[meas_value]] (?) — `⚠️待D层` [待补] · 取数 `meas_value`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300112', '300113'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/CascaderTable/const.ts:511",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::ol_dur_user_type",
+    "ref": "wiki/metrics/ol_dur_user_type.md",
+    "text": "# 用户类型  `ol_dur_user_type`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(ol_dur_user_type_role_cnt_arr)`\n\n依赖的底层指标:\n- [[ol_dur_user_type_arr]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_user_type_arr`\n- [[ol_dur_user_type_role_cnt_arr]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_user_type_role_cnt_arr`\n- [[ol_dur_user_type_role_cnt_arr_total]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_user_type_role_cnt_arr_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/CascaderTable/const.ts:633",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::age_group",
+    "ref": "wiki/metrics/age_group.md",
+    "text": "# 社会属性标签  `age_group`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(day_black_cnt_age)/sum(day_battle_cnt_age)`\n\n依赖的底层指标:\n- [[day_battle_cnt_age]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_age`\n- [[day_black_cnt_age]] (?) — `⚠️待D层` [待补] · 取数 `day_black_cnt_age`\n- [[day_black_cnt_age_total]] (?) — `⚠️待D层` [待补] · 取数 `day_black_cnt_age_total`\n- [[ol_dur_age_group_arr]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_age_group_arr`\n- [[ol_dur_age_group_role_cnt_arr]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_age_group_role_cnt_arr`\n- [[ol_dur_age_group_role_cnt_arr_total]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_age_group_role_cnt_arr_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/CascaderTable/const.ts:709",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::sex",
+    "ref": "wiki/metrics/sex.md",
+    "text": "# 社会属性标签  `sex`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(day_black_cnt_sex)/sum(day_battle_cnt_sex)`\n\n依赖的底层指标:\n- [[day_battle_cnt_sex]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_sex`\n- [[day_black_cnt_sex]] (?) — `⚠️待D层` [待补] · 取数 `day_black_cnt_sex`\n- [[day_black_cnt_sex_total]] (?) — `⚠️待D层` [待补] · 取数 `day_black_cnt_sex_total`\n- [[ol_dur_sex_arr]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_sex_arr`\n- [[ol_dur_sex_role_cnt_arr]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_sex_role_cnt_arr`\n- [[ol_dur_sex_role_cnt_arr_total]] (?) — `⚠️待D层` [待补] · 取数 `ol_dur_sex_role_cnt_arr_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/CascaderTable/const.ts:784",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::black_battle_type",
+    "ref": "wiki/metrics/black_battle_type.md",
+    "text": "# 开黑类型  `black_battle_type`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(day_black_type_cnt)/sum(day_battle_cnt_total)`\n\n依赖的底层指标:\n- [[day_battle_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_total`\n- [[day_black_type_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_black_type_cnt`\n- [[day_black_type_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `day_black_type_cnt_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/CascaderTable/const.ts:930",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::matchid",
+    "ref": "wiki/metrics/matchid.md",
+    "text": "# 服务器  `matchid`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(match_exp_matchid_socre)/sum(match_exp_match_num)`\n\n依赖的底层指标:\n- [[match_exp_match_num]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_match_num`\n- [[match_exp_match_num_total]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_match_num_total`\n- [[match_exp_matchid_socre]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_matchid_socre`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/CascaderTable/const.ts:1139",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::big_ranklevel",
+    "ref": "wiki/metrics/big_ranklevel.md",
+    "text": "# 段位  `big_ranklevel`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(match_exp_matchid_socre_array)/sum(match_exp_match_num_array)`\n\n依赖的底层指标:\n- [[match_exp_match_num]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_match_num`\n- [[match_exp_match_num_array]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_match_num_array`\n- [[match_exp_matchid_socre]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_matchid_socre`\n- [[match_exp_matchid_socre_array]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_matchid_socre_array`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/CascaderTable/const.ts:1205",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::day_battle_duration",
+    "ref": "wiki/metrics/day_battle_duration.md",
+    "text": "# 对局时长  `day_battle_duration`\n\n**业务口径**: 各个段位对局的平均时长  单位为分钟\n\n## 怎么算\n**公式**: `sum(day_battle_dur_fz_7)/sum(day_battle_dur_cnt_fm_7)/60`\n\n依赖的底层指标:\n- [[day_battle_dur_cnt_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm`\n- [[day_battle_dur_cnt_fm_0]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_0`\n- [[day_battle_dur_cnt_fm_1]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_1`\n- [[day_battle_dur_cnt_fm_2]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_2`\n- [[day_battle_dur_cnt_fm_3]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_3`\n- [[day_battle_dur_cnt_fm_4]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_4`\n- [[day_battle_dur_cnt_fm_5]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_5`\n- [[day_battle_dur_cnt_fm_6]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_6`\n- [[day_battle_dur_cnt_fm_7]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_cnt_fm_7`\n- [[day_battle_dur_fz]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz`\n- [[day_battle_dur_fz_0]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_0`\n- [[day_battle_dur_fz_1]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_1`\n- [[day_battle_dur_fz_2]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_2`\n- [[day_battle_dur_fz_3]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_3`\n- [[day_battle_dur_fz_4]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_4`\n- [[day_battle_dur_fz_5]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_5`\n- [[day_battle_dur_fz_6]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_6`\n- [[day_battle_dur_fz_7]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_dur_fz_7`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300143'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:28",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::invaild_battle_rate",
+    "ref": "wiki/metrics/invaild_battle_rate.md",
+    "text": "# 流局率  `invaild_battle_rate`\n\n**业务口径**: 今日流局的对局数 / 今日总局数 * 100%\n\n## 怎么算\n**公式**: `sum(day_invaild_battle_cnt_fz)/sum(day_invaild_battle_cnt_fm)`\n\n依赖的底层指标:\n- [[day_invaild_battle_cnt_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_invaild_battle_cnt_fm`\n- [[day_invaild_battle_cnt_fz]] (?) — `⚠️待D层` [待补] · 取数 `day_invaild_battle_cnt_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300140'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:119",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::surr_battle_rate",
+    "ref": "wiki/metrics/surr_battle_rate.md",
+    "text": "# 投降率  `surr_battle_rate`\n\n**业务口径**: 任意一方投降对局数 / 今日总局数 * 100%\n\n## 怎么算\n**公式**: `sum(day_battle_cnt_surr_fz)/sum(day_battle_cnt_surr_fm)`\n\n依赖的底层指标:\n- [[day_battle_cnt_surr_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_surr_fm`\n- [[day_battle_cnt_surr_fz]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_surr_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300140'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:164",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::heroid",
+    "ref": "wiki/metrics/heroid.md",
+    "text": "# 分类  `heroid`\n\n**业务口径**: 角色当日各对局内存求和 / 角色战斗总场次  单位为M\n\n## 怎么算\n**公式**: `sum(day_hero_win_cnt)/sum(day_hero_app_cnt)*100`\n\n依赖的底层指标:\n- [[day_hero_app_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_app_cnt`\n- [[day_hero_app_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_app_cnt_total`\n- [[day_hero_ban_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_ban_cnt`\n- [[day_hero_ban_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_ban_cnt_total`\n- [[day_hero_win_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_win_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300141'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:214",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::hero_app_rate",
+    "ref": "wiki/metrics/hero_app_rate.md",
+    "text": "# 出场率  `hero_app_rate`\n\n**业务口径**: 角色当日各对局内存求和 / 角色战斗总场次  单位为M\n\n## 怎么算\n**公式**: `sum(day_hero_win_cnt)/sum(day_hero_app_cnt)`\n\n依赖的底层指标:\n- [[day_hero_app_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_app_cnt`\n- [[day_hero_app_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_app_cnt_total`\n- [[day_hero_ban_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_ban_cnt`\n- [[day_hero_ban_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_ban_cnt_total`\n- [[day_hero_win_cnt]] (?) — `⚠️待D层` [待补] · 取数 `day_hero_win_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300141'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:417",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::reach_his_bigrank_rate",
+    "ref": "wiki/metrics/reach_his_bigrank_rate.md",
+    "text": "# 段位回归率  `reach_his_bigrank_rate`\n\n**业务口径**: 玩家历史最高段位达成率：达到生涯最高段位的玩家数/总活跃玩家数 * 100%；\n赛季最高段位达成率：达到上赛季截止80天最高段位的玩家数/总活跃玩家数 * 100%；\n\n## 怎么算\n**公式**: `sum(reach_last_season_bigrank_cnt)/sum(last_season_rank_role_cnt) `\n\n依赖的底层指标:\n- [[his_rank_role_cnt]] (?) — `⚠️待D层` [待补] · 取数 `his_rank_role_cnt`\n- [[last_season_rank_role_cnt]] (?) — `⚠️待D层` [待补] · 取数 `last_season_rank_role_cnt`\n- [[reach_his_bigrank_role_cnt]] (?) — `⚠️待D层` [待补] · 取数 `reach_his_bigrank_role_cnt`\n- [[reach_last_season_bigrank_cnt]] (?) — `⚠️待D层` [待补] · 取数 `reach_last_season_bigrank_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300116'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:493",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::rate_of_bigrank",
+    "ref": "wiki/metrics/rate_of_bigrank.md",
+    "text": "# 玩家段位分布  `rate_of_bigrank`\n\n**业务口径**: 每日各段位玩家数/每日总玩家数 * 100%\n\n## 怎么算\n**公式**: `sum(rank_distribute_role_array)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[rank_distribute_role_array]] (?) — `⚠️待D层` [待补] · 取数 `rank_distribute_role_array`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300124'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:544",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::battle_cnt_per_person",
+    "ref": "wiki/metrics/battle_cnt_per_person.md",
+    "text": "# 人均场次  `battle_cnt_per_person`\n\n**业务口径**: 玩家人均对局场次\n\n## 怎么算\n**公式**: `sum(battle_cnt)/sum(active_cnt)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `battle_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300116'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:605",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::new_user_battle_funnel",
+    "ref": "wiki/metrics/new_user_battle_funnel.md",
+    "text": "# 转化漏斗  `new_user_battle_funnel`\n\n**业务口径**: 新增玩家引导 & 场次漏斗：新增首日达成各场次分层的玩家人数；\n数据起始日期为2022-05-29；\n由于埋点缺失，新增玩家引导转化漏斗在2024.1.31 ~ 2024.3.13  及  2024.6.25 ~ 2024.8.18 期间数据为空。\n\n## 怎么算\n**公式**: `sum(new_user_battle_cnt)`\n\n依赖的底层指标:\n- [[new_user_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `new_user_battle_cnt`\n- [[new_user_battle_cnt_pre]] (?) — `⚠️待D层` [待补] · 取数 `new_user_battle_cnt_pre`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300126'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:654",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::new_user_battle_trend",
+    "ref": "wiki/metrics/new_user_battle_trend.md",
+    "text": "# 转化趋势  `new_user_battle_trend`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(new_user_battle_cnt)`\n\n依赖的底层指标:\n- [[new_user_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `new_user_battle_cnt`\n- [[new_user_battle_cnt_pre]] (?) — `⚠️待D层` [待补] · 取数 `new_user_battle_cnt_pre`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300126'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:716",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::recall_user_battle_funnel",
+    "ref": "wiki/metrics/recall_user_battle_funnel.md",
+    "text": "# 转化漏斗  `recall_user_battle_funnel`\n\n**业务口径**: 回流玩家场次漏斗：30日回流后首日达成各场次分层的玩家人数\n\n## 怎么算\n**公式**: `sum(recall_user_battle_cnt)`\n\n依赖的底层指标:\n- [[recall_user_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `recall_user_battle_cnt`\n- [[recall_user_battle_cnt_pre]] (?) — `⚠️待D层` [待补] · 取数 `recall_user_battle_cnt_pre`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300128'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:785",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::recall_user_battle_trend",
+    "ref": "wiki/metrics/recall_user_battle_trend.md",
+    "text": "# 转化趋势  `recall_user_battle_trend`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(recall_user_battle_cnt)`\n\n依赖的底层指标:\n- [[recall_user_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `recall_user_battle_cnt`\n- [[recall_user_battle_cnt_pre]] (?) — `⚠️待D层` [待补] · 取数 `recall_user_battle_cnt_pre`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300128'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:847",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::match_success_rate",
+    "ref": "wiki/metrics/match_success_rate.md",
+    "text": "# 匹配成功率  `match_success_rate`\n\n**业务口径**: 今日匹配成功的战局 / 总匹配战局 * 100%；\n数据起始日期为2023-12-20。\n\n## 怎么算\n**公式**: `SUM(indicator_map['match_success_cnt_39'] + indicator_map['match_success_cnt_201'] + indicator_map['match_success_cnt_301'] + indicator_map['match_success_cnt_170'] ) / cast(SUM(indicator_map['match_battle_cnt_39'] + indicator_map['match_battle_cnt_201'] + indicator_map['match_battle_cnt_301'] + indicator_map['match_battle_cnt_170']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[battlecnt_match_time_fm]] (?) — `⚠️待D层` [待补] · 取数 `battlecnt_match_time_fm`\n- [[match_battle_cnt_170]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_battle_cnt_170']`\n- [[match_battle_cnt_201]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_battle_cnt_201']`\n- [[match_battle_cnt_301]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_battle_cnt_301']`\n- [[match_battle_cnt_39]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_battle_cnt_39']`\n- [[match_success_cnt_170]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_170']`\n- [[match_success_cnt_201]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_201']`\n- [[match_success_cnt_301]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_301']`\n- [[match_success_cnt_39]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_39']`\n- [[successcnt_match_time_fm]] (?) — `⚠️待D层` [待补] · 取数 `successcnt_match_time_fm`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016', '300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg', 'mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:915",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg",
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::match_time",
+    "ref": "wiki/metrics/match_time.md",
+    "text": "# 匹配时长  `match_time`\n\n**业务口径**: sum(每场战斗匹配时长) / 总匹配战局数\n\n## 怎么算\n**公式**: `SUM(indicator_map['match_success_time_39'] + indicator_map['match_success_time_201'] + indicator_map['match_success_time_301'] + indicator_map['match_success_time_170']) / cast(SUM(indicator_map['match_success_cnt_39'] + indicator_map['match_success_cnt_201'] + indicator_map['match_success_cnt_301'] + indicator_map['match_success_cnt_170']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[battlecnt_match_time_fm]] (?) — `⚠️待D层` [待补] · 取数 `battlecnt_match_time_fm`\n- [[match_success_cnt_170]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_170']`\n- [[match_success_cnt_201]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_201']`\n- [[match_success_cnt_301]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_301']`\n- [[match_success_cnt_39]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_cnt_39']`\n- [[match_success_time_170]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_time_170']`\n- [[match_success_time_201]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_time_201']`\n- [[match_success_time_301]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_time_301']`\n- [[match_success_time_39]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['match_success_time_39']`\n- [[totalmatchtime_match_time_fm]] (?) — `⚠️待D层` [待补] · 取数 `totalmatchtime_match_time_fm`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016', '300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg', 'mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:962",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg",
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::myth_user_achieve_rate",
+    "ref": "wiki/metrics/myth_user_achieve_rate.md",
+    "text": "# 神话率  `myth_user_achieve_rate`\n\n**业务口径**: 当日达成神话及以上段位的玩家数 / 活跃玩家数  * 100%\n\n## 怎么算\n**公式**: `sum(myth_user_cnt_fz)/sum(myth_user_cnt_total_fm)`\n\n依赖的底层指标:\n- [[myth_user_cnt_fz]] (?) — `⚠️待D层` [待补] · 取数 `myth_user_cnt_fz`\n- [[myth_user_cnt_total_fm]] (?) — `⚠️待D层` [待补] · 取数 `myth_user_cnt_total_fm`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300130'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1007",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::good_road_rate",
+    "ref": "wiki/metrics/good_road_rate.md",
+    "text": "# 分路好局率  `good_road_rate`\n\n**业务口径**: 好局场次 / 所有对局场次 * 100%;\n好局：一场对局内, 没有任何分路交换, 没有实际分路冲突, 没有英雄和分路不匹配, 没有分路客诉；\n数据起始日期为2025-04-07；\n当仅选择部分国家时该看板数据不做展示。\n\n## 怎么算\n**公式**: `sum(road_good_fz)/sum(road_good_fm)`\n\n依赖的底层指标:\n- [[road_good_fm]] (?) — `⚠️待D层` [待补] · 取数 `road_good_fm`\n- [[road_good_fz]] (?) — `⚠️待D层` [待补] · 取数 `road_good_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1051",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::win_loss_achieve_rate",
+    "ref": "wiki/metrics/win_loss_achieve_rate.md",
+    "text": "# 胜负达成率  `win_loss_achieve_rate`\n\n**业务口径**: 胜负干预局中，实际获胜的玩家 / 预期胜方玩家 * 100%；\n数据起始日期为2025-04-01。\n\n## 怎么算\n**公式**: `sum(win_achieve_fz)/sum(win_achieve_fm)`\n\n依赖的底层指标:\n- [[win_achieve_fm]] (?) — `⚠️待D层` [待补] · 取数 `win_achieve_fm`\n- [[win_achieve_fz]] (?) — `⚠️待D层` [待补] · 取数 `win_achieve_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1096",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::balance_battle_rate",
+    "ref": "wiki/metrics/balance_battle_rate.md",
+    "text": "# 平衡局占比  `balance_battle_rate`\n\n**业务口径**: 排位匹配战斗中，在“跌宕、翻盘、碾压、小优、均衡”范围内，标签不为“碾压”的对局场数占比；\n因AIAD业务迁移，平衡局占比指标数据有效日期从2024-02-13开始。\n\n## 怎么算\n**公式**: `sum(not_dominating_cnt_fz)/sum(leading_game_cnt_fm)`\n\n依赖的底层指标:\n- [[leading_game_cnt_fm]] (?) — `⚠️待D层` [待补] · 取数 `leading_game_cnt_fm`\n- [[not_dominating_cnt_fz]] (?) — `⚠️待D层` [待补] · 取数 `not_dominating_cnt_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1142",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::battle_success_rate",
+    "ref": "wiki/metrics/battle_success_rate.md",
+    "text": "# 开局成功率  `battle_success_rate`\n\n**业务口径**: 玩家匹配成功且进入战斗的对局数 / 所有匹配成功的对局数 * 100%；\n数据起始日期为2023-08-08。\n\n## 怎么算\n**公式**: `sum(battle_success_fz)/sum(match_success_fm)`\n\n依赖的底层指标:\n- [[battle_success_fz]] (?) — `⚠️待D层` [待补] · 取数 `battle_success_fz`\n- [[match_success_fm]] (?) — `⚠️待D层` [待补] · 取数 `match_success_fm`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300130'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1186",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::battle_warmcnt_rate",
+    "ref": "wiki/metrics/battle_warmcnt_rate.md",
+    "text": "# 温暖关投放率  `battle_warmcnt_rate`\n\n**业务口径**: 今日是温暖关的对局数 / 总对局数 * 100%；\n数据起始日期为2023-09-19。\n\n## 怎么算\n**公式**: `sum(battle_warmcnt_fz)/sum(total_battle_cnt_warm_fm)`\n\n依赖的底层指标:\n- [[battle_warmcnt_fz]] (?) — `⚠️待D层` [待补] · 取数 `battle_warmcnt_fz`\n- [[total_battle_cnt_warm_fm]] (?) — `⚠️待D层` [待补] · 取数 `total_battle_cnt_warm_fm`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1230",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::deep_ai_rollback_rate",
+    "ref": "wiki/metrics/deep_ai_rollback_rate.md",
+    "text": "# 深度AI回退率  `deep_ai_rollback_rate`\n\n**业务口径**: (每个battletime - aihooktime > 10的AI人次) / 需要深度AI接管的人次（排除58中的主动拉起和主动回退） * 100%；\n数据起始日期为2024-04-25。\n\n## 怎么算\n**公式**: `sum(deep_ai_rollback_fz)/sum(deep_ai_rollback_fm)`\n\n依赖的底层指标:\n- [[deep_ai_rollback_fm]] (?) — `⚠️待D层` [待补] · 取数 `deep_ai_rollback_fm`\n- [[deep_ai_rollback_fz]] (?) — `⚠️待D层` [待补] · 取数 `deep_ai_rollback_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1274",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::abuse",
+    "ref": "wiki/metrics/abuse.md",
+    "text": "# 辱骂  `abuse`\n\n**业务口径**: 由于举报系统迭代，仅展示2024-08-01至今的数据。\n\n## 怎么算\n**公式**: `sum(battle_judge_abuse_succ_cnt)/sum(battle_report_abuse_cnt)`\n\n依赖的底层指标:\n- [[battle_judge_abuse_succ_cnt]] (?) — `⚠️待D层` [待补] · 取数 `battle_judge_abuse_succ_cnt`\n- [[battle_report_abuse_cnt]] (?) — `⚠️待D层` [待补] · 取数 `battle_report_abuse_cnt`\n- [[day_battle_cnt_surr_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_surr_fm`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300130'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1325",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::violation",
+    "ref": "wiki/metrics/violation.md",
+    "text": "# 违规行为  `violation`\n\n**业务口径**: 由于举报系统迭代，仅展示2024-08-01至今的数据。\n\n## 怎么算\n**公式**: `sum(battle_complaint_violation_cnt)/sum(battle_report_violation_cnt)`\n\n依赖的底层指标:\n- [[battle_complaint_violation_cnt]] (?) — `⚠️待D层` [待补] · 取数 `battle_complaint_violation_cnt`\n- [[battle_judge_violation_succ_cnt]] (?) — `⚠️待D层` [待补] · 取数 `battle_judge_violation_succ_cnt`\n- [[battle_report_violation_cnt]] (?) — `⚠️待D层` [待补] · 取数 `battle_report_violation_cnt`\n- [[day_battle_cnt_surr_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_surr_fm`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300130'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1376",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::suspension_rate",
+    "ref": "wiki/metrics/suspension_rate.md",
+    "text": "# 禁赛率  `suspension_rate`\n\n**业务口径**: 最低信誉分达90以下的玩家 / 每日参与匹配的玩家 * 100%；\n数据起始日期为2024-12-18。\n\n## 怎么算\n**公式**: `sum(forbidden_fz)/sum(forbidden_fm)`\n\n依赖的底层指标:\n- [[forbidden_fm]] (?) — `⚠️待D层` [待补] · 取数 `forbidden_fm`\n- [[forbidden_fz]] (?) — `⚠️待D层` [待补] · 取数 `forbidden_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300342'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1434",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::online_dur",
+    "ref": "wiki/metrics/online_dur.md",
+    "text": "# 人均在线时长  `online_dur`\n\n**业务口径**: 玩家人均在线时长，单位为分钟\n\n## 怎么算\n**公式**: `sum(online_dur)/sum(active_cnt)/60`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[online_dur]] (?) — `⚠️待D层` [待补] · 取数 `online_dur`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300116', '300197'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mcgg', 'mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/const.ts:92",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mcgg",
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::day_black_cnt_rate",
+    "ref": "wiki/metrics/day_black_cnt_rate.md",
+    "text": "# 开黑率  `day_black_cnt_rate`\n\n**业务口径**: 处于开黑状态的人员及其相应战斗总场次 / 所有人员的战斗总场次 * 100%\n\n## 怎么算\n**公式**: `sum(day_battle_black_num_country_fz)/sum(day_battle_num_country_fm)`\n\n依赖的底层指标:\n- [[day_battle_black_num_country_fz]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_black_num_country_fz`\n- [[day_battle_cnt_country_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_cnt_country_fm`\n- [[day_battle_num_country_fm]] (?) — `⚠️待D层` [待补] · 取数 `day_battle_num_country_fm`\n- [[day_black_cnt_country_fz]] (?) — `⚠️待D层` [待补] · 取数 `day_black_cnt_country_fz`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300130'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/const.ts:164",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::match_exp_matchid_socre",
+    "ref": "wiki/metrics/match_exp_matchid_socre.md",
+    "text": "# 匹配体验平均分  `match_exp_matchid_socre`\n\n**业务口径**: 因AIAD业务迁移，匹配体验平均分指标有效日期从2024-02-29开始\n\n## 怎么算\n**公式**: `sum(match_exp_matchid_socre_array)/sum(match_exp_match_num_array)`\n\n依赖的底层指标:\n- [[match_exp_match_num_array]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_match_num_array`\n- [[match_exp_matchid_socre_array]] (?) — `⚠️待D层` [待补] · 取数 `match_exp_matchid_socre_array`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300130'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/GameExperienceOverview/const.ts:246",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::arpu",
+    "ref": "wiki/metrics/arpu.md",
+    "text": "# ARPU  `arpu`\n\n**业务口径**: (当日充值总美金额)/(当日活跃玩家数)\n\n## 怎么算\n**公式**: `sum(pay_amt_daily)/100/sum(active_cnt)/sum(arpu_kpi)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[arpu_kpi]] (?) — `⚠️待D层` [待补] · 取数 `arpu_kpi`\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n- [[pay_amt_daily]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt_daily`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008', '300089', '300197', '300406'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mcgg', 'mlbb', 'mlcn'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:22",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mcgg",
+        "mlbb",
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::arppu",
+    "ref": "wiki/metrics/arppu.md",
+    "text": "# ARPPU  `arppu`\n\n**业务口径**: (当天总充值美金金额) / (当天充值的玩家数)\n\n## 怎么算\n**公式**: `sum(pay_amt/100)/sum(pay_cnt)`\n\n依赖的底层指标:\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008', '300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb', 'mlcn'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:63",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb",
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::his_pay_active_cnt",
+    "ref": "wiki/metrics/his_pay_active_cnt.md",
+    "text": "# 历史充值DAU  `his_pay_active_cnt`\n\n**业务口径**: 当日活跃且历史有过充值的玩家数\n\n## 怎么算\n**公式**: `sum(his_pay_active_cnt)`\n\n依赖的底层指标:\n- [[his_pay_active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `his_pay_active_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:104",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_cnt",
+    "ref": "wiki/metrics/pay_cnt.md",
+    "text": "# 充值渗透率  `pay_cnt`\n\n**业务口径**: (当天充值的玩家数) / (当天活跃玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(pay_cnt)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008', '300089', '300094', '300197', '300312', '300313'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mcgg', 'mlbb', 'mlcn'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:199",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mcgg",
+        "mlbb",
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::active_register_pay_30d_cnt",
+    "ref": "wiki/metrics/active_register_pay_30d_cnt.md",
+    "text": "# 新增玩家充值渗透率  `active_register_pay_30d_cnt`\n\n**业务口径**: (当日活跃且新增第30天且30天内充值过的玩家)/(当日活跃且新增第30天的玩家) * 100%\n\n## 怎么算\n**公式**: `sum(active_register_pay_30d_cnt)/sum(active_register_30d_cnt)`\n\n依赖的底层指标:\n- [[active_register_30d_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_register_30d_cnt`\n- [[active_register_pay_30d_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_register_pay_30d_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:241",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::active_pay_30d_cnt",
+    "ref": "wiki/metrics/active_pay_30d_cnt.md",
+    "text": "# 近30日充值渗透率  `active_pay_30d_cnt`\n\n**业务口径**: (当日活跃且最近30天内充值过的玩家)/(当日DAU) * 100%\n\n## 怎么算\n**公式**: `sum(active_pay_30d_cnt)/sum(active_cnt)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[active_pay_30d_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_pay_30d_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:283",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::add_diamond_amt",
+    "ref": "wiki/metrics/add_diamond_amt.md",
+    "text": "# 钻石产出&消耗  `add_diamond_amt`\n\n**业务口径**: 钻石产出：当日系统产出的钻石数量，包含用户充值、GM发钻等，与金额类型无关；\n钻石消耗：当日用户消耗的钻石数量，包含皮肤/英雄购买、星光、抽奖等，与金额类型无关；\n\n## 怎么算\n**公式**: `sum(add_diamond_amt-sub_diamond_amt)`\n\n依赖的底层指标:\n- [[add_diamond_amt]] (?) — `⚠️待D层` [待补] · 取数 `add_diamond_amt`\n- [[sub_diamond_amt]] (?) — `⚠️待D层` [待补] · 取数 `sub_diamond_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:331",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::add_diamond_email_amt",
+    "ref": "wiki/metrics/add_diamond_email_amt.md",
+    "text": "# 邮件发钻  `add_diamond_email_amt`\n\n**业务口径**: 当日邮件发出的钻石数量，包含公司内发钻、用户补偿等，与金额类型无关\n\n## 怎么算\n**公式**: `sum(add_diamond_email_amt)`\n\n依赖的底层指标:\n- [[add_diamond_email_amt]] (?) — `⚠️待D层` [待补] · 取数 `add_diamond_email_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:386",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::first_pay_cnt",
+    "ref": "wiki/metrics/first_pay_cnt.md",
+    "text": "# 首次充值玩家数  `first_pay_cnt`\n\n**业务口径**: 当日首次出现充值行为的玩家数\n\n## 怎么算\n**公式**: `sum(first_pay_cnt)`\n\n依赖的底层指标:\n- [[first_pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `first_pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300089'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: pay-cnt · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:434",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "pay-cnt",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::sub_diamond_operate",
+    "ref": "wiki/metrics/sub_diamond_operate.md",
+    "text": "# 消耗来源  `sub_diamond_operate`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sub_diamond_operate_cnt`\n\n依赖的底层指标:\n- [[pay_amt_total]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt_total`\n- [[sub_diamond_operate_amt]] (?) — `⚠️待D层` [待补] · 取数 `sub_diamond_operate_amt`\n- [[sub_diamond_operate_cnt]] (?) — `⚠️待D层` [待补] · 取数 `sub_diamond_operate_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300091'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:534",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_channel",
+    "ref": "wiki/metrics/pay_channel.md",
+    "text": "# 充值渠道  `pay_channel`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `count(distinct roleid) / SUM(count(distinct roleid)) OVER (partition by logymd)`\n\n依赖的底层指标:\n- [[logymd]] (?) — `⚠️待D层` [待补] · 取数 `logymd`\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n- [[pay_amt_total]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt_total`\n- [[pay_channel_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_channel_amt`\n- [[pay_channel_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_channel_cnt`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n- [[roleid]] (?) — `⚠️待D层` [待补] · 取数 `roleid`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300092'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mcgg', 'mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:737",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mcgg",
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::new_resource_unlock",
+    "ref": "wiki/metrics/new_resource_unlock.md",
+    "text": "# 上新资源解锁情况  `new_resource_unlock`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `distribution_type`\n\n依赖的底层指标:\n- [[distribution_type]] (?) — `⚠️待D层` [待补] · 取数 `distribution_type`\n- [[item_name]] (?) — `⚠️待D层` [待补] · 取数 `item_name`\n- [[unlock_item_cnt]] (?) — `⚠️待D层` [待补] · 取数 `unlock_item_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300425'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:933",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::all_resource_conversion",
+    "ref": "wiki/metrics/all_resource_conversion.md",
+    "text": "# 全部资源转化情况  `all_resource_conversion`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `use_user_cnt/unlock_user_cnt*100`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[distribution_channel]] (?) — `⚠️待D层` [待补] · 取数 `distribution_channel`\n- [[equip_hero_cnt]] (?) — `⚠️待D层` [待补] · 取数 `equip_hero_cnt`\n- [[equip_start_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `equip_start_battle_cnt`\n- [[equip_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `equip_user_cnt`\n- [[funnel_type]] (?) — `⚠️待D层` [待补] · 取数 `funnel_type`\n- [[item_quality]] (?) — `⚠️待D层` [待补] · 取数 `item_quality`\n- [[item_type_name]] (?) — `⚠️待D层` [待补] · 取数 `item_type_name`\n- [[unlock_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `unlock_user_cnt`\n- [[use_item_cnt]] (?) — `⚠️待D层` [待补] · 取数 `use_item_cnt`\n- [[use_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `use_user_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300428'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:1116",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::interactive_effect",
+    "ref": "wiki/metrics/interactive_effect.md",
+    "text": "# 互动特效使用详情  `interactive_effect`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `use_item_cnt`\n\n依赖的底层指标:\n- [[item_name]] (?) — `⚠️待D层` [待补] · 取数 `item_name`\n- [[use_item_cnt]] (?) — `⚠️待D层` [待补] · 取数 `use_item_cnt`\n- [[use_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `use_user_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300430'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:1553",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::gift_detail",
+    "ref": "wiki/metrics/gift_detail.md",
+    "text": "# 礼物使用详情  `gift_detail`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `gift_hot_val`\n\n依赖的底层指标:\n- [[gift_hot_val]] (?) — `⚠️待D层` [待补] · 取数 `gift_hot_val`\n- [[item_name]] (?) — `⚠️待D层` [待补] · 取数 `item_name`\n- [[send_gift_cnt]] (?) — `⚠️待D层` [待补] · 取数 `send_gift_cnt`\n- [[send_gift_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `send_gift_user_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300432'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:1744",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::model_type",
+    "ref": "wiki/metrics/model_type.md",
+    "text": "# 机型  `model_type`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(carden_caton_cnt)/sum(carden_battle_cnt)`\n\n依赖的底层指标:\n- [[carden_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt']`\n- [[carden_battle_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `carden_battle_cnt_total`\n- [[carden_caton_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/CascaderTable/const.ts:105",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::user_type",
+    "ref": "wiki/metrics/user_type.md",
+    "text": "# 新老用户  `user_type`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(user_storage_download_complete_cnt)/sum(user_download_login_cnt)`\n\n依赖的底层指标:\n- [[user_download_login_cnt]] (?) — `⚠️待D层` [待补] · 取数 `user_download_login_cnt`\n- [[user_download_login_cnt_total]] (?) — `⚠️待D层` [待补] · 取数 `user_download_login_cnt_total`\n- [[user_storage_download_complete_cnt]] (?) — `⚠️待D层` [待补] · 取数 `user_storage_download_complete_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/CascaderTable/const.ts:399",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::memory_pss",
+    "ref": "wiki/metrics/memory_pss.md",
+    "text": "# 内存  `memory_pss`\n\n**业务口径**: 角色当日各对局内存求和 / 角色战斗总场次  单位为M\n\n## 怎么算\n**公式**: `sum(memory_pss_total[2])/cast(sum(memory_battle_cnt[2]) as decimal(38,0))`\n\n依赖的底层指标:\n- [[memory_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['memory_battle_cnt']`\n- [[memory_pss_total]] (?) — `⚠️待D层` [待补] · 取数 `memory_pss_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300101'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:51",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::elec_ma",
+    "ref": "wiki/metrics/elec_ma.md",
+    "text": "# 功耗  `elec_ma`\n\n**业务口径**: (角色各对局电流均值的和) / (角色战斗总场次) 单位为mA\n\n## 怎么算\n**公式**: `sum(elec_ma[1])/sum(elec_battle_cnt[1])`\n\n依赖的底层指标:\n- [[elec_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_battle_cnt']`\n- [[elec_ma]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['elec_ma']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300101'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:95",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::ping_avg",
+    "ref": "wiki/metrics/ping_avg.md",
+    "text": "# 平均ping值  `ping_avg`\n\n**业务口径**: 玩家单局战斗的ping的均值\n\n## 怎么算\n**公式**: `SUM(indicator_map['network_timedelay_cnt']) / cast(SUM(indicator_map['network_battle_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[network_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_battle_cnt`\n- [[network_timedelay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['network_timedelay_cnt']`\n- [[ping_total]] (?) — `⚠️待D层` [待补] · 取数 `ping_total`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016', '300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg', 'mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:145",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg",
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::reconnect_cnt",
+    "ref": "wiki/metrics/reconnect_cnt.md",
+    "text": "# 小重连次数  `reconnect_cnt`\n\n**业务口径**: 小重连次数：玩家战斗内产生网络重连的次数，以平均的方式聚合;\n场均小重连率：至少有一次发生重连的战斗数/总战斗数\n\n## 怎么算\n**公式**: `sum(reconnect_battle_cnt)/sum(network_battle_cnt)`\n\n依赖的底层指标:\n- [[network_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_battle_cnt`\n- [[reconnect_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `reconnect_battle_cnt`\n- [[reconnect_cnt]] (?) — `⚠️待D层` [待补] · 取数 `reconnect_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:187",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::battle_succ_rate",
+    "ref": "wiki/metrics/battle_succ_rate.md",
+    "text": "# 匹配成局率  `battle_succ_rate`\n\n**业务口径**: 玩家从匹配服务器匹配成功后，成功的连上了战斗服务器的比例\n\n## 怎么算\n**公式**: `sum(battle_begin_cnt)/sum(match_suc_cnt)`\n\n依赖的底层指标:\n- [[battle_begin_cnt]] (?) — `⚠️待D层` [待补] · 取数 `battle_begin_cnt`\n- [[match_suc_cnt]] (?) — `⚠️待D层` [待补] · 取数 `match_suc_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:237",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::match_convert_rate",
+    "ref": "wiki/metrics/match_convert_rate.md",
+    "text": "# 匹配转化率  `match_convert_rate`\n\n**业务口径**: 分母：在match服务器上匹配成功的所有玩家人次\n分子：匹配成功后客户端成功弹出提示框的玩家人次\n\n## 怎么算\n**公式**: `sum(match_trace_cnt)/sum(match_suc_cnt)`\n\n依赖的底层指标:\n- [[match_suc_cnt]] (?) — `⚠️待D层` [待补] · 取数 `match_suc_cnt`\n- [[match_trace_cnt]] (?) — `⚠️待D层` [待补] · 取数 `match_trace_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:280",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::30day_network_stdping_rate",
+    "ref": "wiki/metrics/30day_network_stdping_rate.md",
+    "text": "# 30天长周期网络满足率  `30day_network_stdping_rate`\n\n**业务口径**: 玩家过往30天的网络体验稳定率\n\n## 怎么算\n**公式**: `sum(score_net)/sum(network_stdping_cnt_30d)`\n\n依赖的底层指标:\n- [[network_stdping_cnt_30d]] (?) — `⚠️待D层` [待补] · 取数 `network_stdping_cnt_30d`\n- [[score_net]] (?) — `⚠️待D层` [待补] · 取数 `score_net`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:323",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::logintime_cnt",
+    "ref": "wiki/metrics/logintime_cnt.md",
+    "text": "# 登录耗时  `logintime_cnt`\n\n**业务口径**: 低端机玩家的登录耗时\n\n## 怎么算\n**公式**: `sum(logintime_cnt)/sum(logintime_total_cnt)`\n\n依赖的底层指标:\n- [[logintime_cnt]] (?) — `⚠️待D层` [待补] · 取数 `logintime_cnt`\n- [[logintime_total_cnt]] (?) — `⚠️待D层` [待补] · 取数 `logintime_total_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:372",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::avg_space",
+    "ref": "wiki/metrics/avg_space.md",
+    "text": "# 包体大小  `avg_space`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(avg_space)/1024`\n\n依赖的底层指标:\n- [[avg_space]] (?) — `⚠️待D层` [待补] · 取数 `avg_space`\n- [[mid_space]] (?) — `⚠️待D层` [待补] · 取数 `mid_space`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300102'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:420",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::replacement_loss",
+    "ref": "wiki/metrics/replacement_loss.md",
+    "text": "# 更新损耗  `replacement_loss`\n\n**业务口径**: 计算第40步到第44步间的损耗；\nstep 40 对应业务场景是 获取4号公告，下一步是开始强更\\热更；\nstep 44 对应业务场景是 Patch文件保护（如果有更新，这个步骤是重启之后走到该步骤触发打点）\n\n## 怎么算\n**公式**: `1-sum(step44_cnt)/sum(step40_cnt)`\n\n依赖的底层指标:\n- [[step40_cnt]] (?) — `⚠️待D层` [待补] · 取数 `step40_cnt`\n- [[step44_cnt]] (?) — `⚠️待D层` [待补] · 取数 `step44_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:475",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::check_duration_mid",
+    "ref": "wiki/metrics/check_duration_mid.md",
+    "text": "# 检测时长  `check_duration_mid`\n\n**业务口径**: 增量检测耗时\n\n## 怎么算\n**公式**: `sum(checking_step_3/1000)`\n\n依赖的底层指标:\n- [[checking_step_1]] (?) — `⚠️待D层` [待补] · 取数 `checking_step_1`\n- [[checking_step_2]] (?) — `⚠️待D层` [待补] · 取数 `checking_step_2`\n- [[checking_step_3]] (?) — `⚠️待D层` [待补] · 取数 `checking_step_3`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:518",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::noreslv_rate",
+    "ref": "wiki/metrics/noreslv_rate.md",
+    "text": "# 白模率  `noreslv_rate`\n\n**业务口径**: 统计每天战斗遭遇白模的玩家人数/当天战斗的玩家人数\n\n## 怎么算\n**公式**: `sum(noreslv_cnt)/sum(noreslv_total_cnt)`\n\n依赖的底层指标:\n- [[noreslv_cnt]] (?) — `⚠️待D层` [待补] · 取数 `noreslv_cnt`\n- [[noreslv_total_cnt]] (?) — `⚠️待D层` [待补] · 取数 `noreslv_total_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:572",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::loading_rate",
+    "ref": "wiki/metrics/loading_rate.md",
+    "text": "# 卡loading率  `loading_rate`\n\n**业务口径**: battleloading阶段卡死没有正常结束loading进入到战斗中的比例\n\n## 怎么算\n**公式**: `sum(loading_cnt)/sum(loading_total_cnt)`\n\n依赖的底层指标:\n- [[loading_cnt]] (?) — `⚠️待D层` [待补] · 取数 `loading_cnt`\n- [[loading_total_cnt]] (?) — `⚠️待D层` [待补] · 取数 `loading_total_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300099'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:621",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::carden_caton_rate",
+    "ref": "wiki/metrics/carden_caton_rate.md",
+    "text": "# 卡顿满足率  `carden_caton_rate`\n\n**业务口径**: (平均每10分钟大卡次数<=2的角色战斗总场次) / (角色战斗总场次) * 100%\n\n## 怎么算\n**公式**: `sum(carden_caton_cnt)/sum(carden_battle_cnt)`\n\n依赖的底层指标:\n- [[carden_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt']`\n- [[carden_caton_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300098'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/const.ts:21",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::login_convert_rate",
+    "ref": "wiki/metrics/login_convert_rate.md",
+    "text": "# 登录转化率  `login_convert_rate`\n\n**业务口径**: （进入主城看到主界面角色数）/（点击MLBB图标角色数）*100%；数据可计算最早时间为 2024-09-19\n\n## 怎么算\n**公式**: `sum(login_sucess_cnt)/sum(login_auth_cnt)`\n\n依赖的底层指标:\n- [[login_auth_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['login_auth_cnt']`\n- [[login_sucess_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['login_sucess_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300098'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/const.ts:169",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::user_storage_download_complet_rate",
+    "ref": "wiki/metrics/user_storage_download_complet_rate.md",
+    "text": "# 增量下载完成率  `user_storage_download_complet_rate`\n\n**业务口径**: (T日增量下载完成角色数 + T日增量下载未完成但 [T+1: T+2] 首次登录时增量下载完成的角色数）/ (T日登录总角色数) * 100%\n\n## 怎么算\n**公式**: `sum(user_storage_download_complete_cnt)/sum(user_download_login_cnt)`\n\n依赖的底层指标:\n- [[user_download_login_cnt]] (?) — `⚠️待D层` [待补] · 取数 `user_download_login_cnt`\n- [[user_storage_download_complete_cnt]] (?) — `⚠️待D层` [待补] · 取数 `user_storage_download_complete_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300098'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/InfrastructureOverview/const.ts:245",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::arcade_label",
+    "ref": "wiki/metrics/arcade_label.md",
+    "text": "# 游廊标签  `arcade_label`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `register_cnt`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/CascaderTable/const.ts:133",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::mau",
+    "ref": "wiki/metrics/mau.md",
+    "text": "# 月均活跃度  `mau`\n\n**业务口径**: 月度指标不受日期筛选器控制;\n自然月粒度下，月均DAU / MAU=(sum(月每日活跃玩家数) / 月总天数) / (月去重活跃玩家数)\n\n## 怎么算\n**公式**: `sum(monthly_activity_ratio)`\n\n依赖的底层指标:\n- [[mau]] (月活跃用户数(去重)) — `[示例] count(distinct uid)  -- 自然月内去重` [草稿] · 取数 `indicator_map['mau']`\n- [[monthly_activity_ratio]] (?) — `⚠️待D层` [待补] · 取数 `monthly_activity_ratio`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300198'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:71",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::simulator_register_cnt",
+    "ref": "wiki/metrics/simulator_register_cnt.md",
+    "text": "# 新增类型  `simulator_register_cnt`\n\n**业务口径**: 纯净新增：当日新注册且排除回流切号、模拟器和灰产后的去重玩家数\n切号新增：当日新注册且存在切换新老账号的去重玩家数\n模拟器新增：当日新注册且判定为模拟器设备的去重玩家数\n灰产新增：当日新注册且判定为灰产的去重玩家数\n\n## 怎么算\n**公式**: `sum(gray_register_cnt)`\n\n依赖的底层指标:\n- [[gray_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `gray_register_cnt`\n- [[pure_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pure_register_cnt`\n- [[simulator_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `simulator_register_cnt`\n- [[switch_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `switch_register_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300197'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:217",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::register_reten_cnt",
+    "ref": "wiki/metrics/register_reten_cnt.md",
+    "text": "# 新增玩家  `register_reten_cnt`\n\n**业务口径**: 由于举报系统迭代，仅展示2024-08-01至今的数据。\n\n## 怎么算\n**公式**: `—`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300222'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:282",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::pure_reten_cnt",
+    "ref": "wiki/metrics/pure_reten_cnt.md",
+    "text": "# 纯净新增玩家  `pure_reten_cnt`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `—`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300222'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:323",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_cnt_per_person",
+    "ref": "wiki/metrics/pay_cnt_per_person.md",
+    "text": "# 充值渗透率  `pay_cnt_per_person`\n\n**业务口径**: (当日付费玩家数)/(当日活跃玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(pay_cnt)/sum(active_cnt)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300197'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:446",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::actual_pay_amt",
+    "ref": "wiki/metrics/actual_pay_amt.md",
+    "text": "# 月度实收率  `actual_pay_amt`\n\n**业务口径**: 月度指标不受日期筛选器控制;\n(月度实收美金金额) / (月度商品定价总金额) * 100%\n\n## 怎么算\n**公式**: `sum(indicator_map['actual_pay_amt'])/cast(sum(indicator_map['pay_amt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[actual_pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `actual_pay_amt`\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:488",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::pure_reten_cnt_2_7_30",
+    "ref": "wiki/metrics/pure_reten_cnt_2_7_30.md",
+    "text": "# 卡顿满足率  `pure_reten_cnt_2_7_30`\n\n**业务口径**: 平均每10分钟大卡次数<=2的角色战斗总场次/角色战斗总场次*100%；\n卡顿满足率已于2025.04.22从[client_battleend_performance] 改为 [client_battleend_performance_mc]\n\n## 怎么算\n**公式**: `sum(indicator_map['carden_caton_cnt_hightall'])/cast(sum(indicator_map['carden_battle_cnt_hightall']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[carden_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt']`\n- [[carden_battle_cnt_high]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_high']`\n- [[carden_battle_cnt_hightall]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_hightall']`\n- [[carden_battle_cnt_low]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_low']`\n- [[carden_battle_cnt_mid]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_battle_cnt_mid']`\n- [[carden_caton_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt']`\n- [[carden_caton_cnt_high]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_high']`\n- [[carden_caton_cnt_hightall]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_hightall']`\n- [[carden_caton_cnt_low]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_low']`\n- [[carden_caton_cnt_mid]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['carden_caton_cnt_mid']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:544",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::network_satisfy_rate",
+    "ref": "wiki/metrics/network_satisfy_rate.md",
+    "text": "# 网络满足率  `network_satisfy_rate`\n\n**业务口径**: 一局比赛中ping值跳跃到100ms以上的次数占总体ping次数的占比小于等于5%的场次的占比\n\n## 怎么算\n**公式**: `sum(indicator_map['network_stdping_cnt'])/cast(sum(indicator_map['network_battle_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[network_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_battle_cnt`\n- [[network_stdping_cnt]] (?) — `⚠️待D层` [待补] · 取数 `network_stdping_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:620",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::smallreconnect_per10min_cnt",
+    "ref": "wiki/metrics/smallreconnect_per10min_cnt.md",
+    "text": "# 小重连次数均值  `smallreconnect_per10min_cnt`\n\n**业务口径**: 角色各对局(smallreconnect_num/battletime*600)的和 / 角色战斗总场次,相当于平均10分钟小重连次数\n\n## 怎么算\n**公式**: ` SUM(indicator_map['smallreconnect_per10min_cnt']) / cast(SUM(indicator_map['smallreconnect_per10min_battle_cnt']) as decimal(38,0))`\n\n依赖的底层指标:\n- [[smallreconnect_per10min_battle_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['smallreconnect_per10min_battle_cnt']`\n- [[smallreconnect_per10min_cnt]] (?) — `⚠️待D层` [待补] · 取数 `indicator_map['smallreconnect_per10min_cnt']`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300016'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mcgg'] · tier: 长尾\n- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:703",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mcgg"
+      ]
+    }
+  },
+  {
+    "id": "metric::active_cnt_30days",
+    "ref": "wiki/metrics/active_cnt_30days.md",
+    "text": "# 近30日活跃玩家数  `active_cnt_30days`\n\n**业务口径**: 含统计日当天，最近30天的去重活跃玩家数\n\n## 怎么算\n**公式**: `sum(active_cnt_30days)`\n\n依赖的底层指标:\n- [[active_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_30days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008', '300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb', 'mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:71",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb",
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pcu_acu",
+    "ref": "wiki/metrics/pcu_acu.md",
+    "text": "# PCU&ACU  `pcu_acu`\n\n**业务口径**: PCU：最大同时在线玩家数\nACU：平均同时在线玩家数\n\n## 怎么算\n**公式**: `acu`\n\n依赖的底层指标:\n- [[acu]] (?) — `⚠️待D层` [待补] · 取数 `acu`\n- [[pcu]] (?) — `⚠️待D层` [待补] · 取数 `pcu`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200011'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:112",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::active_cnt_rate",
+    "ref": "wiki/metrics/active_cnt_rate.md",
+    "text": "# 活跃度  `active_cnt_rate`\n\n**业务口径**: (日活跃) / (近30日去重活跃玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(active_cnt)/sum(active_cnt_30days)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[active_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_30days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:159",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pure_register_cnt",
+    "ref": "wiki/metrics/pure_register_cnt.md",
+    "text": "# 纯净新增玩家  `pure_register_cnt`\n\n**业务口径**: 由于举报系统迭代，仅展示2024-08-01至今的数据。\n\n## 怎么算\n**公式**: `sum(register_cnt)-sum(pure_register_cnt)`\n\n依赖的底层指标:\n- [[pure_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pure_register_cnt`\n- [[register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `register_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200004', '200008', '300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb', 'mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:249",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb",
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_rate",
+    "ref": "wiki/metrics/pay_rate.md",
+    "text": "# 付费率  `pay_rate`\n\n**业务口径**: 付费玩家数/活跃玩家数 * 100%\n\n## 怎么算\n**公式**: `sum(pay_cnt)/sum(active_cnt)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:374",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::new_pay_cnt",
+    "ref": "wiki/metrics/new_pay_cnt.md",
+    "text": "# 新增付费玩家数  `new_pay_cnt`\n\n**业务口径**: 当日新增的玩家中出现付费行为的玩家数\n\n## 怎么算\n**公式**: `sum(create_pay_cnt)`\n\n依赖的底层指标:\n- [[create_pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `create_pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: pay-cnt · 产品线: ['mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:459",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "pay-cnt",
+      "scopes": [
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::his_first_pay_cnt",
+    "ref": "wiki/metrics/his_first_pay_cnt.md",
+    "text": "# 破冰付费玩家数  `his_first_pay_cnt`\n\n**业务口径**: 当日首次出现付费行为的玩家数\n\n## 怎么算\n**公式**: `sum(his_first_pay_cnt)`\n\n依赖的底层指标:\n- [[his_first_pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `his_first_pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200008'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: pay-cnt · 产品线: ['mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:501",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "pay-cnt",
+      "scopes": [
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_amt_monthly",
+    "ref": "wiki/metrics/pay_amt_monthly.md",
+    "text": "# 月度累计收入金额  `pay_amt_monthly`\n\n**业务口径**: 月度指标不受日期筛选器控制;\n月度累计收入金额，单位人民币\n\n## 怎么算\n**公式**: `pay_amt / 100`\n\n依赖的底层指标:\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300417'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:543",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::new_login_cnt_percent",
+    "ref": "wiki/metrics/new_login_cnt_percent.md",
+    "text": "# 昨日新增次留  `new_login_cnt_percent`\n\n**业务口径**: (T-1日新增、且T日登录的去重玩家数) / (T-1新增的去重玩家数) * 100%\n\n## 怎么算\n**公式**: `sum(login_day_cnt)/sum(create_role_day_cnt)`\n\n依赖的底层指标:\n- [[create_role_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `create_role_day_cnt`\n- [[create_role_point_cnt]] (?) — `⚠️待D层` [待补] · 取数 `create_role_point_cnt`\n- [[login_day_cnt]] (?) — `⚠️待D层` [待补] · 取数 `login_day_cnt`\n- [[login_point_cnt]] (?) — `⚠️待D层` [待补] · 取数 `login_point_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['200000', '200001'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlcn'] · tier: 长尾\n- 来源代码: src/views/MlcnRealTime/const.ts:275",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlcn"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_channel_type",
+    "ref": "wiki/metrics/pay_channel_type.md",
+    "text": "# 三方&端内  `pay_channel_type`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `count(distinct roleid) / SUM(count(distinct roleid)) OVER (partition by logymd)`\n\n依赖的底层指标:\n- [[logymd]] (?) — `⚠️待D层` [待补] · 取数 `logymd`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n- [[roleid]] (?) — `⚠️待D层` [待补] · 取数 `roleid`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:158",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::country",
+    "ref": "wiki/metrics/country.md",
+    "text": "# 创角国家  `country`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `count(distinct roleid) / SUM(count(distinct roleid)) OVER (partition by logymd)`\n\n依赖的底层指标:\n- [[actual_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `actual_usd_amt`\n- [[logymd]] (?) — `⚠️待D层` [待补] · 取数 `logymd`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n- [[roleid]] (?) — `⚠️待D层` [待补] · 取数 `roleid`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:260",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::bill_country",
+    "ref": "wiki/metrics/bill_country.md",
+    "text": "# 账单国家(币种)  `bill_country`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `count(distinct roleid) / SUM(count(distinct roleid)) OVER (partition by logymd)`\n\n依赖的底层指标:\n- [[logymd]] (?) — `⚠️待D层` [待补] · 取数 `logymd`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n- [[roleid]] (?) — `⚠️待D层` [待补] · 取数 `roleid`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:311",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::currency",
+    "ref": "wiki/metrics/currency.md",
+    "text": "# 汇率  `currency`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(pay_usd_amt)/SUM(cast(pay_amt as decimal(38,0)))`\n\n依赖的底层指标:\n- [[pay_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_amt`\n- [[pay_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `pay_usd_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:551",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::thrid_product",
+    "ref": "wiki/metrics/thrid_product.md",
+    "text": "# 三方&端内  `thrid_product`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(inside_actual_usd_amt) / sum(inside_product_money) * 100`\n\n依赖的底层指标:\n- [[inside_actual_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `inside_actual_usd_amt`\n- [[inside_product_money]] (?) — `⚠️待D层` [待补] · 取数 `inside_product_money`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n- [[thrid_actual_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `thrid_actual_usd_amt`\n- [[thrid_product_money]] (?) — `⚠️待D层` [待补] · 取数 `thrid_product_money`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:718",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::channel_thrid_product_money",
+    "ref": "wiki/metrics/channel_thrid_product_money.md",
+    "text": "# 渠道  `channel_thrid_product_money`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(thrid_actual_usd_amt) * 100 / sum(thrid_product_money) `\n\n依赖的底层指标:\n- [[thrid_actual_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `thrid_actual_usd_amt`\n- [[thrid_product_money]] (?) — `⚠️待D层` [待补] · 取数 `thrid_product_money`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:923",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::channel_inside_product_money",
+    "ref": "wiki/metrics/channel_inside_product_money.md",
+    "text": "# 渠道  `channel_inside_product_money`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(inside_actual_usd_amt) * 100 / sum(inside_product_money) `\n\n依赖的底层指标:\n- [[inside_actual_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `inside_actual_usd_amt`\n- [[inside_product_money]] (?) — `⚠️待D层` [待补] · 取数 `inside_product_money`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:1141",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::sub_pay_channel_source",
+    "ref": "wiki/metrics/sub_pay_channel_source.md",
+    "text": "# 子渠道  `sub_pay_channel_source`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(actual_usd_amt) * 100 / sum(product_money)`\n\n依赖的底层指标:\n- [[actual_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `actual_usd_amt`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/CascaderTable/const.ts:1359",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::user_source_analysis",
+    "ref": "wiki/metrics/user_source_analysis.md",
+    "text": "# 用户来源分析  `user_source_analysis`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `ratio`\n\n依赖的底层指标:\n- [[edge_value]] (?) — `⚠️待D层` [待补] · 取数 `edge_value`\n- [[node_lelvel]] (?) — `⚠️待D层` [待补] · 取数 `node_lelvel`\n- [[ratio]] (?) — `⚠️待D层` [待补] · 取数 `ratio`\n- [[source_node]] (?) — `⚠️待D层` [待补] · 取数 `source_node`\n- [[target_node]] (?) — `⚠️待D层` [待补] · 取数 `target_node`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300360'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/SecondaryIndicators/const.ts:26",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_user_cnt",
+    "ref": "wiki/metrics/pay_user_cnt.md",
+    "text": "# 下单用户数  `pay_user_cnt`\n\n**业务口径**: 统计周期内下单用户数，按照用户类型分组\n\n## 怎么算\n**公式**: `sum(if(pay_user_type = 2, pay_user_cnt, null)) / if(max(sum_pay_user_cnt) = 0, 1, max(sum_pay_user_cnt))`\n\n依赖的底层指标:\n- [[pay_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_user_cnt`\n- [[pay_user_type]] (?) — `⚠️待D层` [待补] · 取数 `pay_user_type`\n- [[sum_pay_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `sum_pay_user_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300328'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/SecondaryIndicators/const.ts:80",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::channel_pay_user_cnt",
+    "ref": "wiki/metrics/channel_pay_user_cnt.md",
+    "text": "# 来源渠道  `channel_pay_user_cnt`\n\n**业务口径**: 统计周期内下单用户上一单的下单渠道\n\n## 怎么算\n**公式**: `sum(if(last_pay_channel_yd_config = 'other', pay_user_cnt, null)) / if(max(sum_pay_user_cnt) > 0, max(sum_pay_user_cnt), 1)`\n\n依赖的底层指标:\n- [[coda]] (?) — `⚠️待D层` [待补] · 取数 `coda`\n- [[gp]] (?) — `⚠️待D层` [待补] · 取数 `gp`\n- [[ios]] (?) — `⚠️待D层` [待补] · 取数 `ios`\n- [[last_pay_channel_yd_config]] (?) — `⚠️待D层` [待补] · 取数 `last_pay_channel_yd_config`\n- [[mp]] (?) — `⚠️待D层` [待补] · 取数 `mp`\n- [[other]] (?) — `⚠️待D层` [待补] · 取数 `other`\n- [[pay_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_user_cnt`\n- [[sum_pay_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `sum_pay_user_cnt`\n- [[unipin]] (?) — `⚠️待D层` [待补] · 取数 `unipin`\n- [[web_pag]] (?) — `⚠️待D层` [待补] · 取数 `web_pag`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300330'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/SecondaryIndicators/const.ts:151",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::14_day_rebuy_rate",
+    "ref": "wiki/metrics/14_day_rebuy_rate.md",
+    "text": "# 14天复购率  `14_day_rebuy_rate`\n\n**业务口径**: 统计周期内下单用户数14天内复购情况\n\n## 怎么算\n**公式**: `sum(unknown) / if(max(sum_pay_user_cnt) > 0, max(sum_pay_user_cnt), 1)`\n\n依赖的底层指标:\n- [[coda]] (?) — `⚠️待D层` [待补] · 取数 `coda`\n- [[gp]] (?) — `⚠️待D层` [待补] · 取数 `gp`\n- [[ios]] (?) — `⚠️待D层` [待补] · 取数 `ios`\n- [[mp]] (?) — `⚠️待D层` [待补] · 取数 `mp`\n- [[other]] (?) — `⚠️待D层` [待补] · 取数 `other`\n- [[repurchase_rate]] (?) — `⚠️待D层` [待补] · 取数 `repurchase_rate`\n- [[sum_pay_user_cnt]] (?) — `⚠️待D层` [待补] · 取数 `sum_pay_user_cnt`\n- [[unipin]] (?) — `⚠️待D层` [待补] · 取数 `unipin`\n- [[unknown]] (?) — `⚠️待D层` [待补] · 取数 `unknown`\n- [[web_pag]] (?) — `⚠️待D层` [待补] · 取数 `web_pag`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300331'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/SecondaryIndicators/const.ts:280",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::mp_conversion_analysis",
+    "ref": "wiki/metrics/mp_conversion_analysis.md",
+    "text": "# MP渠道转化分析  `mp_conversion_analysis`\n\n**业务口径**: MP渠道转化分析\n\n## 怎么算\n**公式**: `a4 / a3`\n\n依赖的底层指标:\n- [[a1]] (?) — `⚠️待D层` [待补] · 取数 `a1`\n- [[a2]] (?) — `⚠️待D层` [待补] · 取数 `a2`\n- [[a3]] (?) — `⚠️待D层` [待补] · 取数 `a3`\n- [[a4]] (?) — `⚠️待D层` [待补] · 取数 `a4`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300329'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/Component/SecondaryIndicators/const.ts:427",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::product_money",
+    "ref": "wiki/metrics/product_money.md",
+    "text": "# 流水金额  `product_money`\n\n**业务口径**: 游戏整体美金定价流水数据\n\n## 怎么算\n**公式**: `product_money/100`\n\n依赖的底层指标:\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300311'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/const.ts:22",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::actual_usd_amt_rate",
+    "ref": "wiki/metrics/actual_usd_amt_rate.md",
+    "text": "# 实收率  `actual_usd_amt_rate`\n\n**业务口径**: 游戏美金实际收入 / 游戏总流水 * 100%\n\n## 怎么算\n**公式**: `sum(actual_usd_amt) / sum(product_money)`\n\n依赖的底层指标:\n- [[actual_usd_amt]] (?) — `⚠️待D层` [待补] · 取数 `actual_usd_amt`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300311'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/const.ts:94",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::channel_share",
+    "ref": "wiki/metrics/channel_share.md",
+    "text": "# 渠道份额  `channel_share`\n\n**业务口径**: ⚠️ 缺人话口径(待补)\n\n## 怎么算\n**公式**: `sum(mp_product_money)/sum(product_money)`\n\n依赖的底层指标:\n- [[mp_product_money]] (?) — `⚠️待D层` [待补] · 取数 `mp_product_money`\n- [[product_money]] (?) — `⚠️待D层` [待补] · 取数 `product_money`\n- [[third_product_money]] (?) — `⚠️待D层` [待补] · 取数 `third_product_money`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300311'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PayPlatformOverview/const.ts:243",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::total_actual_amt_roi",
+    "ref": "wiki/metrics/total_actual_amt_roi.md",
+    "text": "# 累计实收ROI  `total_actual_amt_roi`\n\n**业务口径**: 累计实收ROI\n\n## 怎么算\n**公式**: `sum(total_actual_amt)/sum(consume_amt)`\n\n依赖的底层指标:\n- [[consume_amt]] (?) — `⚠️待D层` [待补] · 取数 `consume_amt`\n- [[total_actual_amt]] (?) — `⚠️待D层` [待补] · 取数 `total_actual_amt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300408'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: money · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/PublishCnTargetMonitor/const.ts:117",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "money",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::online_avg",
+    "ref": "wiki/metrics/online_avg.md",
+    "text": "# 人均在线时长  `online_avg`\n\n**业务口径**: 玩家当天人均在线时长，单位为分钟\n\n## 怎么算\n**公式**: `sum(online_dur)/sum(active_cnt)/60`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[online_dur]] (?) — `⚠️待D层` [待补] · 取数 `online_dur`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:71",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::activation",
+    "ref": "wiki/metrics/activation.md",
+    "text": "# 日活跃度  `activation`\n\n**业务口径**: (日活跃) / (近30日去重活跃玩家数)\n\n## 怎么算\n**公式**: `sum(active_cnt)/sum(active_cnt_30days)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[active_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_30days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:112",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::active_cnt_period",
+    "ref": "wiki/metrics/active_cnt_period.md",
+    "text": "# MAU  `active_cnt_period`\n\n**业务口径**: 统计自然月内的去重活跃玩家数\n\n## 怎么算\n**公式**: `sum(active_cnt_period)`\n\n依赖的底层指标:\n- [[active_cnt_period]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_period`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300088'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:154",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::natural_register_cnt",
+    "ref": "wiki/metrics/natural_register_cnt.md",
+    "text": "# 渠道类型  `natural_register_cnt`\n\n**业务口径**: 自然新增玩家数：当天注册的自然新增玩家数量；\n广告新增玩家数：当天注册的非自然新增(视为广告新增)玩家数量;\n\n## 怎么算\n**公式**: `sum(non_natural_register_cnt)`\n\n依赖的底层指标:\n- [[natural_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `natural_register_cnt`\n- [[non_natural_register_cnt]] (?) — `⚠️待D层` [待补] · 取数 `non_natural_register_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:290",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::ltv",
+    "ref": "wiki/metrics/ltv.md",
+    "text": "# 新增LTV  `ltv`\n\n**业务口径**: LTV=新增玩家累计到第N天的付费金额/新增玩家数，单位为美元\n\n## 怎么算\n**公式**: `sum(register_charge_day180)/sum(register_reten_cnt)/100`\n\n依赖的底层指标:\n- [[register_charge_day180]] (?) — `⚠️待D层` [待补] · 取数 `register_charge_day180`\n- [[register_charge_day30]] (?) — `⚠️待D层` [待补] · 取数 `register_charge_day30`\n- [[register_charge_day60]] (?) — `⚠️待D层` [待补] · 取数 `register_charge_day60`\n- [[register_charge_day90]] (?) — `⚠️待D层` [待补] · 取数 `register_charge_day90`\n- [[register_reten_cnt]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300085'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: register · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:338",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "register",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::pure_reten_rate",
+    "ref": "wiki/metrics/pure_reten_rate.md",
+    "text": "# 纯净新增  `pure_reten_rate`\n\n**业务口径**: 计算T日纯净新增的玩家在T+1，T+6，T+29的活跃率\n\n## 怎么算\n**公式**: `sum(pure_reten_day30)/sum(pure_reten_day1)`\n\n依赖的底层指标:\n- [[pure_reten_day1]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day1`\n- [[pure_reten_day2]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day2`\n- [[pure_reten_day30]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day30`\n- [[pure_reten_day7]] (?) — `⚠️待D层` [待补] · 取数 `pure_reten_day7`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300085'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:405",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::old_reten_rate",
+    "ref": "wiki/metrics/old_reten_rate.md",
+    "text": "# 老用户  `old_reten_rate`\n\n**业务口径**: 计算T日活跃老玩家 在T+1，T+6，T+29的活跃率\n\n## 怎么算\n**公式**: `sum(old_reten_day30)/sum(old_reten_day1)`\n\n依赖的底层指标:\n- [[old_reten_day1]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day1`\n- [[old_reten_day2]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day2`\n- [[old_reten_day30]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day30`\n- [[old_reten_day7]] (?) — `⚠️待D层` [待补] · 取数 `old_reten_day7`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300085'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:461",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::active_reten_rate",
+    "ref": "wiki/metrics/active_reten_rate.md",
+    "text": "# 活跃用户  `active_reten_rate`\n\n**业务口径**: 计算T日活跃玩家在T+1，T+6，T+29的活跃率\n\n## 怎么算\n**公式**: `sum(active_reten_day30)/sum(active_reten_day1)`\n\n依赖的底层指标:\n- [[active_reten_day1]] (?) — `⚠️待D层` [待补] · 取数 `active_reten_day1`\n- [[active_reten_day2]] (?) — `⚠️待D层` [待补] · 取数 `active_reten_day2`\n- [[active_reten_day30]] (?) — `⚠️待D层` [待补] · 取数 `active_reten_day30`\n- [[active_reten_day7]] (?) — `⚠️待D层` [待补] · 取数 `active_reten_day7`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300085'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:517",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::recurring_reten_rate",
+    "ref": "wiki/metrics/recurring_reten_rate.md",
+    "text": "# 回流用户  `recurring_reten_rate`\n\n**业务口径**: 计算T日30日回流玩家在T+1，T+6，T+29的活跃率\n\n## 怎么算\n**公式**: `sum(recurring_reten_day30)/sum(recurring_reten_day1)`\n\n依赖的底层指标:\n- [[recurring_reten_day1]] (?) — `⚠️待D层` [待补] · 取数 `recurring_reten_day1`\n- [[recurring_reten_day2]] (?) — `⚠️待D层` [待补] · 取数 `recurring_reten_day2`\n- [[recurring_reten_day30]] (?) — `⚠️待D层` [待补] · 取数 `recurring_reten_day30`\n- [[recurring_reten_day7]] (?) — `⚠️待D层` [待补] · 取数 `recurring_reten_day7`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300085'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:573",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::lose_cnt_rate_7",
+    "ref": "wiki/metrics/lose_cnt_rate_7.md",
+    "text": "# 7日玩家流失  `lose_cnt_rate_7`\n\n**业务口径**: 7日玩家流失率：7日流失人数/7日前DAU；\n7日流失玩家数：T-7当天有登录、且T-6~T期间未登录玩家/T-7当天登录玩家；\n\n## 怎么算\n**公式**: `sum(lose_cnt_7ds)`\n\n依赖的底层指标:\n- [[active_cnt_7ds]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_7ds`\n- [[lose_cnt_7ds]] (?) — `⚠️待D层` [待补] · 取数 `lose_cnt_7ds`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:636",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::lose_cnt_rate_30",
+    "ref": "wiki/metrics/lose_cnt_rate_30.md",
+    "text": "# 30日玩家流失  `lose_cnt_rate_30`\n\n**业务口径**: 30日玩家流失率：30日流失人数/30日前DAU；\n30日流失玩家数：T-30当天有登录、且T-29~T期间未登录玩家/T-30当天登录玩家;\n\n## 怎么算\n**公式**: `sum(lose_cnt_30ds)`\n\n依赖的底层指标:\n- [[active_cnt_30ds]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt_30ds`\n- [[lose_cnt_30ds]] (?) — `⚠️待D层` [待补] · 取数 `lose_cnt_30ds`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:685",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::recurring_cnt_30days_rate",
+    "ref": "wiki/metrics/recurring_cnt_30days_rate.md",
+    "text": "# 回流玩家  `recurring_cnt_30days_rate`\n\n**业务口径**: 30日回流率：T-30~T-1期间未登录、且T日有登录玩家/T-30~T-1期间未登录玩家；\n30日回流玩家数：当日登录过，且流失天数>=30的去重玩家数；\n14日回流率：T-14~T-1期间未登录、且T日有登录玩家/T-14~T-1期间未登录玩家；\n14日回流玩家数：当日登录过，且流失天数>=14的去重玩家数；\n\n## 怎么算\n**公式**: `sum(recurring_cnt_14days)`\n\n依赖的底层指标:\n- [[nologin_cnt_14days]] (?) — `⚠️待D层` [待补] · 取数 `nologin_cnt_14days`\n- [[nologin_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `nologin_cnt_30days`\n- [[recurring_cnt_14days]] (?) — `⚠️待D层` [待补] · 取数 `recurring_cnt_14days`\n- [[recurring_cnt_30days]] (?) — `⚠️待D层` [待补] · 取数 `recurring_cnt_30days`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset ['300086'])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: other · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:740",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "other",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "metric::pay_cnt_rate",
+    "ref": "wiki/metrics/pay_cnt_rate.md",
+    "text": "# 日均付费率  `pay_cnt_rate`\n\n**业务口径**: (所选日期按天付费玩家数加和)/(所选日期按天活跃玩家数加和)\n\n## 怎么算\n**公式**: `sum(pay_cnt)/sum(active_cnt)`\n\n依赖的底层指标:\n- [[active_cnt]] (?) — `⚠️待D层` [待补] · 取数 `active_cnt`\n- [[pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `pay_cnt`\n\n## 数据来源\n- 宽表: ⚠️ 待P2  (dataset [])\n- 维度: —  · 过滤: —\n\n## 元信息\n- 分类: core-dau · 产品线: ['mlbb'] · tier: 长尾\n- 来源代码: src/views/WeflyOverview/const.ts:258",
+    "meta": {
+      "type": "metric",
+      "tier": "长尾",
+      "category": "core-dau",
+      "scopes": [
+        "mlbb"
+      ]
+    }
+  },
+  {
+    "id": "table::dws_mlbb_indicator_wide_1d",
+    "ref": "wiki/tables/dws_mlbb_indicator_wide_1d.md",
+    "text": "# dws_mlbb_indicator_wide_1d  (MLBB 指标宽表(日))\n\n> [示例] MLBB 产品线的指标宽表，一行一天，核心指标装在 indicator_map(MAP) 列里， 另有部分高频指标拍平成直接列。datasetId=300016 等多个 dataset 直接 select 它。\n\n- 物理表: `dws.dws_mlbb_indicator_wide_1d` · 引擎: doris · 分层: DWS · 粒度: 天 (logymd 唯一)\n\n## 字段\n| 字段 | 类型 | 中文 | 说明 |\n|---|---|---|---|\n| `logymd` | DATE | 日期 |  |\n| `indicator_map` | MAP<STRING,DECIMAL> | 指标字典 | key=底层指标名(如 mau/avg_active_cnt), value=已聚合值。取数: indicator_map['mau'] |\n| `pcu` | BIGINT | 最高同时在线 | [示例] 直接列形态的底层指标，取数: 直接 pcu |\n| `acu` | BIGINT | 平均同时在线 | [示例] 直接列 |\n\n## 包含的底层指标\n- MAP 列里: [[mau]], [[avg_active_cnt]]  (取数 `indicator_map['x']`)\n- 直接列: [[pcu]], [[acu]]  (直接取列)\n\n## 血缘\n- 上游源表: ['[示例] dwd.dwd_mlbb_user_active_di', '[示例] dwd.dwd_mlbb_pay_di']\n- 由 ETL 构建: spark_sql://etl/dws_mlbb_indicator_wide_1d\n- 被这些指标使用: [[month_avg_activation]]",
+    "meta": {
+      "type": "table",
+      "tier": "头部",
+      "layer": "DWS",
+      "domain": "mlbb"
+    }
+  }
+]

@@ -1,0 +1,21 @@
+﻿行号,session_user,解析原因,query
+481,leap_mlbb_gm,ValueError: Unsupported query expression type: Describe,DESCRIBE ml_ods.gameserver_multilang_lru_miss
+1051,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%dirty%'
+1063,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%gift%dirty%'
+1195,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%offline%'
+1196,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%battle_end%'
+1198,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW COLUMNS FROM ml_ods.gameserver_offlinemode_battle_end
+1576,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW COLUMNS FROM ml_ods.battleserver_battle_end
+2792,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%additem%'
+2793,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%item%'
+2794,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%add%'
+2796,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE 'gameserver_sub%'
+2800,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%charge%'
+2801,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%login%'
+3323,leap_mlbb_gm,ValueError: Unsupported query expression type: Describe,DESCRIBE ml_ods.gameserver_battle_end
+4281,leap_mlbb_gm,ValueError: Unsupported query expression type: Describe,DESCRIBE ml_ods.battleserver_battle_end
+4497,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW TABLES FROM ml_ods LIKE '%multilang%'
+4611,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW COLUMNS FROM mt_dim.dim_basic_role_zone_df
+4612,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW COLUMNS FROM ml_ods.connserver_client_configuration
+4613,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW COLUMNS FROM mt_dm.dm_behavior_feature_role_zone_df
+4624,leap_mlbb_gm,ValueError: Unsupported query expression type: Command,SHOW COLUMNS FROM ml_ods.gameserver_hero_skin_predict

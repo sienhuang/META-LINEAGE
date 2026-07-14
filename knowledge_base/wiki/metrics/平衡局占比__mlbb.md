@@ -1,0 +1,11 @@
+# 平衡局占比 · mlbb  `平衡局占比__mlbb`
+
+> 逻辑指标 [[平衡局占比]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(not_dominating_cnt_fz)/sum(leading_game_cnt_fm)`
+- **业务口径**: 排位匹配战斗中，在“跌宕、翻盘、碾压、小优、均衡”范围内，标签不为“碾压”的对局场数占比；
+因AIAD业务迁移，平衡局占比指标数据有效日期从2024-02-13开始。
+- 宽表: mt_ads.ads_decismart_exp_match_battle_di  (dataset 300342)
+- dataset SQL: `mysql://ba/data_set#300342`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1142

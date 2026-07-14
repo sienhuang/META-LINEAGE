@@ -1,0 +1,12 @@
+# 月度付费玩家数 · mlbb  `月度付费玩家数__mlbb`
+
+> 逻辑指标 [[月度付费玩家数]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(pay_cnt)`
+- **业务口径**: 月度指标不受日期筛选器控制;
+月度付费玩家数：当前筛选档位对应的自然月去重累计付费人数；
+月度渗透率：自然月粒度下，（月度付费玩家数 / MAU）* 100%
+- 宽表: mt_ads_pre.ads_decismart_pay_cube_di  (dataset 300254)
+- dataset SQL: `mysql://ba/data_set#300254`
+- 维度: ['logymd']  · 过滤: ['<dynamic>']
+- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:151

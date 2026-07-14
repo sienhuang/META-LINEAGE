@@ -1,0 +1,11 @@
+# 卡顿满足率 · mcgg  `卡顿满足率__mcgg`
+
+> 逻辑指标 [[卡顿满足率]] 在产品线 **mcgg** 的实例
+
+- **公式**: `sum(indicator_map['carden_caton_cnt'])/cast(sum(indicator_map['carden_battle_cnt']) as decimal(38, 0))`
+- **业务口径**: 平均每10分钟大卡次数<=2的角色战斗总场次/角色战斗总场次*100%；
+卡顿满足率已于2025.04.22从[client_battleend_performance] 改为 [client_battleend_performance_mc]
+- 宽表: mt_ads_pre.ads_gamebi_roger_secondary_di  (dataset 300016)
+- dataset SQL: `mysql://ba/data_set#300016`
+- 维度: ['logymd']  · 过滤: ['<dynamic>']
+- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:544

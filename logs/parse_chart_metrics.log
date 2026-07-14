@@ -1,0 +1,64 @@
+2026-06-05 14:10:22,753 metawiki.parse_chart.metrics INFO 指标行(打平): 1909  (去重指标名: 400)
+2026-06-05 14:10:22,754 metawiki.parse_chart.metrics INFO   ├ 有 hint: 716  缺口: 1193
+2026-06-05 14:10:22,754 metawiki.parse_chart.metrics INFO   └ 涉及 senior 二次处理(待 Java 后端补充): 1395
+2026-06-05 14:10:22,754 metawiki.parse_chart.metrics INFO 底层指标: 956 行 (名字×宽表; 去重名字 408)  → catalog/generated/base_indicators.json
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO 写入 metadata_kb.metrics: 1909 行 (整表重灌)
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO D 层工单 · 底层指标频次 Top10 (优先攻这些):
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_2_total @ds=300172   [direct_column]
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_7_total @ds=300172   [direct_column]
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO      34 次  active_cnt               @ds=300005   [direct_column]
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO      32 次  pay_amt                  @ds=300005   [direct_column]
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO      29 次  active_cnt               @ds=300406   [direct_column]
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_2     @ds=300172   [direct_column]
+2026-06-05 14:10:23,168 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_7     @ds=300172   [direct_column]
+2026-06-05 14:10:23,215 metawiki.parse_chart.metrics INFO      26 次  acu                      @ds=300008   [direct_column]
+2026-06-05 14:10:23,215 metawiki.parse_chart.metrics INFO      26 次  pcu                      @ds=300008   [direct_column]
+2026-06-05 14:10:23,215 metawiki.parse_chart.metrics INFO      21 次  active_cnt               @ds=300266   [direct_column]
+2026-06-05 14:24:51,640 metawiki.parse_chart.metrics INFO 指标行(打平): 1909  (去重指标名: 400)
+2026-06-05 14:24:51,640 metawiki.parse_chart.metrics INFO   ├ 有 hint: 716  缺口: 1193
+2026-06-05 14:24:51,640 metawiki.parse_chart.metrics INFO   └ 涉及 senior 二次处理(待 Java 后端补充): 1395
+2026-06-05 14:24:51,640 metawiki.parse_chart.metrics INFO 底层指标: 956 行 (名字×宽表; 去重名字 408)  → catalog/generated/base_indicators.json
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO 写入 metadata_kb.metrics: 1909 行 (整表重灌)
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO D 层工单 · 底层指标频次 Top10 (优先攻这些):
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_2_total @ds=300172   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_7_total @ds=300172   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      34 次  active_cnt               @ds=300005   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      32 次  pay_amt                  @ds=300005   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      29 次  active_cnt               @ds=300406   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_2     @ds=300172   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_7     @ds=300172   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      26 次  acu                      @ds=300008   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      26 次  pcu                      @ds=300008   [direct_column]
+2026-06-05 14:24:51,876 metawiki.parse_chart.metrics INFO      21 次  active_cnt               @ds=300266   [direct_column]
+2026-06-05 14:25:16,250 metawiki.parse_chart.metrics INFO 指标行(打平): 1909  (去重指标名: 400)
+2026-06-05 14:25:16,250 metawiki.parse_chart.metrics INFO   ├ 有 hint: 716  缺口: 1193
+2026-06-05 14:25:16,250 metawiki.parse_chart.metrics INFO   └ 涉及 senior 二次处理(待 Java 后端补充): 1395
+2026-06-05 14:25:16,251 metawiki.parse_chart.metrics INFO 底层指标: 956 行 (名字×宽表; 去重名字 408)  → catalog/generated/base_indicators.json
+2026-06-05 14:25:16,389 metawiki.parse_chart.metrics INFO 写入 metadata_kb.metrics: 1909 行 (整表重灌)
+2026-06-05 14:25:16,389 metawiki.parse_chart.metrics INFO D 层工单 · 底层指标频次 Top10 (优先攻这些):
+2026-06-05 14:25:16,389 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_2_total @ds=300172   [direct_column]
+2026-06-05 14:25:16,389 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_7_total @ds=300172   [direct_column]
+2026-06-05 14:25:16,389 metawiki.parse_chart.metrics INFO      34 次  active_cnt               @ds=300005   [direct_column]
+2026-06-05 14:25:16,389 metawiki.parse_chart.metrics INFO      32 次  pay_amt                  @ds=300005   [direct_column]
+2026-06-05 14:25:16,390 metawiki.parse_chart.metrics INFO      29 次  active_cnt               @ds=300406   [direct_column]
+2026-06-05 14:25:16,390 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_2     @ds=300172   [direct_column]
+2026-06-05 14:25:16,390 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_7     @ds=300172   [direct_column]
+2026-06-05 14:25:16,390 metawiki.parse_chart.metrics INFO      26 次  acu                      @ds=300008   [direct_column]
+2026-06-05 14:25:16,390 metawiki.parse_chart.metrics INFO      26 次  pcu                      @ds=300008   [direct_column]
+2026-06-05 14:25:16,390 metawiki.parse_chart.metrics INFO      21 次  active_cnt               @ds=300266   [direct_column]
+2026-06-05 14:25:27,643 metawiki.parse_chart.metrics INFO 指标行(打平): 1909  (去重指标名: 400)
+2026-06-05 14:25:27,644 metawiki.parse_chart.metrics INFO   ├ 有 hint: 716  缺口: 1193
+2026-06-05 14:25:27,644 metawiki.parse_chart.metrics INFO   └ 涉及 senior 二次处理(待 Java 后端补充): 1395
+2026-06-05 14:25:27,644 metawiki.parse_chart.metrics INFO 底层指标: 956 行 (名字×宽表; 去重名字 408)  → catalog/generated/base_indicators.json
+2026-06-05 14:25:27,806 metawiki.parse_chart.metrics INFO 写入 metadata_kb.metrics: 1909 行 (整表重灌)
+2026-06-05 14:25:27,806 metawiki.parse_chart.metrics INFO D 层工单 · 底层指标频次 Top10 (优先攻这些):
+2026-06-05 14:25:27,806 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_2_total @ds=300172   [direct_column]
+2026-06-05 14:25:27,806 metawiki.parse_chart.metrics INFO      44 次  register_reten_cnt_7_total @ds=300172   [direct_column]
+2026-06-05 14:25:27,806 metawiki.parse_chart.metrics INFO      34 次  active_cnt               @ds=300005   [direct_column]
+2026-06-05 14:25:27,806 metawiki.parse_chart.metrics INFO      32 次  pay_amt                  @ds=300005   [direct_column]
+2026-06-05 14:25:27,807 metawiki.parse_chart.metrics INFO      29 次  active_cnt               @ds=300406   [direct_column]
+2026-06-05 14:25:27,807 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_2     @ds=300172   [direct_column]
+2026-06-05 14:25:27,807 metawiki.parse_chart.metrics INFO      29 次  register_reten_cnt_7     @ds=300172   [direct_column]
+2026-06-05 14:25:27,807 metawiki.parse_chart.metrics INFO      26 次  acu                      @ds=300008   [direct_column]
+2026-06-05 14:25:27,807 metawiki.parse_chart.metrics INFO      26 次  pcu                      @ds=300008   [direct_column]
+2026-06-05 14:25:27,807 metawiki.parse_chart.metrics INFO      21 次  active_cnt               @ds=300266   [direct_column]

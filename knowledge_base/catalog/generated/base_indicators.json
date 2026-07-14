@@ -1,0 +1,7650 @@
+[
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300172",
+    "source_type": "direct_column",
+    "usage_count": 44,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300172",
+    "source_type": "direct_column",
+    "usage_count": 44,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300005",
+    "source_type": "direct_column",
+    "usage_count": 34,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300005",
+    "source_type": "direct_column",
+    "usage_count": 32,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 29,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300172",
+    "source_type": "direct_column",
+    "usage_count": 29,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300172",
+    "source_type": "direct_column",
+    "usage_count": 29,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300008",
+    "source_type": "direct_column",
+    "usage_count": 26,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300008",
+    "source_type": "direct_column",
+    "usage_count": 26,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300266",
+    "source_type": "direct_column",
+    "usage_count": 21,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300407",
+    "source_type": "direct_column",
+    "usage_count": 21,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300407",
+    "source_type": "direct_column",
+    "usage_count": 21,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300005",
+    "source_type": "direct_column",
+    "usage_count": 18,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300218",
+    "source_type": "direct_column",
+    "usage_count": 17,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300266",
+    "source_type": "direct_column",
+    "usage_count": 16,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 16,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "product_money",
+    "dataset_id": "300314",
+    "source_type": "direct_column",
+    "usage_count": 16,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "roleid",
+    "dataset_id": "300314",
+    "source_type": "direct_column",
+    "usage_count": 16,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300263",
+    "source_type": "direct_column",
+    "usage_count": 15,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300264",
+    "source_type": "direct_column",
+    "usage_count": 15,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300405",
+    "source_type": "direct_column",
+    "usage_count": 15,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300401",
+    "source_type": "direct_column",
+    "usage_count": 15,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300403",
+    "source_type": "direct_column",
+    "usage_count": 15,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 14,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "last_pay_channel_yd_config",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 14,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_user_cnt",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 14,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300218",
+    "source_type": "direct_column",
+    "usage_count": 13,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 12,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300407",
+    "source_type": "direct_column",
+    "usage_count": 12,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300407",
+    "source_type": "direct_column",
+    "usage_count": 12,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300218",
+    "source_type": "direct_column",
+    "usage_count": 12,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 11,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300275",
+    "source_type": "metric_cal",
+    "usage_count": 11,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": null,
+    "source_type": "direct_column",
+    "usage_count": 10,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": null,
+    "source_type": "direct_column",
+    "usage_count": 10,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300198",
+    "source_type": "metric_cal",
+    "usage_count": 9,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300265",
+    "source_type": "metric_cal",
+    "usage_count": 9,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 9,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300266",
+    "source_type": "direct_column",
+    "usage_count": 9,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300368",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "logymd",
+    "dataset_id": "300314",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300263",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300264",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300368",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300198",
+    "source_type": "metric_cal",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300265",
+    "source_type": "metric_cal",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300266",
+    "source_type": "metric_cal",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300275",
+    "source_type": "metric_cal",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "product_money",
+    "dataset_id": "300311",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_7d",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_yd",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300270",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300372",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300270",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300372",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "sum_pay_user_cnt",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 8,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300195",
+    "source_type": "direct_column",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300255",
+    "source_type": "direct_column",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_battle_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300198",
+    "source_type": "metric_cal",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300265",
+    "source_type": "metric_cal",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300275",
+    "source_type": "metric_cal",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300218",
+    "source_type": "direct_column",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "sum_pay_user_cnt",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 7,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300009",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300015",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300054",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300056",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300276",
+    "source_type": "metric_cal",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300300",
+    "source_type": "metric_cal",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300307",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_cnt_country_fm",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mlbb_act_cnt",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day1",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300009",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300015",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300195",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300255",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300307",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300195",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300255",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_user_cnt",
+    "dataset_id": "300328",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_user_type",
+    "dataset_id": "300328",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_cnt_30days",
+    "dataset_id": "300005",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300009",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300015",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300368",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_day1",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300270",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300423",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_30_total",
+    "dataset_id": "300172",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_3_total",
+    "dataset_id": "300423",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300270",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300423",
+    "source_type": "direct_column",
+    "usage_count": 6,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300410",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300355",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "compet_act_cnt",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300410",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300276",
+    "source_type": "metric_cal",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300300",
+    "source_type": "metric_cal",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300355",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "product_money",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_3",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_3_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "thrid_product_money",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 5,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300117",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300161",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300272",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300284",
+    "source_type": "metric_cal",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300291",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300292",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300364",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_kpi",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "actual_pay_amt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300162",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt",
+    "dataset_id": "300107",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300019",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_black_cnt_country_fz",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300018",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300020",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_hero_app_cnt",
+    "dataset_id": "300141",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "equip_user_cnt",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "inside_product_money",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_auth_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mau",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "new_user_battle_cnt",
+    "dataset_id": "300126",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_age_group_role_cnt_arr",
+    "dataset_id": "300120",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_sex_role_cnt_arr",
+    "dataset_id": "300122",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_user_type_role_cnt_arr",
+    "dataset_id": "300118",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": null,
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300161",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300276",
+    "source_type": "metric_cal",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300284",
+    "source_type": "metric_cal",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300364",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt_daily",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt_kpi",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": null,
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300263",
+    "source_type": "metric_cal",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300264",
+    "source_type": "metric_cal",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300293",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300162",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_amt",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day2",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day2_total",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day30",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day30_total",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day7",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day7_total",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recall_user_battle_cnt",
+    "dataset_id": "300128",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_cnt_30days",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_day1",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300161",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_7d",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_yd",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten2",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten7",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300372",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300369",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_30",
+    "dataset_id": "300172",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_3_total",
+    "dataset_id": "300369",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300372",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300369",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "unlock_user_cnt",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "user_download_login_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "user_download_login_cnt",
+    "dataset_id": "300104",
+    "source_type": "direct_column",
+    "usage_count": 4,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "a2",
+    "dataset_id": "300329",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "a3",
+    "dataset_id": "300329",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300116",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300351",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300353",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300416",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300419",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_reten_day1",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300041",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300408",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300412",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300413",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300414",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "avg_active_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_report_violation_cnt",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300411",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300420",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300411",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300420",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300035",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300418",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_cnt_age",
+    "dataset_id": "300133",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_cnt_sex",
+    "dataset_id": "300135",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_cnt_total",
+    "dataset_id": "300131",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_black_cnt_age",
+    "dataset_id": "300133",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_black_cnt_sex",
+    "dataset_id": "300135",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_black_type_cnt",
+    "dataset_id": "300131",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300024",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300036",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300404",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300411",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300420",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300411",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300420",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_exp_match_num",
+    "dataset_id": "300137",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_exp_match_num_array",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_exp_matchid_socre_array",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_battle_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day1",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300041",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300412",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300272",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300300",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300351",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300353",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300419",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300272",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300284",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300351",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300353",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300041",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300408",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300412",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300413",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300414",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300410",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_amt",
+    "dataset_id": "300035",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_amt",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300024",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300036",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300404",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_amt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_amt",
+    "dataset_id": "300410",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "product_money",
+    "dataset_id": "300323",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day1",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_reten_day1",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300196",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300198",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300265",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300300",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300307",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300351",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300353",
+    "source_type": "metric_cal",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300417",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300423",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_3",
+    "dataset_id": "300423",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300423",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_role_zone_cnt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "sum_pay_user_cnt",
+    "dataset_id": "300328",
+    "source_type": "direct_column",
+    "usage_count": 3,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "2usd_pay_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "a1",
+    "dataset_id": "300329",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "a4",
+    "dataset_id": "300329",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "200003",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300053",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300055",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300220",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300246",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300287",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300304",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_30days",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_30days",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_kpi",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_pay_30d_cnt",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_register_30d_cnt",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_register_pay_30d_cnt",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "actual_pay_amt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "actual_usd_amt",
+    "dataset_id": "300311",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300040",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300200",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300404",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300405",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "add_diamond_amt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "arpu_kpi",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "avg_active_cnt",
+    "dataset_id": "300202",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "avg_active_cnt",
+    "dataset_id": "300256",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "avg_active_cnt",
+    "dataset_id": "300363",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_report_abuse_cnt",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battlecnt_match_time_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt_high",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt_hightall",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt_low",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt_mid",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt",
+    "dataset_id": "300107",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt_high",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt_hightall",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt_low",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_caton_cnt_mid",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "coda",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "coda",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "consume_amt",
+    "dataset_id": "300408",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "consume_amt",
+    "dataset_id": "300412",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300168",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300169",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300168",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300169",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300145",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300149",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_cnt_surr_fm",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300023",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300037",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300144",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300146",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300147",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300150",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_hero_app_cnt_total",
+    "dataset_id": "300141",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_hero_ban_cnt",
+    "dataset_id": "300141",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_hero_ban_cnt_total",
+    "dataset_id": "300141",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_hero_win_cnt",
+    "dataset_id": "300141",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "equip_start_battle_cnt",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gp",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gp",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "inside_actual_usd_amt",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ios",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ios",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_auth_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300168",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300169",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300168",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300169",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_sucess_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_sucess_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "lose_cnt_30ds",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "lose_cnt_7ds",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "lose_cnt_7ds",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_exp_match_num",
+    "dataset_id": "300139",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_exp_matchid_socre",
+    "dataset_id": "300137",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_suc_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_cnt_170",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_cnt_201",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_cnt_301",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_cnt_39",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mau",
+    "dataset_id": "300202",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mau",
+    "dataset_id": "300256",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mau",
+    "dataset_id": "300363",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mid_space",
+    "dataset_id": "300102",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mp",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mp",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mp_product_money",
+    "dataset_id": "300311",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_battle_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_stdping_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_stdping_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_stdping_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "new_active_cnt",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "new_user_battle_cnt_pre",
+    "dataset_id": "300126",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "nologin_cnt_30days",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_age_group_arr",
+    "dataset_id": "300120",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_sex_arr",
+    "dataset_id": "300122",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_user_type_arr",
+    "dataset_id": "300118",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day2",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day30",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day7",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300116",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300117",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300404",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "other",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "other",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "200003",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300221",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300246",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300289",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300292",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300293",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt_kpi",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_channel_amt",
+    "dataset_id": "300092",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300290",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300291",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300304",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_iap_amt",
+    "dataset_id": "300093",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_usd_amt",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300040",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300200",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300404",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300405",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_amt",
+    "dataset_id": "300149",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300037",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300147",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300150",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_cnt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_register_cnt",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "200003",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "rank_distribute_role_array",
+    "dataset_id": "300124",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recall_user_battle_cnt_pre",
+    "dataset_id": "300128",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_cnt_14days",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_cnt_30days",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_cnt_7days",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_day2",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_day30",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_14",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_30",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_7",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_90",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "200003",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300195",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300220",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300246",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300255",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300275",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300276",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300288",
+    "source_type": "metric_cal",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300364",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_7d",
+    "dataset_id": "300364",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_7d",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_7d",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_kpi",
+    "dataset_id": "300406",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_kpi",
+    "dataset_id": "300409",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_yd",
+    "dataset_id": "300364",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_yd",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_yd",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_day2",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_day30",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_day7",
+    "dataset_id": "300012",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_login_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten2",
+    "dataset_id": "300364",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten2",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten2",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten2",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten7",
+    "dataset_id": "300364",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten7",
+    "dataset_id": "300365",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten7",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten7",
+    "dataset_id": "300402",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_14",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_14_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_14_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300182",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300249",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2",
+    "dataset_id": "300369",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300182",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_2_total",
+    "dataset_id": "300249",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_3",
+    "dataset_id": "300369",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_30",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_30_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_30_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300182",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300249",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7",
+    "dataset_id": "300369",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300182",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300249",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_7_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_90",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_90_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_90_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "resource_array",
+    "dataset_id": "300054",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "resource_array",
+    "dataset_id": "300056",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "resource_num",
+    "dataset_id": "300054",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "resource_num",
+    "dataset_id": "300056",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "resoure_active_cnt",
+    "dataset_id": "300054",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "resoure_active_cnt",
+    "dataset_id": "300056",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "season_active_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "send_gift_cnt",
+    "dataset_id": "300432",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "send_gift_user_cnt",
+    "dataset_id": "300432",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "st_downloads",
+    "dataset_id": "300064",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "st_income",
+    "dataset_id": "300064",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "st_mau",
+    "dataset_id": "300064",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "sub_diamond_amt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "sub_diamond_operate_amt",
+    "dataset_id": "300091",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "third_product_money",
+    "dataset_id": "300311",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "thrid_actual_usd_amt",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "total_actual_amt",
+    "dataset_id": "300408",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "total_actual_amt",
+    "dataset_id": "300412",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "unipin",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "unipin",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "unknown",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "use_user_cnt",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "user_download_login_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "user_storage_download_complete_cnt",
+    "dataset_id": "300098",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "user_storage_download_complete_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "user_storage_download_complete_cnt",
+    "dataset_id": "300104",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "web_pag",
+    "dataset_id": "300330",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "web_pag",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 2,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300009",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300015",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300081",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300082",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300083",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300084",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300090",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300343",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "DYNAMIC_FIELD",
+    "dataset_id": "300344",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "200009",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "200010",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300124",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300254",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300273",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300278",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300280",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300282",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300285",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300294",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_30ds",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_7ds",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_7ds",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_all",
+    "dataset_id": "300081",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_all",
+    "dataset_id": "300083",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_period",
+    "dataset_id": "300088",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_rate",
+    "dataset_id": "300081",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_cnt_rate",
+    "dataset_id": "300083",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_pay_30d_cnt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_register_30d_cnt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_register_pay_30d_cnt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_reten_day2",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_reten_day30",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "active_reten_day7",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "actual_usd_amt",
+    "dataset_id": "300317",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "actual_usd_amt",
+    "dataset_id": "300323",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "200011",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "200013",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300148",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300151",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300174",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300175",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300188",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300229",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300235",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300260",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300280",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300295",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "acu",
+    "dataset_id": "300371",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "add_diamond_email_amt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "avg_space",
+    "dataset_id": "300102",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "balance_battle_cnt",
+    "dataset_id": "300017",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "balance_cnt",
+    "dataset_id": "300017",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_begin_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_cnt",
+    "dataset_id": "300116",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_complaint_violation_cnt",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_judge_abuse_succ_cnt",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_judge_violation_succ_cnt",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_success_fz",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "battle_warmcnt_fz",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "carden_battle_cnt_total",
+    "dataset_id": "300107",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "charge_day_amt",
+    "dataset_id": "300109",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "charge_point_amt",
+    "dataset_id": "300109",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "checking_step_1",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "checking_step_2",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "checking_step_3",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "click_pv",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "compet_act_cnt",
+    "dataset_id": "300069",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "compet_day_login_duration",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "compet_day_login_duration_avg",
+    "dataset_id": "300069",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "compet_reten_cnt_2days",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "compet_reten_cnt_30days",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "compet_reten_cnt_7days",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_pay_cnt",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "200000",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "200001",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300178",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300179",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300228",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt",
+    "dataset_id": "300234",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300178",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300179",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300228",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_day_cnt_7d",
+    "dataset_id": "300234",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "create_role_point_cnt",
+    "dataset_id": "200001",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "dau_day_cnt",
+    "dataset_id": "300109",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "dau_point_cnt",
+    "dataset_id": "300109",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300187",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300226",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_amt",
+    "dataset_id": "300231",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_black_num_country_fz",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_cnt_surr_fm",
+    "dataset_id": "300140",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_cnt_surr_fz",
+    "dataset_id": "300140",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_0",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_1",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_2",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_3",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_4",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_5",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_6",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_cnt_fm_7",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_0",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_1",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_2",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_3",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_4",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_5",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_6",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_dur_fz_7",
+    "dataset_id": "300143",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_battle_num_country_fm",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_black_cnt_age_total",
+    "dataset_id": "300133",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_black_cnt_sex_total",
+    "dataset_id": "300135",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_black_type_cnt_total",
+    "dataset_id": "300131",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300184",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300185",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300225",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300227",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300230",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_cnt",
+    "dataset_id": "300233",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_invaild_battle_cnt_fm",
+    "dataset_id": "300140",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "day_invaild_battle_cnt_fz",
+    "dataset_id": "300140",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "deep_ai_rollback_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "deep_ai_rollback_fz",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "distribution_channel",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "distribution_type",
+    "dataset_id": "300425",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "download_complete_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "download_login_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "edge_value",
+    "dataset_id": "300360",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_battle_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_battle_cnt",
+    "dataset_id": "300101",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_battle_cnt_high",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_battle_cnt_hightall",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_battle_cnt_low",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_battle_cnt_mid",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_ma",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_ma",
+    "dataset_id": "300101",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_ma_high",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_ma_hightall",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_ma_low",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "elec_ma_mid",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "equip_hero_cnt",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "exposure_pv",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "first_pay_cnt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "first_pay_cnt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "forbidden_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "forbidden_fz",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "funnel_type",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gamepackage_size",
+    "dataset_id": "300017",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gamepackage_size_16g",
+    "dataset_id": "300017",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gamepackage_size_32g",
+    "dataset_id": "300017",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gamepackage_size_64g",
+    "dataset_id": "300017",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gamepackage_size_64g_more",
+    "dataset_id": "300017",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gift_hot_val",
+    "dataset_id": "300432",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "gray_register_cnt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "his_first_pay_cnt",
+    "dataset_id": "200008",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "his_pay_active_cnt",
+    "dataset_id": "300089",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "his_rank_role_cnt",
+    "dataset_id": "300116",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "item_name",
+    "dataset_id": "300425",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "item_name",
+    "dataset_id": "300430",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "item_name",
+    "dataset_id": "300432",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "item_quality",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "item_type_name",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "last_season_rank_role_cnt",
+    "dataset_id": "300116",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "leading_game_cnt_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "loading_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "loading_total_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_auth_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "200000",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "200001",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300178",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300179",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300228",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt",
+    "dataset_id": "300234",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300178",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300179",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300228",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_day_cnt_7d",
+    "dataset_id": "300234",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_point_cnt",
+    "dataset_id": "200001",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "login_sucess_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "logintime_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "logintime_total_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_battle_cnt_170",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_battle_cnt_201",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_battle_cnt_301",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_battle_cnt_39",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_exp_match_num_total",
+    "dataset_id": "300137",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_exp_matchid_socre",
+    "dataset_id": "300139",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_fm_day_cnt",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_fz_day_cnt",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_fm",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_time_170",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_time_201",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_time_301",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_success_time_39",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "match_trace_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mau",
+    "dataset_id": "300198",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "meas_value",
+    "dataset_id": "300112",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "meas_value",
+    "dataset_id": "300113",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "meas_value",
+    "dataset_id": "300114",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "meas_value",
+    "dataset_id": "300115",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt",
+    "dataset_id": "300101",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt_2g_32bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt_2g_64bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt_6g_32bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt_6g_64bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt_6g_greater_32bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_battle_cnt_6g_greater_64bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss_2g_32bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss_2g_64bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss_6g_32bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss_6g_64bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss_6g_greater_32bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss_6g_greater_64bit",
+    "dataset_id": "300205",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "memory_pss_total",
+    "dataset_id": "300101",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mlbb_day_login_duration",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mlbb_reten_cnt_2days",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mlbb_reten_cnt_30days",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "mlbb_reten_cnt_7days",
+    "dataset_id": "300061",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "monthly_activity_ratio",
+    "dataset_id": "300198",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "myth_user_cnt_fz",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "myth_user_cnt_total_fm",
+    "dataset_id": "300130",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "natural_register_cnt",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_fm_day_cnt",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_fz_day_cnt",
+    "dataset_id": "300366",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_stdping_cnt_30d",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "network_timedelay_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "node_lelvel",
+    "dataset_id": "300360",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "nologin_cnt_14days",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "nologin_cnt_30days",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "nologin_cnt_7days",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "non_natural_register_cnt",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "noreslv_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "noreslv_total_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "not_dominating_cnt_fz",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_age_group_role_cnt_arr_total",
+    "dataset_id": "300120",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_sex_role_cnt_arr_total",
+    "dataset_id": "300122",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ol_dur_user_type_role_cnt_arr_total",
+    "dataset_id": "300118",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day2",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day30",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "old_reten_day7",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300195",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300255",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300282",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300294",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_dur",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "200013",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300151",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300175",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300188",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300235",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300301",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "online_num",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_active_cnt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300090",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300094",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300279",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300281",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300286",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300304",
+    "source_type": "metric_cal",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300343",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300344",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt",
+    "dataset_id": "300417",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt_total",
+    "dataset_id": "300091",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt_total",
+    "dataset_id": "300092",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_amt_total",
+    "dataset_id": "300093",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_channel_cnt",
+    "dataset_id": "300092",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300090",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300094",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300254",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300277",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300278",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300279",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300283",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300285",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300286",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300288",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300312",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300313",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300343",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300344",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_cnt_month",
+    "dataset_id": "300254",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_iap_cnt",
+    "dataset_id": "300093",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_register_amt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pay_register_cnt",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "200011",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "200013",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300148",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300151",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300174",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300175",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300188",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300229",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300235",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300260",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300280",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300295",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pcu",
+    "dataset_id": "300371",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ping_total",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300273",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300280",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300284",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300285",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_active_cnt",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_amt",
+    "dataset_id": "300187",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_amt",
+    "dataset_id": "300231",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300184",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300185",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300230",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_cnt",
+    "dataset_id": "300233",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_amt",
+    "dataset_id": "300281",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_amt",
+    "dataset_id": "300284",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_amt",
+    "dataset_id": "300286",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_amt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_cnt",
+    "dataset_id": "300283",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_cnt",
+    "dataset_id": "300285",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_cnt",
+    "dataset_id": "300286",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_cnt",
+    "dataset_id": "300288",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_pay_cnt",
+    "dataset_id": "300400",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_register_cnt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_register_cnt",
+    "dataset_id": "300282",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "point_register_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "200009",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "200010",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_register_cnt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_cnt",
+    "dataset_id": "200004",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_cnt_1",
+    "dataset_id": "300222",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day2",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day30",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "pure_reten_day7",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ranklevel_grandmaster_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ranklevel_master_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "ratio",
+    "dataset_id": "300360",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "reach_his_bigrank_role_cnt",
+    "dataset_id": "300116",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "reach_last_season_bigrank_cnt",
+    "dataset_id": "300116",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "reconnect_battle_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "reconnect_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_cnt_30days",
+    "dataset_id": "300009",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_cnt_30days",
+    "dataset_id": "300015",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_reten_day2",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_reten_day30",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "recurring_reten_day7",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_1",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_180",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_360",
+    "dataset_id": "300201",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_360",
+    "dataset_id": "300258",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_360",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_480",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_amt_720",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_day180",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_day30",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_day60",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_charge_day90",
+    "dataset_id": "300085",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "200009",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "200010",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300086",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300263",
+    "source_type": "metric_cal",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300264",
+    "source_type": "metric_cal",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300272",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300273",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300274",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300282",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300284",
+    "source_type": "metric_cal",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300304",
+    "source_type": "metric_cal",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt",
+    "dataset_id": "300410",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_total",
+    "dataset_id": "300195",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_total",
+    "dataset_id": "300255",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_total",
+    "dataset_id": "300350",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_cnt_yd",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_pay_amt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_pay_cnt",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten2",
+    "dataset_id": "300302",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt",
+    "dataset_id": "200004",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_1",
+    "dataset_id": "300201",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_1",
+    "dataset_id": "300222",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_1",
+    "dataset_id": "300257",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_1",
+    "dataset_id": "300258",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_1",
+    "dataset_id": "300270",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_1",
+    "dataset_id": "300278",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_180",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_180_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_180_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_1_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_360",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_360_total",
+    "dataset_id": "300201",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_360_total",
+    "dataset_id": "300258",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_360_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_360_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_480",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_480_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_480_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_720",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_720_total",
+    "dataset_id": "300354",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "register_reten_cnt_720_total",
+    "dataset_id": "300356",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "repurchase_rate",
+    "dataset_id": "300331",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "road_good_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "road_good_fz",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "score_net",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "season_online_dur",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "simulator_register_cnt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "smallreconnect_per10min_battle_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "smallreconnect_per10min_cnt",
+    "dataset_id": "300016",
+    "source_type": "map_key",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "source_node",
+    "dataset_id": "300360",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "st_downloads",
+    "dataset_id": "300068",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "st_income",
+    "dataset_id": "300068",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "st_mau",
+    "dataset_id": "300068",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "step40_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "step44_cnt",
+    "dataset_id": "300099",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "sub_diamond_operate_cnt",
+    "dataset_id": "300091",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "successcnt_match_time_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "switch_register_cnt",
+    "dataset_id": "300197",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "target_node",
+    "dataset_id": "300360",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "total_battle_cnt_warm_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "totalmatchtime_match_time_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "unlock_item_cnt",
+    "dataset_id": "300425",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "use_item_cnt",
+    "dataset_id": "300428",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "use_item_cnt",
+    "dataset_id": "300430",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "use_user_cnt",
+    "dataset_id": "300430",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "user_download_login_cnt_total",
+    "dataset_id": "300104",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "win_achieve_fm",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  },
+  {
+    "key": "win_achieve_fz",
+    "dataset_id": "300342",
+    "source_type": "direct_column",
+    "usage_count": 1,
+    "algo": null,
+    "status": "待补"
+  }
+]

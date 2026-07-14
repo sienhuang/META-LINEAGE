@@ -1,0 +1,17 @@
+# mt_ads_realtime.ads_realtime_charge_detail_di  ()
+
+> 
+
+- 物理表: `mt_ads_realtime.ads_realtime_charge_detail_di` · 引擎: flink/realtime · 分层: ads · 粒度: — · 类型: wide_table
+
+> ⚠️ 实时表:口径在 Flink 任务,列级血缘暂未解析(待补)。
+
+## 血缘
+- 上游源表: —
+- 由 ETL 构建(task): —
+- 被这些指标使用: —
+
+## 被 dataset 取数的 SQL(C 层复用口径)
+```sql
+WITH point_range AS( SELECT generate_series AS point FROM TABLE(generate_series(0, 287))), t_charge AS( SELECT roleid, zoneid, big_zoneid, os, channel, point, COALESCE(sub_pay_channel, 'unknown') AS sub_pay_channel, COALESCE(receipt_type, -99999) AS receipt_type, money, logymd, country FROM mt_ads_realtime.ads_realtime_charge_detail_di WHERE ${logymd} AND ${appname} AND ${granularity_type} AND ${date_type} AND ${big_zoneid} AND ${zoneid} AND ${os} AND ${country} AND ${channel}), receipt_mapping AS( SELECT d1.receipt_type, d1.pay_channel, d1.pay_channel_name FROM mt_dim.dim_receipt_mapping_di d1 INNER JOIN( SELECT MAX(logymd) AS logymd FROM mt_dim.dim_receipt_mapping_di WHERE logymd > '0' AND appid = 'ml') d2 ON d1.logymd = d2.logymd WHERE d1.appid = 'ml'), dim_country AS ( SELECT region, country_type, definition_type, country_code FROM mt_dim.dim_country WHERE ${definition_type} ), t_charge_with_channel AS ( SELECT t_charge.roleid, t_charge.zoneid, t_charge.big_zoneid, t_charge.country, t_charge.os, t_charge.channel, t_charge.point, t_charge.money, t_charge.receipt_type, IF( t_charge.sub_pay_channel IS NULL OR t_charge.sub_pay_channel = '', '-', t_charge.sub_pay_channel ) AS sub_pay_channel_raw, COALESCE(b.pay_channel_name, 'unknown') AS pay_channel FROM t_charge LEFT JOIN receipt_mapping b ON t_charge.receipt_type = b.pay_channel AND b.pay_channel <> 0 LEFT JOIN dim_country c ON t_charge.country = c.country_code WHERE ${region} ), t_charge_config AS ( SELECT roleid, zoneid, big_zoneid, country, os, channel, point, money, receipt_type, sub_pay_channel_raw, pay_channel, COALESCE( CASE WHEN LOWER(pay_channel) LIKE '%mt%' THEN 'mobapay' ELSE pay_channel END, 'unknown' ) AS pay_channel_config, CASE WHEN pay_channel LIKE '%ios%' OR pay_channel LIKE '%and%' THEN 2 ELSE 1 END AS pay_channel_type FROM t_charge_with_channel ), t_charge_final AS ( SELECT roleid, zoneid, big_zoneid, country, os, channel, point, money, pay_channel_config AS pay_channel, CONCAT_WS( '\||', pay_channel_type, pay_channel_config, CASE WHEN pay_channel_config = 'unknown' THEN 'unknown' ELSE sub_pay_channel_raw END ) AS sub_pay_channel, pay_channel_type, CASE WHEN pay_channel_config = 'unknown' THEN 'unknown' ELSE sub_pay_channel_raw END AS sub_pay_channel_config_source FROM t_charge_config ), t_charge_filter AS ( SELECT roleid, zoneid, big_zoneid, country, os, channel, point, money, pay_channel, sub_pay_channel, pay_channel_type, sub_pay_channel_config_source FROM t_charge_final WHERE ${pay_channel} AND ${sub_pay_channel} ), login_cnt AS ( SELECT point, SUM(money)/ 100 AS cnt FROM t_charge_filter GROUP BY point ), max_point_cte AS ( SELECT IF( ${IS_USE_CURRENT_POINT_EACH}, FLOOR( ( HOUR(CONVERT_TZ(NOW(), @@system_time_zone, '-08:00')) * 3600 + MINUTE(CONVERT_TZ(NOW(), @@system_time_zone, '-08:00')) * 60 + SECOND(CONVERT_TZ(NOW(), @@system_time_zone, '-08:00')) ) / 300 ), 512 ) AS max_point ) SELECT '#{data_date}' AS logymd, r.point, l.cnt AS point_cnt, SUM(COALESCE(l.cnt, 0)) OVER ( ORDER BY r.point ASC) AS day_cnt FROM point_range r LEFT JOIN login_cnt l ON r.point = l.point CROSS JOIN max_point_cte m WHERE r.point <= m.max_point ORDER BY r.point ASC
+```

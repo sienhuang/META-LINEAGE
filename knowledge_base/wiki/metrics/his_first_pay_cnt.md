@@ -1,0 +1,17 @@
+# 破冰付费玩家数  `his_first_pay_cnt`
+
+**业务口径**: 当日首次出现付费行为的玩家数
+
+## 怎么算
+**公式**: `sum(his_first_pay_cnt)`
+
+依赖的底层指标:
+- [[his_first_pay_cnt]] (?) — `⚠️待D层` [待补] · 取数 `his_first_pay_cnt`
+
+## 数据来源
+- 宽表: ⚠️ 待P2  (dataset ['200008'])
+- 维度: —  · 过滤: —
+
+## 元信息
+- 分类: pay-cnt · 产品线: ['mlcn'] · tier: 长尾
+- 来源代码: src/views/MlcnOverview/Component/SecondaryIndicators/const.ts:501

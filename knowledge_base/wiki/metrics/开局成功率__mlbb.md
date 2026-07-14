@@ -1,0 +1,11 @@
+# 开局成功率 · mlbb  `开局成功率__mlbb`
+
+> 逻辑指标 [[开局成功率]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(battle_success_fz)/sum(match_success_fm)`
+- **业务口径**: 玩家匹配成功且进入战斗的对局数 / 所有匹配成功的对局数 * 100%；
+数据起始日期为2023-08-08。
+- 宽表: mt_ads.ads_decismart_country_social_battle_exp_di  (dataset 300130)
+- dataset SQL: `mysql://ba/data_set#300130`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1186

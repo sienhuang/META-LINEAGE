@@ -1,0 +1,109 @@
+WITH
+a AS (
+    SELECT
+        active_date_diff,
+        charge_amt_total,
+        is_active,
+        logymd,
+        roleid,
+        CASE WHEN register_date_diff < 0 THEN '无信息' WHEN register_date_diff = 0 THEN '0' WHEN register_date_diff <= 6 THEN '[1,6]' WHEN register_date_diff <= 29 THEN '[7,29]' WHEN register_date_diff <= 89 THEN '[30,89]' WHEN register_date_diff <= 179 THEN '[90,179]' WHEN register_date_diff <= 359 THEN '[180,359]' WHEN register_date_diff <= 719 THEN '[360,719]' WHEN register_date_diff >= 720 THEN '[720,)' ELSE '无信息' END AS user_period,
+        zoneid
+    FROM mt_dm.dm_active_pay_role_zone_di AS dm_active_pay_role_zone_di
+    WHERE active_date = '2026-05-30' AND logymd IN ('2026-05-30', '2026-05-29', '2026-05-28', '2026-05-24', '2026-05-17', '2026-05-01', '2026-03-02') AND active_date_diff IN (0, 1, 2, 6, 13, 29, 89)
+),
+b AS (
+    SELECT
+        MAX(LEVEL) AS day_max_level,
+        logymd,
+        roleid,
+        zoneid
+    FROM mt_dwm.dwm_active_role_zone_di AS dwm_active_role_zone_di
+    WHERE zoneid < 57000 AND is_ai = 0 AND logymd IN ('2026-05-30', '2026-05-29', '2026-05-28', '2026-05-24', '2026-05-17', '2026-05-01', '2026-03-02') AND appid = 'mlbb'
+    GROUP BY roleid, zoneid, logymd
+),
+c AS (
+    SELECT
+        create_os,
+        LOWER(first_mt_country) AS first_mt_country,
+        first_network_name,
+        CASE WHEN new_type = 1 THEN '小号回流新增' WHEN new_type = 2 THEN '模拟器新增' WHEN new_type = 3 THEN '纯净新增' WHEN new_type = 4 THEN '切换设备换绑' WHEN new_type = 5 THEN '小号新增' ELSE '无信息' END AS new_type,
+        roleid,
+        zoneid
+    FROM mt_dim.dim_basic_role_zone_df AS dim_basic_role_zone_df
+    WHERE logymd = IF('2026-05-30' < '2023-01-01', '2023-01-01', '2026-05-30') AND appid = 'mlbb' AND zoneid < 57000 AND is_ai = 0
+    GROUP BY roleid, zoneid, LOWER(first_mt_country), create_os, first_network_name, CASE WHEN new_type = 1 THEN '小号回流新增' WHEN new_type = 2 THEN '模拟器新增' WHEN new_type = 3 THEN '纯净新增' WHEN new_type = 4 THEN '切换设备换绑' WHEN new_type = 5 THEN '小号新增' ELSE '无信息' END
+),
+d AS (
+    SELECT
+        country,
+        lower
+    FROM mt_dim.dim_national_geographic_atlas_config AS dim_national_geographic_atlas_config
+),
+e AS (
+    SELECT
+        his_activedays AS his_activedays_before_1,
+        logymd,
+        roleid,
+        zoneid
+    FROM mt_dwm.dwm_active_role_zone_df AS dwm_active_role_zone_df
+    WHERE logymd IN ('2026-05-29', '2026-05-28', '2026-05-27', '2026-05-23', '2026-05-16', '2026-04-30', '2026-03-01') AND appid = 'mlbb' AND zoneid < 57000
+    GROUP BY logymd, roleid, zoneid, his_activedays
+),
+f AS (
+    SELECT
+        his_activedays AS his_activedays_before_31,
+        logymd,
+        roleid,
+        zoneid
+    FROM mt_dwm.dwm_active_role_zone_df AS dwm_active_role_zone_df
+    WHERE logymd IN ('2026-04-29', '2026-04-28', '2026-04-27', '2026-04-23', '2026-04-16', '2026-03-31', '2026-01-30') AND appid = 'mlbb' AND zoneid < 57000
+    GROUP BY logymd, roleid, zoneid, his_activedays
+),
+a AS (
+    SELECT
+        a.active_date_diff,
+        (COALESCE(e.his_activedays_before_1, 0) - COALESCE(f.his_activedays_before_31, 0)) AS active_days,
+        a.charge_amt_total,
+        d.country,
+        c.create_os,
+        b.day_max_level,
+        c.first_network_name,
+        a.is_active,
+        a.logymd,
+        c.new_type,
+        a.roleid,
+        a.user_period,
+        a.zoneid
+    FROM a
+    LEFT JOIN b
+        ON a.roleid = b.roleid AND a.zoneid = b.zoneid AND a.logymd = b.logymd
+    LEFT JOIN c
+        ON a.roleid = c.roleid AND a.zoneid = c.zoneid
+    LEFT JOIN d
+        ON c.first_mt_country = d.lower
+    LEFT JOIN e
+        ON a.roleid = e.roleid AND a.zoneid = e.zoneid AND a.logymd = DATE_ADD(e.logymd, 1) /* -------------匹配业务日期前1天历史累计活跃天数 */
+    LEFT JOIN f
+        ON a.roleid = f.roleid AND a.zoneid = f.zoneid AND a.logymd = DATE_ADD(f.logymd, 31) /* -------------匹配业务日期前31天历史累计活跃天数 */
+    GROUP BY a.logymd, a.roleid, a.zoneid, b.day_max_level, d.country, c.new_type, a.is_active, a.charge_amt_total, a.user_period, a.active_date_diff, c.create_os, c.first_network_name, (COALESCE(e.his_activedays_before_1, 0) - COALESCE(f.his_activedays_before_31, 0))
+),
+temp_active_retain_30activedays AS (
+    SELECT
+        active_date_diff,
+        CASE WHEN active_days = 0 THEN '0' WHEN active_days BETWEEN 1 AND 2 THEN '[1,2]' WHEN active_days BETWEEN 3 AND 8 THEN '[3,8]' WHEN active_days BETWEEN 9 AND 17 THEN '[9,17]' WHEN active_days BETWEEN 18 AND 25 THEN '[18,25]' WHEN active_days BETWEEN 26 AND 30 THEN '[26,30]' ELSE '无信息' END AS active_days /* 前30天活跃天数分层 */,
+        SUM(charge_amt_total) AS amount /* [logymd,logymd + active_date_diff]，区间内总付费（美分） */,
+        CASE WHEN country IS NULL THEN '无信息' ELSE country END AS country,
+        create_os,
+        CASE WHEN day_max_level BETWEEN 1 AND 10 THEN '[1,10]' WHEN day_max_level BETWEEN 11 AND 20 THEN '[11,20]' WHEN day_max_level BETWEEN 21 AND 30 THEN '[21,30]' WHEN day_max_level BETWEEN 31 AND 40 THEN '[31,40]' WHEN day_max_level BETWEEN 41 AND 50 THEN '[41,50]' WHEN day_max_level BETWEEN 51 AND 60 THEN '[51,60]' WHEN day_max_level BETWEEN 61 AND 70 THEN '[61,70]' WHEN day_max_level BETWEEN 71 AND 80 THEN '[71,80]' WHEN day_max_level BETWEEN 81 AND 90 THEN '[81,90]' WHEN day_max_level BETWEEN 91 AND 100 THEN '[91,100]' WHEN day_max_level >= 101 THEN '[101,)' ELSE '无信息' END AS day_max_level,
+        first_network_name,
+        is_active,
+        logymd /* 活跃日期 */,
+        new_type,
+        user_period,
+        COUNT(DISTINCT roleid, zoneid) AS usercnt /* 角色数 */
+    FROM a
+    GROUP BY logymd /* 活跃日期 */, active_date_diff, is_active, CASE WHEN day_max_level BETWEEN 1 AND 10 THEN '[1,10]' WHEN day_max_level BETWEEN 11 AND 20 THEN '[11,20]' WHEN day_max_level BETWEEN 21 AND 30 THEN '[21,30]' WHEN day_max_level BETWEEN 31 AND 40 THEN '[31,40]' WHEN day_max_level BETWEEN 41 AND 50 THEN '[41,50]' WHEN day_max_level BETWEEN 51 AND 60 THEN '[51,60]' WHEN day_max_level BETWEEN 61 AND 70 THEN '[61,70]' WHEN day_max_level BETWEEN 71 AND 80 THEN '[71,80]' WHEN day_max_level BETWEEN 81 AND 90 THEN '[81,90]' WHEN day_max_level BETWEEN 91 AND 100 THEN '[91,100]' WHEN day_max_level >= 101 THEN '[101,)' ELSE '无信息' END, CASE WHEN country IS NULL THEN '无信息' ELSE country END, new_type, user_period, create_os, first_network_name, CASE WHEN active_days = 0 THEN '0' WHEN active_days BETWEEN 1 AND 2 THEN '[1,2]' WHEN active_days BETWEEN 3 AND 8 THEN '[3,8]' WHEN active_days BETWEEN 9 AND 17 THEN '[9,17]' WHEN active_days BETWEEN 18 AND 25 THEN '[18,25]' WHEN active_days BETWEEN 26 AND 30 THEN '[26,30]' ELSE '无信息' END
+)
+SELECT
+    temp_active_retain_30activedays.amount
+FROM temp_active_retain_30activedays;

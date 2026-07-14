@@ -1,0 +1,47 @@
+# day_black_per_person_rate  `day_black_per_person_rate`
+
+**业务口径**: 处于开黑状态的人员及其相应战斗总场次 / 所有人员的战斗总场次 * 100%
+
+## 怎么算
+**公式**: `sum(day_battle_black_num_country_fz)/sum(day_battle_num_country_fm)`
+
+依赖的底层指标:
+- [[day_battle_black_num_country_fz]] (?) — `day_battle_black_num_country_fz` [已确认] · 取数 `day_battle_black_num_country_fz`
+- [[day_battle_num_country_fm]] (?) — `day_battle_num_country_fm` [已确认] · 取数 `day_battle_num_country_fm`
+
+## 数据来源
+- 宽表: [[ads_decismart_country_social_battle_exp_di]]
+- dataset: ['300130']  · 产品线 scope: ['mlbb']
+
+## 字段生成逻辑(D 层)
+- **day_battle_black_num_country_fz** @ `mt_ads.ads_decismart_country_social_battle_exp_di`
+  - 跨任务血缘链(`mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_black_num_country_fz`):
+    - d0 `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` [direct] `day_battle_black_num_country_fz`
+    - d1 `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1_branch_1.day_battle_black_num_country_fz` [derived] `UNION_BRANCH_COLUMN[20]`
+    - d1 `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1_branch_2.day_battle_black_num_country_fz` [derived] `UNION_BRANCH_COLUMN[20]`
+    - d2 `subquery:job.100027494_1:t1_branch_1.day_battle_black_num_country_fz` ⇐ `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_black_num_country_fz` [direct] `day_battle_black_num_country_fz`
+    - d3 `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` [direct] `day_battle_black_num_country_fz`
+    - d4 `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1_branch_1.day_battle_black_num_country_fz` [derived] `UNION_BRANCH_COLUMN[20]`
+    - d4 `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1_branch_2.day_battle_black_num_country_fz` [derived] `UNION_BRANCH_COLUMN[20]`
+    - d5 `subquery:job.100027494_1:t1_branch_1.day_battle_black_num_country_fz` ⇐ `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_black_num_country_fz` [direct] `day_battle_black_num_country_fz`
+    - d6 `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` [direct] `day_battle_black_num_country_fz`
+    - d7 `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1_branch_1.day_battle_black_num_country_fz` [derived] `UNION_BRANCH_COLUMN[20]`
+    - d7 `subquery:job.100027494_1:t1.day_battle_black_num_country_fz` ⇐ `subquery:job.100027494_1:t1_branch_2.day_battle_black_num_country_fz` [derived] `UNION_BRANCH_COLUMN[20]`
+    - d8 `subquery:job.100027494_1:t1_branch_1.day_battle_black_num_country_fz` ⇐ `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_black_num_country_fz` [direct] `day_battle_black_num_country_fz`
+- **day_battle_num_country_fm** @ `mt_ads.ads_decismart_country_social_battle_exp_di`
+  - 跨任务血缘链(`mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_num_country_fm`):
+    - d0 `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1.day_battle_num_country_fm` [direct] `day_battle_num_country_fm`
+    - d1 `subquery:job.100027494_1:t1.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1_branch_1.day_battle_num_country_fm` [derived] `UNION_BRANCH_COLUMN[19]`
+    - d1 `subquery:job.100027494_1:t1.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1_branch_2.day_battle_num_country_fm` [derived] `UNION_BRANCH_COLUMN[19]`
+    - d2 `subquery:job.100027494_1:t1_branch_1.day_battle_num_country_fm` ⇐ `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_num_country_fm` [direct] `day_battle_num_country_fm`
+    - d3 `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1.day_battle_num_country_fm` [direct] `day_battle_num_country_fm`
+    - d4 `subquery:job.100027494_1:t1.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1_branch_1.day_battle_num_country_fm` [derived] `UNION_BRANCH_COLUMN[19]`
+    - d4 `subquery:job.100027494_1:t1.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1_branch_2.day_battle_num_country_fm` [derived] `UNION_BRANCH_COLUMN[19]`
+    - d5 `subquery:job.100027494_1:t1_branch_1.day_battle_num_country_fm` ⇐ `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_num_country_fm` [direct] `day_battle_num_country_fm`
+    - d6 `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1.day_battle_num_country_fm` [direct] `day_battle_num_country_fm`
+    - d7 `subquery:job.100027494_1:t1.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1_branch_1.day_battle_num_country_fm` [derived] `UNION_BRANCH_COLUMN[19]`
+    - d7 `subquery:job.100027494_1:t1.day_battle_num_country_fm` ⇐ `subquery:job.100027494_1:t1_branch_2.day_battle_num_country_fm` [derived] `UNION_BRANCH_COLUMN[19]`
+    - d8 `subquery:job.100027494_1:t1_branch_1.day_battle_num_country_fm` ⇐ `mt_ads.ads_decismart_country_social_battle_exp_di.day_battle_num_country_fm` [direct] `day_battle_num_country_fm`
+
+## 元信息
+- 分类: other · tier: 长尾

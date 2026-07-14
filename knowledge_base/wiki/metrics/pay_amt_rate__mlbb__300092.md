@@ -1,0 +1,10 @@
+# pay_amt_rate · mlbb  `pay_amt_rate__mlbb__300092`
+
+> 逻辑指标 [[pay_amt_rate]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(pay_channel_amt)/sum(cast(pay_amt_total as decimal(38,0)))`
+- **业务口径**: ⚠️ 缺(见逻辑指标)
+- 宽表: mt_ads.ads_decismart_pay_cube_di  (dataset 300092)
+- dataset SQL: `mysql://ba/data_set#300092`
+- 维度: ['pay_channel']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:737

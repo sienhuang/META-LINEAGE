@@ -1,0 +1,10 @@
+# 举报率 · mlbb  `举报率__mlbb`
+
+> 逻辑指标 [[举报率]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(battle_report_violation_cnt)/sum(day_battle_cnt_surr_fm)`
+- **业务口径**: 由于举报系统迭代，仅展示2024-08-01至今的数据。
+- 宽表: mt_ads.ads_decismart_country_social_battle_exp_di  (dataset 300130)
+- dataset SQL: `mysql://ba/data_set#300130`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1376

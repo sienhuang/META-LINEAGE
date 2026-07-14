@@ -1,0 +1,9 @@
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO 追溯 mt_ads_pre.ads_gamebi_roger_secondary_di.indicator_map 的计算来源(上游)(共 8 跳边):
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO   [d0] mt_ads_pre.ads_gamebi_roger_secondary_di.indicator_map <= mt_dm.dm_multi_decismart_core_df_test.actual_pay_amt [aggregated]  ⟵ SUM(actual_pay_amt) AS actual_pay_amt /* 活跃天数 */
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO   [d0] mt_ads_pre.ads_gamebi_roger_secondary_di.indicator_map <= mt_dm.dm_multi_decismart_core_df_test.pay_amt [aggregated]  ⟵ SUM(pay_amt) AS pay_amt
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO   [d0] mt_ads_pre.ads_gamebi_roger_secondary_di.indicator_map <= bi_test.dwm_zgame_active_role_zone_di.logymd [aggregated]  ⟵ COUNT(DISTINCT logymd) AS active_days
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO   [d0] mt_ads_pre.ads_gamebi_roger_secondary_di.indicator_map <= bi_test.dwm_zgame_active_role_zone_di.roleid [direct]  ⟵ roleid
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO     [d1] bi_test.dwm_zgame_active_role_zone_di.roleid <= zgame_damai_ods.gameserver_login.roleid [direct]  ⟵ roleid
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO     [d1] bi_test.dwm_zgame_active_role_zone_di.roleid <= zgame_damai_ods.gameserver_logout.roleid [direct]  ⟵ roleid
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO     [d1] bi_test.dwm_zgame_active_role_zone_di.roleid <= zgame_damai_ods.gameserver_charge.roleid [direct]  ⟵ roleid
+2026-06-09 16:51:08,930 metawiki.parse_etl.lineage INFO     [d1] bi_test.dwm_zgame_active_role_zone_di.roleid <= zgame_damai_ods.gameserver_fight_pve.roleid [direct]  ⟵ roleid

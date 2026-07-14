@@ -1,0 +1,11 @@
+# 赛季最高段位达成率 · mlbb  `赛季最高段位达成率__mlbb`
+
+> 逻辑指标 [[赛季最高段位达成率]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(reach_last_season_bigrank_cnt)/sum(last_season_rank_role_cnt) `
+- **业务口径**: 玩家历史最高段位达成率：达到生涯最高段位的玩家数/总活跃玩家数 * 100%；
+赛季最高段位达成率：达到上赛季截止80天最高段位的玩家数/总活跃玩家数 * 100%；
+- 宽表: test.ads_decismart_rank_analysis  (dataset 300116)
+- dataset SQL: `mysql://ba/data_set#300116`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:493

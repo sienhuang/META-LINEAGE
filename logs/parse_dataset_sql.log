@@ -1,0 +1,9 @@
+2026-06-05 14:42:40,575 metawiki.parse_dataset.sql INFO 数据集(ba.data_set): 465  (有 SQL: 465, 解析出宽表: 447)
+2026-06-05 14:42:40,575 metawiki.parse_dataset.sql INFO   ├ 指标 dataSetId 覆盖: 196/214 命中  (缺失 18 个: 200001, 200003, 200004, 200008, 200009, 200010, 200011, 200013, 300081, 300082…)
+2026-06-05 14:42:40,575 metawiki.parse_dataset.sql INFO   └ 占位符有未声明变量的数据集: 202
+2026-06-05 14:42:40,576 metawiki.parse_dataset.sql INFO 写 catalog/generated/datasets.json: 465 行
+2026-06-05 14:44:18,394 metawiki.parse_dataset.sql INFO 数据集(ba.data_set): 465  (有 SQL: 465, 解析出宽表: 447)
+2026-06-05 14:44:18,394 metawiki.parse_dataset.sql INFO   ├ 指标 dataSetId 覆盖: 196/214 命中  (缺失 18 个: 200001, 200003, 200004, 200008, 200009, 200010, 200011, 200013, 300081, 300082…)
+2026-06-05 14:44:18,394 metawiki.parse_dataset.sql INFO   └ 占位符有未声明变量的数据集: 202
+2026-06-05 14:44:18,394 metawiki.parse_dataset.sql INFO 写 catalog/generated/datasets.json: 465 行
+2026-06-05 14:44:18,604 metawiki.parse_dataset.sql INFO 写入 metadata_kb.datasets: 465 行 (整表重灌)

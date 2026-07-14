@@ -1,0 +1,8 @@
+# 底层指标字典 · P3 建骨架, P4 补 algo
+key: mau
+name_cn: 月活跃用户数(去重)                          # [示例] 待人工/LLM 确认
+source_type: map_key
+usage_count: 1
+algo: "[示例] count(distinct uid)  -- 自然月内去重"   # [示例] 待解析 Spark SQL
+defined_in: "spark_sql://etl/dws_mlbb_indicator_wide_1d"  # [示例]
+status: 草稿

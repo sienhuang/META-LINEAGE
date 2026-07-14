@@ -1,0 +1,10 @@
+# 充值渗透率 · mcgg  `充值渗透率__mcgg`
+
+> 逻辑指标 [[充值渗透率]] 在产品线 **mcgg** 的实例
+
+- **公式**: `sum(pay_cnt)/sum(active_cnt)`
+- **业务口径**: (当日付费玩家数)/(当日活跃玩家数) * 100%
+- 宽表: mt_ads.ads_gamebi_roger_primary_di  (dataset 300197)
+- dataset SQL: `mysql://ba/data_set#300197`
+- 维度: ['logymd']  · 过滤: ['<dynamic>']
+- 来源代码: src/views/MCGGOverview/Component/SecondaryIndicators/const.ts:446

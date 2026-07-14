@@ -1,0 +1,11 @@
+# 深度AI回退率 · mlbb  `深度AI回退率__mlbb`
+
+> 逻辑指标 [[深度AI回退率]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(deep_ai_rollback_fz)/sum(deep_ai_rollback_fm)`
+- **业务口径**: (每个battletime - aihooktime > 10的AI人次) / 需要深度AI接管的人次（排除58中的主动拉起和主动回退） * 100%；
+数据起始日期为2024-04-25。
+- 宽表: mt_ads.ads_decismart_exp_match_battle_di  (dataset 300342)
+- dataset SQL: `mysql://ba/data_set#300342`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/GameExperienceOverview/Component/SecondaryIndicators/const.ts:1274

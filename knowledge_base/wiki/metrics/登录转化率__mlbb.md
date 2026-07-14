@@ -1,0 +1,10 @@
+# 登录转化率 · mlbb  `登录转化率__mlbb`
+
+> 逻辑指标 [[登录转化率]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(login_sucess_cnt)/sum(login_auth_cnt)`
+- **业务口径**: （进入主城看到主界面角色数）/（点击MLBB图标角色数）*100%；数据可计算最早时间为 2024-09-19
+- 宽表: mt_ads_pre.ads_decismart_performance_cube_di  (dataset 300098)
+- dataset SQL: `mysql://ba/data_set#300098`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/InfrastructureOverview/const.ts:169

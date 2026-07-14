@@ -1,0 +1,23 @@
+# 新增LTV_60  `新增LTV_60`
+
+**业务口径**: LTV=新增玩家累计到第N天的付费金额/新增玩家数，单位为美元
+
+## 怎么算
+**公式**: `sum(register_charge_day60)/sum(register_reten_cnt)/100`
+
+依赖的底层指标:
+- [[register_charge_day60]] (?) — `⚠️待D层` [待补] · 取数 `register_charge_day60`
+- [[register_reten_cnt]] (?) — `⚠️待D层` [待补] · 取数 `register_reten_cnt`
+
+## 数据来源
+- 宽表: [[ads_decismart_reten_ltv_di]]
+- dataset: ['300085']  · 产品线 scope: ['mlbb']
+
+## 字段生成逻辑(D 层)
+- **register_charge_day60** @ `test.ads_decismart_reten_ltv_di`
+  - 口径指针: `etl://test.ads_decismart_reten_ltv_di:register_charge_day60`(D 层未自动解析,待补)
+- **register_reten_cnt** @ `test.ads_decismart_reten_ltv_di`
+  - 口径指针: `etl://test.ads_decismart_reten_ltv_di:register_reten_cnt`(D 层未自动解析,待补)
+
+## 元信息
+- 分类: register · tier: 长尾

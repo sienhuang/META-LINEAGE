@@ -1,0 +1,10 @@
+# 付费率 · wegame  `付费率__wegame`
+
+> 逻辑指标 [[付费率]] 在产品线 **wegame** 的实例
+
+- **公式**: `sum(pay_cnt)/sum(active_cnt) * 100`
+- **业务口径**: 付费玩家数 / 活跃玩家数 * 100%
+- 宽表: mt_ads_realtime.realtime_charge_cnt  (dataset 300278)
+- dataset SQL: `mysql://ba/data_set#300278`
+- 维度: —  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/WeflyRealTime/const.ts:319

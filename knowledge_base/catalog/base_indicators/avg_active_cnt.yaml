@@ -1,0 +1,9 @@
+# 底层指标字典 · P3 建骨架, P4 补 algo
+# 标注 [示例] 的字段等 P4 解析真实 Spark ETL 任务填真值。
+key: avg_active_cnt
+name_cn: 日均活跃                                  # [示例] 待人工/LLM 确认
+source_type: map_key                              # 公式里以 indicator_map['avg_active_cnt'] 取
+usage_count: 1
+algo: "[示例] sum(active_cnt) / count(distinct logymd)"   # [示例] 待解析 Spark SQL
+defined_in: "spark_sql://etl/dws_mlbb_indicator_wide_1d"  # [示例]
+status: 草稿

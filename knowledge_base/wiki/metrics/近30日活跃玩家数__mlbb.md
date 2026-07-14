@@ -1,0 +1,10 @@
+# 近30日活跃玩家数 · mlbb  `近30日活跃玩家数__mlbb`
+
+> 逻辑指标 [[近30日活跃玩家数]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(active_cnt_30days)`
+- **业务口径**: 含统计日当天，最近30天的去重活跃玩家数
+- 宽表: mt_ads.ads_gamebi_roger_primary_di  (dataset 300086)
+- dataset SQL: `mysql://ba/data_set#300086`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/UserOverview/Component/SecondaryIndicators/const.ts:195

@@ -1,0 +1,10 @@
+# 战场满意度 · mlbb  `战场满意度__mlbb`
+
+> 逻辑指标 [[战场满意度]] 在产品线 **mlbb** 的实例
+
+- **公式**: `meas_value`
+- **业务口径**: 每个赛季版本问卷中，对于战场现状表示满意的人群占比；长周期筛选下展示最近一次得分；由于指标计算为黑盒，无法按区域聚合，数据将不受区域筛选器影响，但受国家筛选器影响
+- 宽表: test.ads_decismart_battle_satisfaction_degree  (dataset 300113)
+- dataset SQL: `mysql://ba/data_set#300113`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/GameExperienceOverview/const.ts:20

@@ -1,0 +1,10 @@
+# 邮件发钻 · mlbb  `邮件发钻__mlbb`
+
+> 逻辑指标 [[邮件发钻]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(add_diamond_email_amt)`
+- **业务口径**: 当日邮件发出的钻石数量，包含公司内发钻、用户补偿等，与金额类型无关
+- 宽表: mt_ads.ads_decismart_pay_cube_di  (dataset 300089)
+- dataset SQL: `mysql://ba/data_set#300089`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/IncomeOverview/Component/SecondaryIndicators/const.ts:386

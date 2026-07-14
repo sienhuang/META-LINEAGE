@@ -1,0 +1,17 @@
+# mt_ads_realtime_pre.realtime_login  ()
+
+> 
+
+- 物理表: `mt_ads_realtime_pre.realtime_login` · 引擎: flink/realtime · 分层: None · 粒度: — · 类型: wide_table
+
+> ⚠️ 实时表:口径在 Flink 任务,列级血缘暂未解析(待补)。
+
+## 血缘
+- 上游源表: —
+- 由 ETL 构建(task): —
+- 被这些指标使用: —
+
+## 被 dataset 取数的 SQL(C 层复用口径)
+```sql
+SELECT CASE WHEN t1.province_key IS NOT NULL THEN t1.province_key WHEN t2.province_key IS NOT NULL THEN t2.province_key END AS province_key , CASE WHEN t1.city IS NOT NULL THEN t1.city WHEN t2.city IS NOT NULL THEN t2.city END AS city, t1.active_cnt, t1.create_role_cnt, t1.charge_amt, t1.create_role_day_cnt, t1.login_day_cnt, t1.create_role_day_cnt_7d, t1.login_day_cnt_7d, t2.pcu, t2.acu, t2.online_num FROM( SELECT city, province_key, province, max(active_cnt) AS active_cnt , max(create_role_cnt) AS create_role_cnt, max(charge_amt) AS charge_amt, max(create_role_day_cnt) AS create_role_day_cnt, max(login_day_cnt) AS login_day_cnt, max(create_role_day_cnt_7d) AS create_role_day_cnt_7d, max(login_day_cnt_7d) AS login_day_cnt_7d FROM ( SELECT granularity_type, date_type, appname, logymd, point , city, province, zone_type, day_cnt AS active_cnt, 0 AS create_role_cnt, 0 AS charge_amt, 0 AS create_role_day_cnt, 0 AS login_day_cnt, 0 AS create_role_day_cnt_7d, 0 AS login_day_cnt_7d FROM mt_ads_realtime_pre.realtime_login UNION ALL SELECT granularity_type, date_type, appname, logymd, point , city, province, zone_type, 0 AS active_cnt, day_cnt AS create_role_cnt, 0 AS charge_amt, 0 AS create_role_day_cnt, 0 AS login_day_cnt, 0 AS create_role_day_cnt_7d, 0 AS login_day_cnt_7d FROM mt_ads_realtime_pre.realtime_create_role UNION ALL SELECT granularity_type, date_type, appname, logymd, point , city, province, zone_type, 0 AS active_cnt, 0 AS create_role_cnt, day_amt AS charge_amt, 0 AS create_role_day_cnt, 0 AS login_day_cnt, 0 AS create_role_day_cnt_7d, 0 AS login_day_cnt_7d FROM mt_ads_realtime_pre.realtime_charge UNION ALL SELECT granularity_type, date_type, appname, logymd, point , city, province, zone_type, 0 AS active_cnt, 0 AS create_role_cnt, 0 AS charge_amt, create_role_day_cnt, login_day_cnt, create_role_day_cnt_7d, login_day_cnt_7d FROM mt_ads_realtime_pre.realtime_create_role_retention) a left outer join( select province_zh, city_code, province_code, definition_type, city_zh, city_level, province_key from mt_dim.dim_city where ${definition_type}) b on a.city = b.city_code and a.province = b.province_code where ${logymd} and ${appname} and ${granularity_type} and ${date_type} and zone_type = 1 and ${city} and ${province} and ${city_level} GROUP BY city, province_key, province) t1 FULL JOIN ( WITH base_data AS ( SELECT a.city, a.province, b.province_key, a.online_num, a.point, -- 按分组找出point最大时的online_num ROW_NUMBER() OVER ( PARTITION BY a.city, a.province, b.province_key ORDER BY a.point DESC) AS rn FROM mt_ads_realtime_pre.realtime_online a LEFT OUTER JOIN ( SELECT province_zh, city_code, province_code, definition_type, city_zh, city_level, province_key FROM mt_dim.dim_city WHERE ${definition_type} ) b ON a.city = b.city_code AND a.province = b.province_code WHERE ${logymd} AND ${appname} AND ${granularity_type} AND ${date_type} AND zone_type = 1 AND ${city} AND ${province} AND ${city_level} ) SELECT city, province, province_key, max(online_num) AS pcu , sum(online_num) / (max(point) + 1) AS acu, MAX(CASE WHEN rn = 1 THEN online_num END) AS online_num, FROM base_data GROUP BY city, province, province_key ) t2 ON t1.city = t2.city AND t1.province_key = t2.province_key
+```

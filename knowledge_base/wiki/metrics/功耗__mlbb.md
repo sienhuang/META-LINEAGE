@@ -1,0 +1,10 @@
+# 功耗 · mlbb  `功耗__mlbb`
+
+> 逻辑指标 [[功耗]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(elec_ma[1])/sum(elec_battle_cnt[1])`
+- **业务口径**: (角色各对局电流均值的和) / (角色战斗总场次) 单位为mA
+- 宽表: mt_ads.ads_decismart_performance_cube_di  (dataset 300101)
+- dataset SQL: `mysql://ba/data_set#300101`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/InfrastructureOverview/Component/SecondaryIndicators/const.ts:95

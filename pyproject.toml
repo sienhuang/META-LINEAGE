@@ -1,0 +1,17 @@
+[project]
+name = "metawiki"
+version = "0.1.0"
+description = "BI 指标知识库的运行时 + MCP 服务 (口径图 + RAG, 供 AI Agent 检索)"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml>=6.0",
+    "mcp>=1.2.0",
+    "psycopg2-binary>=2.9",
+    "python-dotenv>=1.0",
+    "pymysql>=1.1",
+    "sqlglot>=25.0",
+]
+
+[tool.metawiki]
+# 知识库(纯数据)目录; 也可用环境变量 BIRAG_KB_ROOT 覆盖。
+knowledge_base = "../BIRag/knowledge_base"

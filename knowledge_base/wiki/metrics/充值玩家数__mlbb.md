@@ -1,0 +1,10 @@
+# 充值玩家数 · mlbb  `充值玩家数__mlbb`
+
+> 逻辑指标 [[充值玩家数]] 在产品线 **mlbb** 的实例
+
+- **公式**: `pay_cnt`
+- **业务口径**: 日均充值玩家数
+- 宽表: test.ads_decismart_pay_cube_di  (dataset 300094)
+- dataset SQL: `mysql://ba/data_set#300094`
+- 维度: —  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/IncomeOverview/const.ts:101

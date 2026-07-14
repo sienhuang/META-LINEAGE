@@ -1,0 +1,10 @@
+# 实收率 · mlbb  `实收率__mlbb`
+
+> 逻辑指标 [[实收率]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(actual_usd_amt) / sum(product_money)`
+- **业务口径**: 游戏美金实际收入 / 游戏总流水 * 100%
+- 宽表: mt_dm.dm_finance_role_zone_tz_di  (dataset 300311)
+- dataset SQL: `mysql://ba/data_set#300311`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/PayPlatformOverview/const.ts:94

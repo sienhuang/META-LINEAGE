@@ -1,0 +1,10 @@
+# 场均使用内存 · mlbb  `场均使用内存__mlbb`
+
+> 逻辑指标 [[场均使用内存]] 在产品线 **mlbb** 的实例
+
+- **公式**: `sum(indicator_map['memory_pss'])/cast(sum(indicator_map['memory_battle_cnt']) as decimal(38,0))`
+- **业务口径**: 角色当日各对局内存求和 / 角色战斗总场次  单位为M
+- 宽表: mt_ads_pre.ads_gamebi_roger_secondary_di  (dataset 300205)
+- dataset SQL: `mysql://ba/data_set#300205`
+- 维度: ['logymd']  · 过滤: ['logymd', 'appname', 'granularity_type', 'date_type', 'definition_type']
+- 来源代码: src/views/BusinessOverview/Component/SecondaryIndicators/const.ts:1080
