@@ -1,0 +1,2781 @@
+{
+  "target_ref": "mt_ads.ads_gamebi_roger_primary_di.active_cnt",
+  "output_dir": "/Users/huangsien/PycharmProjects/MetaWIKI/test-sql.sql",
+  "path_count": 100,
+  "truncated": true,
+  "generated_sql_count": 46,
+  "skipped_incomplete_count": 52,
+  "failed_sql_count": 2,
+  "manifest_file": "/Users/huangsien/PycharmProjects/MetaWIKI/test-sql.sql/manifest.json",
+  "paths": [
+    {
+      "path_id": 1,
+      "target_definition_id": "definition.2ca921cbbe7afbc501cee2fc",
+      "complete": false,
+      "job_ids": [
+        "job.100021029_0"
+      ],
+      "producer_choices": [],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [
+        {
+          "definition_id": "definition.665772ebcbbe258cf7f34274",
+          "source_field_id": "field.ds.100021029_0.subquery_3.p_date",
+          "source_dataset_name": "subquery_3",
+          "source_field_name": "p_date",
+          "reason": "lineage_gap",
+          "candidate_definition_ids": []
+        },
+        {
+          "definition_id": "definition.1be97e6db22dbc6013bb3e72",
+          "source_field_id": "field.ds.100021029_0.subquery_3.__rows__",
+          "source_dataset_name": "subquery_3",
+          "source_field_name": "*",
+          "reason": "lineage_gap",
+          "candidate_definition_ids": []
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "path_id": 2,
+      "target_definition_id": "definition.582ef4f946d4db75b88736c6",
+      "complete": false,
+      "job_ids": [
+        "job.100031311_0"
+      ],
+      "producer_choices": [],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [
+        {
+          "definition_id": "definition.a5bd279dbf4957fea4c740e9",
+          "source_field_id": "field.ds.100031311_0.t2.active_cnt",
+          "source_dataset_name": "t2",
+          "source_field_name": "active_cnt",
+          "reason": "lineage_gap",
+          "candidate_definition_ids": []
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "path_id": 3,
+      "target_definition_id": "definition.904ff480d850cca6ff1e3933",
+      "complete": true,
+      "job_ids": [
+        "job.100050909_0"
+      ],
+      "producer_choices": [],
+      "sql_status": "generated",
+      "sql_file": "path_0003__definition.904ff480d850cca6ff1e3933.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 4,
+      "target_definition_id": "definition.64e2351083088a7ff6773b5f",
+      "complete": true,
+      "job_ids": [
+        "job.100052167_0"
+      ],
+      "producer_choices": [],
+      "sql_status": "generated",
+      "sql_file": "path_0004__definition.64e2351083088a7ff6773b5f.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 5,
+      "target_definition_id": "definition.2b449514624114cd083d9887",
+      "complete": true,
+      "job_ids": [
+        "job.100052824_0"
+      ],
+      "producer_choices": [],
+      "sql_status": "generated",
+      "sql_file": "path_0005__definition.2b449514624114cd083d9887.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 6,
+      "target_definition_id": "definition.5161b506a99bfdb821541531",
+      "complete": true,
+      "job_ids": [
+        "job.100037150_0",
+        "job.100031072_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.2f84b47862016d1324f251c6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037150_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0006__definition.5161b506a99bfdb821541531.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid_timezone writes static partition date_type='timezone', but downstream filters date_type='daily'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 7,
+      "target_definition_id": "definition.5161b506a99bfdb821541531",
+      "complete": true,
+      "job_ids": [
+        "job.100037207_0",
+        "job.100031072_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.6324d6f4115bdabbdae46ac1",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037207_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0007__definition.5161b506a99bfdb821541531.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 8,
+      "target_definition_id": "definition.5161b506a99bfdb821541531",
+      "complete": true,
+      "job_ids": [
+        "job.100037158_0",
+        "job.100031072_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.a9aa749493aa755dd2720550",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037158_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0008__definition.5161b506a99bfdb821541531.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid_timezone writes static partition date_type='timezone', but downstream filters date_type='daily'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 9,
+      "target_definition_id": "definition.654b4cc240bcbfb4b570cf24",
+      "complete": true,
+      "job_ids": [
+        "job.100039145_0",
+        "job.100033108_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_dm.dm_multi_decismart_core_df.is_active",
+          "selected_definition_id": "definition.54ab89ff4b59462f0816c30c",
+          "dataset_name": "mt_dm.dm_multi_decismart_core_df",
+          "field_name": "is_active",
+          "job_id": "job.100039145_0",
+          "expression_sql": "IF(act.is_td = 1, 1, 0) AS is_active"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0009__definition.654b4cc240bcbfb4b570cf24.sql",
+      "warnings": [
+        "selected producer for mt_dm.dm_multi_decismart_core_df writes static partition appname='wefly', but downstream filters appname='mcgg'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 10,
+      "target_definition_id": "definition.654b4cc240bcbfb4b570cf24",
+      "complete": true,
+      "job_ids": [
+        "job.100033088_0",
+        "job.100033108_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_dm.dm_multi_decismart_core_df.is_active",
+          "selected_definition_id": "definition.5f6390468645e6999ac1e9bb",
+          "dataset_name": "mt_dm.dm_multi_decismart_core_df",
+          "field_name": "is_active",
+          "job_id": "job.100033088_0",
+          "expression_sql": "IF(act.is_td = 1, 1, 0) AS is_active /*\t当日是否活跃(1:是，0:否) */"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0010__definition.654b4cc240bcbfb4b570cf24.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 11,
+      "target_definition_id": "definition.4247cfe9278c82783b741822",
+      "complete": true,
+      "job_ids": [
+        "job.100039145_0",
+        "job.100033187_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_dm.dm_multi_decismart_core_df.is_active",
+          "selected_definition_id": "definition.54ab89ff4b59462f0816c30c",
+          "dataset_name": "mt_dm.dm_multi_decismart_core_df",
+          "field_name": "is_active",
+          "job_id": "job.100039145_0",
+          "expression_sql": "IF(act.is_td = 1, 1, 0) AS is_active"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0011__definition.4247cfe9278c82783b741822.sql",
+      "warnings": [
+        "selected producer for mt_dm.dm_multi_decismart_core_df writes static partition appname='wefly', but downstream filters appname='mcgg'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 12,
+      "target_definition_id": "definition.4247cfe9278c82783b741822",
+      "complete": true,
+      "job_ids": [
+        "job.100033088_0",
+        "job.100033187_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_dm.dm_multi_decismart_core_df.is_active",
+          "selected_definition_id": "definition.5f6390468645e6999ac1e9bb",
+          "dataset_name": "mt_dm.dm_multi_decismart_core_df",
+          "field_name": "is_active",
+          "job_id": "job.100033088_0",
+          "expression_sql": "IF(act.is_td = 1, 1, 0) AS is_active /*\t当日是否活跃(1:是，0:否) */"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0012__definition.4247cfe9278c82783b741822.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 13,
+      "target_definition_id": "definition.ae9c85d0b2876d6aef089ac0",
+      "complete": true,
+      "job_ids": [
+        "job.100037150_0",
+        "job.100037162_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.2f84b47862016d1324f251c6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037150_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0013__definition.ae9c85d0b2876d6aef089ac0.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 14,
+      "target_definition_id": "definition.ae9c85d0b2876d6aef089ac0",
+      "complete": true,
+      "job_ids": [
+        "job.100037207_0",
+        "job.100037162_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.6324d6f4115bdabbdae46ac1",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037207_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0014__definition.ae9c85d0b2876d6aef089ac0.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid_timezone writes static partition date_type='daily', but downstream filters date_type='timezone'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 15,
+      "target_definition_id": "definition.ae9c85d0b2876d6aef089ac0",
+      "complete": true,
+      "job_ids": [
+        "job.100037158_0",
+        "job.100037162_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.a9aa749493aa755dd2720550",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037158_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0015__definition.ae9c85d0b2876d6aef089ac0.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 16,
+      "target_definition_id": "definition.1873ec097e14d89be1ef8e6a",
+      "complete": true,
+      "job_ids": [
+        "job.100037150_0",
+        "job.100037206_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.2f84b47862016d1324f251c6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037150_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0016__definition.1873ec097e14d89be1ef8e6a.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 17,
+      "target_definition_id": "definition.1873ec097e14d89be1ef8e6a",
+      "complete": true,
+      "job_ids": [
+        "job.100037207_0",
+        "job.100037206_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.6324d6f4115bdabbdae46ac1",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037207_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0017__definition.1873ec097e14d89be1ef8e6a.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid_timezone writes static partition date_type='daily', but downstream filters date_type='timezone'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 18,
+      "target_definition_id": "definition.1873ec097e14d89be1ef8e6a",
+      "complete": true,
+      "job_ids": [
+        "job.100037158_0",
+        "job.100037206_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid_timezone.active_cnt",
+          "selected_definition_id": "definition.a9aa749493aa755dd2720550",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid_timezone",
+          "field_name": "active_cnt",
+          "job_id": "job.100037158_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0018__definition.1873ec097e14d89be1ef8e6a.sql",
+      "warnings": []
+    },
+    {
+      "path_id": 19,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": false,
+      "job_ids": [
+        "job.100041279_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 20,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": true,
+      "job_ids": [
+        "job.100033331_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0020__definition.0cbb5045f63444ad0b8e7305.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mcgg_v2', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 21,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": true,
+      "job_ids": [
+        "job.100035813_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0021__definition.0cbb5045f63444ad0b8e7305.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='nova', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 22,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": false,
+      "job_ids": [
+        "job.100041282_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 23,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": true,
+      "job_ids": [
+        "job.100032988_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0023__definition.0cbb5045f63444ad0b8e7305.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 24,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": true,
+      "job_ids": [
+        "job.100033425_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0024__definition.0cbb5045f63444ad0b8e7305.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='zgame', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 25,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": false,
+      "job_ids": [
+        "job.100041280_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    },
+    {
+      "path_id": 26,
+      "target_definition_id": "definition.0cbb5045f63444ad0b8e7305",
+      "complete": false,
+      "job_ids": [
+        "job.100041283_0",
+        "job.100039140_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a"
+      ]
+    },
+    {
+      "path_id": 27,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": false,
+      "job_ids": [
+        "job.100041279_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 28,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": true,
+      "job_ids": [
+        "job.100033331_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0028__definition.ec45a10e179976b5e7991edd.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mcgg_v2', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 29,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": true,
+      "job_ids": [
+        "job.100035813_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0029__definition.ec45a10e179976b5e7991edd.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='nova', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 30,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": false,
+      "job_ids": [
+        "job.100041282_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 31,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": true,
+      "job_ids": [
+        "job.100032988_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0031__definition.ec45a10e179976b5e7991edd.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 32,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": true,
+      "job_ids": [
+        "job.100033425_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0032__definition.ec45a10e179976b5e7991edd.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='zgame', but downstream filters appname='wefly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 33,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": false,
+      "job_ids": [
+        "job.100041280_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    },
+    {
+      "path_id": 34,
+      "target_definition_id": "definition.ec45a10e179976b5e7991edd",
+      "complete": false,
+      "job_ids": [
+        "job.100041283_0",
+        "job.100041395_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a"
+      ]
+    },
+    {
+      "path_id": 35,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": false,
+      "job_ids": [
+        "job.100041279_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 36,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": true,
+      "job_ids": [
+        "job.100033331_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0036__definition.37e1179df291930c9974e57d.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mcgg_v2', but downstream filters appname='nova'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 37,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": true,
+      "job_ids": [
+        "job.100035813_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0037__definition.37e1179df291930c9974e57d.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 38,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": false,
+      "job_ids": [
+        "job.100041282_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 39,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": true,
+      "job_ids": [
+        "job.100032988_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0039__definition.37e1179df291930c9974e57d.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='nova'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 40,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": true,
+      "job_ids": [
+        "job.100033425_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0040__definition.37e1179df291930c9974e57d.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='zgame', but downstream filters appname='nova'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 41,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": false,
+      "job_ids": [
+        "job.100041280_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    },
+    {
+      "path_id": 42,
+      "target_definition_id": "definition.37e1179df291930c9974e57d",
+      "complete": false,
+      "job_ids": [
+        "job.100041283_0",
+        "job.100041406_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a"
+      ]
+    },
+    {
+      "path_id": 43,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": false,
+      "job_ids": [
+        "job.100041279_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 44,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": true,
+      "job_ids": [
+        "job.100033331_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0044__definition.b6d99ffe31d14f27d216d55b.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 45,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": true,
+      "job_ids": [
+        "job.100035813_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0045__definition.b6d99ffe31d14f27d216d55b.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='nova', but downstream filters appname='mcgg_v2'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 46,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": false,
+      "job_ids": [
+        "job.100041282_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 47,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": true,
+      "job_ids": [
+        "job.100032988_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0047__definition.b6d99ffe31d14f27d216d55b.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='mcgg_v2'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 48,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": true,
+      "job_ids": [
+        "job.100033425_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0048__definition.b6d99ffe31d14f27d216d55b.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='zgame', but downstream filters appname='mcgg_v2'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 49,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": false,
+      "job_ids": [
+        "job.100041280_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    },
+    {
+      "path_id": 50,
+      "target_definition_id": "definition.b6d99ffe31d14f27d216d55b",
+      "complete": false,
+      "job_ids": [
+        "job.100041283_0",
+        "job.100041407_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a"
+      ]
+    },
+    {
+      "path_id": 51,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": false,
+      "job_ids": [
+        "job.100041279_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 52,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": true,
+      "job_ids": [
+        "job.100033331_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0052__definition.205be010f49cfabd5797f1e1.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mcgg_v2', but downstream filters appname='mla'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 53,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": true,
+      "job_ids": [
+        "job.100035813_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0053__definition.205be010f49cfabd5797f1e1.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='nova', but downstream filters appname='mla'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 54,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": false,
+      "job_ids": [
+        "job.100041282_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 55,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": true,
+      "job_ids": [
+        "job.100032988_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0055__definition.205be010f49cfabd5797f1e1.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 56,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": true,
+      "job_ids": [
+        "job.100033425_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0056__definition.205be010f49cfabd5797f1e1.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='zgame', but downstream filters appname='mla'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 57,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": false,
+      "job_ids": [
+        "job.100041280_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    },
+    {
+      "path_id": 58,
+      "target_definition_id": "definition.205be010f49cfabd5797f1e1",
+      "complete": false,
+      "job_ids": [
+        "job.100041283_0",
+        "job.100041408_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a"
+      ]
+    },
+    {
+      "path_id": 59,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": false,
+      "job_ids": [
+        "job.100041279_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 60,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": true,
+      "job_ids": [
+        "job.100033331_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0060__definition.67d25e82470e2229dad8f388.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mcgg_v2', but downstream filters appname='zgame'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 61,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": true,
+      "job_ids": [
+        "job.100035813_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0061__definition.67d25e82470e2229dad8f388.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='nova', but downstream filters appname='zgame'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 62,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": false,
+      "job_ids": [
+        "job.100041282_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 63,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": true,
+      "job_ids": [
+        "job.100032988_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0063__definition.67d25e82470e2229dad8f388.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='zgame'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 64,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": true,
+      "job_ids": [
+        "job.100033425_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0064__definition.67d25e82470e2229dad8f388.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 65,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": false,
+      "job_ids": [
+        "job.100041280_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    },
+    {
+      "path_id": 66,
+      "target_definition_id": "definition.67d25e82470e2229dad8f388",
+      "complete": false,
+      "job_ids": [
+        "job.100041283_0",
+        "job.100041409_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a"
+      ]
+    },
+    {
+      "path_id": 67,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041279_0",
+        "job.100041280_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 68,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100033331_0",
+        "job.100041280_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 69,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100035813_0",
+        "job.100041280_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 70,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100041282_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 71,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041280_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 72,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100033425_0",
+        "job.100041280_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 73,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 74,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100041283_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 75,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100025255_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ff991a108faf45afa48e931b",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100025255_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.cf6e7a9daf4bde6223293b9f -> definition.ff991a108faf45afa48e931b",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 76,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041279_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 77,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100033331_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "failed",
+      "sql_file": null,
+      "error": "ValueError: Cannot inline jobs with conflicting CTE names: basic"
+    },
+    {
+      "path_id": 78,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100035813_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0078__definition.5d9c04abb8e35562a35abe9b.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='mlbb'; this branch returns no rows",
+        "job job.100020886_0 did not reference selected upstream dataset mt_ads.ads_gamebi_roger_primary_di_mid"
+      ]
+    },
+    {
+      "path_id": 79,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041282_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 80,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0080__definition.5d9c04abb8e35562a35abe9b.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='mlbb'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 81,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100033425_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0081__definition.5d9c04abb8e35562a35abe9b.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='mlbb'; this branch returns no rows",
+        "job job.100020886_0 did not reference selected upstream dataset mt_ads.ads_gamebi_roger_primary_di_mid"
+      ]
+    },
+    {
+      "path_id": 82,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041280_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    },
+    {
+      "path_id": 83,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041283_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a"
+      ]
+    },
+    {
+      "path_id": 84,
+      "target_definition_id": "definition.5d9c04abb8e35562a35abe9b",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100025255_0",
+        "job.100020886_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ff991a108faf45afa48e931b",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100025255_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.cf6e7a9daf4bde6223293b9f -> definition.ff991a108faf45afa48e931b"
+      ]
+    },
+    {
+      "path_id": 85,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041279_0",
+        "job.100041280_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 86,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100033331_0",
+        "job.100041280_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 87,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100035813_0",
+        "job.100041280_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 88,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100041282_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 89,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041280_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 90,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100033425_0",
+        "job.100041280_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 91,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 92,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100041283_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.be8b4263e74db18cf8652a5a",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041283_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.ec908c04bbebe84593f082a8 -> definition.be8b4263e74db18cf8652a5a",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 93,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100041280_0",
+        "job.100025255_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.1eec4f23ce5ee80107fa5568",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100041280_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ff991a108faf45afa48e931b",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100025255_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.cf6e7a9daf4bde6223293b9f -> definition.ff991a108faf45afa48e931b",
+        "cycle detected: definition.5f7f72a70d0aa916f086d184 -> definition.1eec4f23ce5ee80107fa5568"
+      ]
+    },
+    {
+      "path_id": 94,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041279_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.17156d2d804fcf6854ef6f3e",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041279_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.b186c710ccaa4d8865e83d2e -> definition.17156d2d804fcf6854ef6f3e"
+      ]
+    },
+    {
+      "path_id": 95,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100033331_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.71120ff18e1ca7f43c1a73e6",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033331_0",
+          "expression_sql": "COALESCE(SUM(IF(act.is_td = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "failed",
+      "sql_file": null,
+      "error": "ValueError: Cannot inline jobs with conflicting CTE names: basic"
+    },
+    {
+      "path_id": 96,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100035813_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.73d084b3ca1d67a24d314044",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100035813_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0096__definition.472b6d36ff96ab4e391e8842.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='mlbb'; this branch returns no rows",
+        "job job.100025287_0 did not reference selected upstream dataset mt_ads.ads_gamebi_roger_primary_di_mid"
+      ]
+    },
+    {
+      "path_id": 97,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041282_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.857e60cd7f6f1f47a23fb220",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041282_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.4f9e83a4afa789300abbfe4f -> definition.857e60cd7f6f1f47a23fb220"
+      ]
+    },
+    {
+      "path_id": 98,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.a98768ce384e26f101a91189",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100032988_0",
+          "expression_sql": "COALESCE(SUM(IF(COALESCE(act_di.is_td, 0) = 1, 1, 0)), 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0098__definition.472b6d36ff96ab4e391e8842.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='mlbb'; this branch returns no rows"
+      ]
+    },
+    {
+      "path_id": 99,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": true,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100033425_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.ad30804a4d2f25701d7fb515",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100033425_0",
+          "expression_sql": "COALESCE(active_cnt, 0) AS active_cnt"
+        }
+      ],
+      "sql_status": "generated",
+      "sql_file": "path_0099__definition.472b6d36ff96ab4e391e8842.sql",
+      "warnings": [
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition date_type='daily', but downstream filters date_type='monthly'; this branch returns no rows",
+        "selected producer for mt_ads.ads_gamebi_roger_primary_di_mid writes static partition appname='mla', but downstream filters appname='mlbb'; this branch returns no rows",
+        "job job.100025287_0 did not reference selected upstream dataset mt_ads.ads_gamebi_roger_primary_di_mid"
+      ]
+    },
+    {
+      "path_id": 100,
+      "target_definition_id": "definition.472b6d36ff96ab4e391e8842",
+      "complete": false,
+      "job_ids": [
+        "job.100001123_0",
+        "job.100032988_0",
+        "job.100041280_0",
+        "job.100025287_0"
+      ],
+      "producer_choices": [
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.__rows__",
+          "selected_definition_id": "definition.2c6ecace7f6a3d2eae83ae95",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "*",
+          "job_id": "job.100032988_0",
+          "expression_sql": null
+        },
+        {
+          "source_field_id": "field.table.mt_ads.ads_gamebi_roger_primary_di_mid.active_cnt",
+          "selected_definition_id": "definition.bd90c9fab684ff59a9c793b3",
+          "dataset_name": "mt_ads.ads_gamebi_roger_primary_di_mid",
+          "field_name": "active_cnt",
+          "job_id": "job.100041280_0",
+          "expression_sql": "dai.active_cnt"
+        }
+      ],
+      "sql_status": "skipped_incomplete",
+      "sql_file": null,
+      "unresolved_boundaries": [],
+      "warnings": [
+        "cycle detected: definition.fd473f0b931afba76dbc2162 -> definition.bd90c9fab684ff59a9c793b3"
+      ]
+    }
+  ]
+}

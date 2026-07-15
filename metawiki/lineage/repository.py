@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 from pathlib import Path
 from typing import Iterable, Sequence
@@ -12,6 +13,113 @@ from .canonical_models import JobModel
 
 SCHEMA_SQL_PATH = Path(__file__).resolve().parent / "er_schema.sql"
 SAFE_IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+
+
+def _stable_id(prefix: str, *parts: str) -> str:
+    """Build a compact, deterministic identifier without leaking SQL text into PKs."""
+    payload = "\x1f".join(parts).encode("utf-8")
+    return f"{prefix}.{hashlib.sha256(payload).hexdigest()[:24]}"
+
+
+def build_provenance_records(model: JobModel) -> dict[str, list[dict]]:
+    """Derive the V2 multi-producer records from a canonical ``JobModel``.
+
+    A definition belongs to a concrete (job, stage, dataset) production, so two
+    jobs writing the same canonical physical field no longer overwrite each
+    other's expression or dependencies.
+    """
+    stages = {item.stage_id: item for item in model.stages}
+    expressions = {item.expression_id: item for item in model.field_expressions}
+    fields = {item.field_id: item for item in model.fields}
+    produced_datasets = [
+        item for item in model.datasets if item.producer_stage_id in stages
+    ]
+
+    productions: list[dict] = []
+    definitions: list[dict] = []
+    dependencies: list[dict] = []
+    definition_by_target: dict[str, str] = {}
+
+    for dataset in produced_datasets:
+        stage_id = dataset.producer_stage_id or ""
+        production_id = _stable_id(
+            "production", model.job.job_id, stage_id, dataset.dataset_id
+        )
+        productions.append({
+            "production_id": production_id,
+            "dataset_id": dataset.dataset_id,
+            "job_id": model.job.job_id,
+            "stage_id": stage_id,
+            "write_mode": model.job.write_mode.value,
+            "is_materialized": dataset.is_materialized,
+            "is_current": True,
+            "source_instance_id": None,
+        })
+
+        ordinal_no = 0
+        for field_item in model.fields:
+            if field_item.dataset_id != dataset.dataset_id:
+                continue
+            ordinal_no += 1
+            expression = expressions.get(field_item.expression_id or "")
+            definition_id = _stable_id(
+                "definition", production_id, field_item.field_id
+            )
+            definition_by_target[field_item.field_id] = definition_id
+            definitions.append({
+                "definition_id": definition_id,
+                "production_id": production_id,
+                "field_id": field_item.field_id,
+                "expression_id": field_item.expression_id,
+                "expression_sql": expression.expression_sql if expression else None,
+                "expression_type": expression.expression_type.value if expression else None,
+                "ordinal_no": ordinal_no,
+            })
+
+    source_ordinals: dict[str, int] = {}
+    for lineage in model.field_lineage:
+        definition_id = definition_by_target.get(lineage.target_field_id)
+        if definition_id is None:
+            continue
+        source_ordinals[definition_id] = source_ordinals.get(definition_id, 0) + 1
+        target = fields.get(lineage.target_field_id)
+        source = fields.get(lineage.source_field_id)
+        expression = expressions.get(target.expression_id or "") if target else None
+        if (target and target.field_name == "*") or (source and source.field_name == "*"):
+            dependency_type = "rowset"
+        elif expression and expression.expression_sql.startswith("UNION_BRANCH_COLUMN"):
+            dependency_type = "union"
+        else:
+            dependency_type = "value"
+        lineage_type = lineage.lineage_type.value
+        dependencies.append({
+            "edge_id": _stable_id(
+                "dependency", definition_id, lineage.source_field_id,
+                dependency_type, lineage_type,
+            ),
+            "target_definition_id": definition_id,
+            "source_field_id": lineage.source_field_id,
+            "dependency_type": dependency_type,
+            "lineage_type": lineage_type,
+            "source_ordinal": source_ordinals[definition_id],
+        })
+
+    unique_dependencies: dict[str, dict] = {}
+    for item in dependencies:
+        unique_dependencies.setdefault(item["edge_id"], item)
+    dependency_ordinals: dict[str, int] = {}
+    deduplicated_dependencies: list[dict] = []
+    for item in unique_dependencies.values():
+        target_id = item["target_definition_id"]
+        dependency_ordinals[target_id] = dependency_ordinals.get(target_id, 0) + 1
+        item["source_ordinal"] = dependency_ordinals[target_id]
+        deduplicated_dependencies.append(item)
+
+    return {
+        "productions": productions,
+        "definitions": definitions,
+        "dependencies": deduplicated_dependencies,
+    }
 
 
 class PostgresJobModelRepository:
@@ -49,6 +157,72 @@ class PostgresJobModelRepository:
                     self._delete_existing_model(cur, model)
                     self._insert_job_model(cur, model)
             conn.commit()
+
+    def replace_provenance_models(self, models: Sequence[JobModel]) -> None:
+        """Replace only V2 provenance rows for already-persisted JobModels.
+
+        This is used to backfill the producer-scoped model from ``job.raw_sql``
+        without rewriting legacy lineage.  Parser upgrades may discover fields
+        or expressions that the old parser missed (notably lazy ``SELECT *``
+        columns), so missing canonical parent rows are inserted with
+        ``on conflict do nothing`` before V2 rows are replaced.
+        """
+        if not models:
+            return
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                for model in models:
+                    self._insert_missing_provenance_parents(cur, model)
+                    cur.execute(
+                        f"delete from {self.schema}.dataset_production where job_id = %s",
+                        (model.job.job_id,),
+                    )
+                    self._insert_provenance_v2(cur, model)
+            conn.commit()
+
+    def _insert_missing_provenance_parents(self, cur, model: JobModel) -> None:
+        from psycopg2.extras import execute_values
+
+        if model.fields:
+            execute_values(
+                cur,
+                f"""
+                insert into {self.schema}.field
+                (field_id, dataset_id, field_name, field_role, expression_id,
+                 data_type, description)
+                values %s
+                on conflict (field_id) do nothing
+                """,
+                [
+                    (
+                        item.field_id, item.dataset_id, item.field_name,
+                        item.field_role.value, item.expression_id, item.data_type,
+                        item.description,
+                    )
+                    for item in model.fields
+                ], page_size=1000,
+            )
+        if model.field_expressions:
+            execute_values(
+                cur,
+                f"""
+                insert into {self.schema}.field_expression
+                (expression_id, stage_id, expression_type, expression_sql,
+                 source_field_ids, depends_on_expression_ids, description)
+                values %s
+                on conflict (expression_id) do nothing
+                """,
+                [
+                    (
+                        item.expression_id, item.stage_id,
+                        item.expression_type.value, item.expression_sql,
+                        json.dumps(item.source_field_ids, ensure_ascii=False),
+                        json.dumps(item.depends_on_expression_ids, ensure_ascii=False),
+                        item.description,
+                    )
+                    for item in model.field_expressions
+                ], page_size=1000,
+            )
 
     def _delete_existing_model(self, cur, model: JobModel) -> None:
         job_id = model.job.job_id
@@ -312,6 +486,8 @@ class PostgresJobModelRepository:
                 ],
             )
 
+        self._insert_provenance_v2(cur, model)
+
         if model.semantic_documents:
             cur.executemany(
                 f"""
@@ -338,4 +514,91 @@ class PostgresJobModelRepository:
                     )
                     for item in model.semantic_documents
                 ],
+            )
+
+    def _insert_provenance_v2(self, cur, model: JobModel) -> None:
+        """Persist producer-scoped definitions alongside the legacy model."""
+        from psycopg2.extras import execute_values
+
+        records = build_provenance_records(model)
+        productions = records["productions"]
+        definitions = records["definitions"]
+        dependencies = records["dependencies"]
+
+        if productions:
+            execute_values(
+                cur,
+                f"""
+                insert into {self.schema}.dataset_production
+                (production_id, dataset_id, job_id, stage_id, write_mode,
+                 is_materialized, is_current, source_instance_id)
+                values %s
+                on conflict (production_id) do update set
+                  dataset_id = excluded.dataset_id,
+                  job_id = excluded.job_id,
+                  stage_id = excluded.stage_id,
+                  write_mode = excluded.write_mode,
+                  is_materialized = excluded.is_materialized,
+                  is_current = excluded.is_current,
+                  source_instance_id = excluded.source_instance_id
+                """,
+                [
+                    (
+                        item["production_id"], item["dataset_id"], item["job_id"],
+                        item["stage_id"], item["write_mode"], item["is_materialized"],
+                        item["is_current"], item["source_instance_id"],
+                    )
+                    for item in productions
+                ], page_size=1000,
+            )
+
+        if definitions:
+            execute_values(
+                cur,
+                f"""
+                insert into {self.schema}.field_definition
+                (definition_id, production_id, field_id, expression_id,
+                 expression_sql, expression_type, ordinal_no)
+                values %s
+                on conflict (definition_id) do update set
+                  production_id = excluded.production_id,
+                  field_id = excluded.field_id,
+                  expression_id = excluded.expression_id,
+                  expression_sql = excluded.expression_sql,
+                  expression_type = excluded.expression_type,
+                  ordinal_no = excluded.ordinal_no
+                """,
+                [
+                    (
+                        item["definition_id"], item["production_id"], item["field_id"],
+                        item["expression_id"], item["expression_sql"],
+                        item["expression_type"], item["ordinal_no"],
+                    )
+                    for item in definitions
+                ], page_size=1000,
+            )
+
+        if dependencies:
+            execute_values(
+                cur,
+                f"""
+                insert into {self.schema}.field_dependency
+                (edge_id, target_definition_id, source_field_id, dependency_type,
+                 lineage_type, source_ordinal)
+                values %s
+                on conflict (edge_id) do update set
+                  target_definition_id = excluded.target_definition_id,
+                  source_field_id = excluded.source_field_id,
+                  dependency_type = excluded.dependency_type,
+                  lineage_type = excluded.lineage_type,
+                  source_ordinal = excluded.source_ordinal
+                """,
+                [
+                    (
+                        item["edge_id"], item["target_definition_id"],
+                        item["source_field_id"], item["dependency_type"],
+                        item["lineage_type"], item["source_ordinal"],
+                    )
+                    for item in dependencies
+                ], page_size=1000,
             )

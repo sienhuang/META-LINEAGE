@@ -5,7 +5,7 @@ import sys
 from dataclasses import asdict
 from json import dumps
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 from .canonical_models import (
     Dataset,
@@ -76,8 +76,13 @@ def _dataset_id_for_table(table: "exp.Table") -> str:
 
 
 class SqlAstJobModelBuilder:
-    def __init__(self, dialect: str = "hive") -> None:
+    def __init__(
+        self,
+        dialect: str = "hive",
+        known_fields: Optional[Set[Tuple[str, str]]] = None,
+    ) -> None:
         self.dialect = dialect
+        self.known_fields = known_fields or set()
         self._reset()
 
     def parse_file(self, path: str | Path) -> JobModel:
@@ -492,9 +497,13 @@ class SqlAstJobModelBuilder:
             field_role = self._infer_field_role(projection, field_name, group_sqls, is_final)
             expression_id = self._unique_expression_id(stage_id, field_name)
             source_field_ids = self._resolve_source_field_ids(projection, relation_scope)
-            if not source_field_ids and projection.find(exp.AggFunc):
-                # COUNT(*)/COUNT(1) 这类无来源列的聚合: 依赖各来源关系的"行" → 连行哨兵
-                source_field_ids = [self._ensure_row_sentinel(dataset_id).field_id for dataset_id in source_dataset_ids]
+            if projection.find(exp.AggFunc):
+                # 所有聚合都同时依赖【值列】和【输入行集】。只追 SUM(CASE tag...)
+                # 的 tag 会在常量 tag 处错误终止，却遗漏真正提供行的物理源表。
+                for dataset_id in source_dataset_ids:
+                    row_field_id = self._ensure_row_sentinel(dataset_id).field_id
+                    if row_field_id not in source_field_ids:
+                        source_field_ids.append(row_field_id)
             target_field = self._ensure_field(
                 dataset_id=output_dataset_id,
                 field_name=field_name,
@@ -709,7 +718,8 @@ class SqlAstJobModelBuilder:
             if dataset_id is None:
                 candidates = list(relation_scope.values())
                 matching_datasets = [
-                    dataset for dataset in candidates if any(field.field_name == column.name for field in self._fields_for_dataset(dataset))
+                    dataset for dataset in candidates
+                    if self._dataset_contains_field(dataset, column.name)
                 ]
                 if len(matching_datasets) == 1:
                     dataset_id = matching_datasets[0]
@@ -718,9 +728,131 @@ class SqlAstJobModelBuilder:
             if dataset_id is None:
                 continue
             source_field = self._ensure_field(dataset_id, column.name, FieldRole.ATTRIBUTE)
+            self._materialize_wildcard_field(source_field)
             if source_field.field_id not in source_field_ids:
                 source_field_ids.append(source_field.field_id)
         return source_field_ids
+
+    def _dataset_contains_field(
+        self,
+        dataset_id: str,
+        field_name: str,
+        visited: Optional[Set[str]] = None,
+    ) -> bool:
+        if any(
+            item.field_name == field_name
+            for item in self._fields_for_dataset(dataset_id)
+        ):
+            return True
+        visited = visited or set()
+        if dataset_id in visited:
+            return False
+        visited.add(dataset_id)
+        dataset = next(
+            (item for item in self.datasets if item.dataset_id == dataset_id), None
+        )
+        if dataset is None:
+            return False
+        if dataset.dataset_type == DatasetType.TABLE:
+            return (dataset.dataset_name, field_name) in self.known_fields
+
+        wildcard = next(
+            (
+                item for item in self.fields
+                if item.dataset_id == dataset_id
+                and item.field_name == ROW_SENTINEL_NAME
+                and item.expression_id is not None
+            ),
+            None,
+        )
+        if wildcard is None:
+            return False
+        wildcard_expression = next(
+            (
+                item for item in self.field_expressions
+                if item.expression_id == wildcard.expression_id
+            ),
+            None,
+        )
+        if wildcard_expression is None:
+            return False
+        input_dataset_ids = [
+            item.dataset_id for item in self.stage_inputs
+            if item.stage_id == wildcard_expression.stage_id
+        ]
+        return any(
+            self._dataset_contains_field(item, field_name, visited)
+            for item in input_dataset_ids
+        )
+
+    def _materialize_wildcard_field(self, field: Field) -> None:
+        """Resolve ``SELECT *`` lazily when an outer query requests a real column.
+
+        sqlglot cannot expand ``*`` without catalog schema.  Once an outer query
+        references ``subquery.some_col``, however, we know the requested name and
+        can create a producer-scoped passthrough definition from each relation
+        feeding the wildcard stage.
+        """
+        if field.expression_id is not None or field.field_name == ROW_SENTINEL_NAME:
+            return
+        wildcard = next(
+            (
+                item for item in self.fields
+                if item.dataset_id == field.dataset_id
+                and item.field_name == ROW_SENTINEL_NAME
+                and item.expression_id is not None
+            ),
+            None,
+        )
+        if wildcard is None:
+            return
+        wildcard_expression = next(
+            (
+                item for item in self.field_expressions
+                if item.expression_id == wildcard.expression_id
+            ),
+            None,
+        )
+        if wildcard_expression is None:
+            return
+        source_dataset_ids = [
+            item.dataset_id for item in sorted(
+                (
+                    item for item in self.stage_inputs
+                    if item.stage_id == wildcard_expression.stage_id
+                ),
+                key=lambda item: item.input_order,
+            )
+        ]
+        if not source_dataset_ids:
+            return
+
+        source_fields = [
+            self._ensure_field(dataset_id, field.field_name, FieldRole.ATTRIBUTE)
+            for dataset_id in source_dataset_ids
+        ]
+        expression_id = self._unique_expression_id(
+            wildcard_expression.stage_id, field.field_name
+        )
+        field.expression_id = expression_id
+        self.field_expressions.append(
+            FieldExpression(
+                expression_id=expression_id,
+                stage_id=wildcard_expression.stage_id,
+                expression_type=ExpressionType.ALIAS,
+                expression_sql=field.field_name,
+                source_field_ids=[item.field_id for item in source_fields],
+                description="Lazily expanded SELECT * passthrough",
+            )
+        )
+        for source_field in source_fields:
+            self.field_lineage.append(
+                FieldLineage(
+                    target_field_id=field.field_id,
+                    source_field_id=source_field.field_id,
+                    lineage_type=LineageType.DIRECT,
+                )
+            )
 
     def _fields_for_dataset(self, dataset_id: str) -> List[Field]:
         return [field for field in self.fields if field.dataset_id == dataset_id]

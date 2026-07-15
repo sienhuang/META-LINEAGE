@@ -108,6 +108,44 @@ create table if not exists metadata.field_lineage (
   unique (target_field_id, source_field_id, lineage_type)
 );
 
+-- V2 provenance model.  The legacy dataset.producer_stage_id and
+-- field.expression_id columns are intentionally kept for compatibility, but
+-- they can only represent one producer.  These tables preserve every job's
+-- definition when multiple jobs write the same physical table/column.
+create table if not exists metadata.dataset_production (
+  production_id text primary key,
+  dataset_id text not null references metadata.dataset(dataset_id) on delete cascade,
+  job_id varchar(128) not null references metadata.job(job_id) on delete cascade,
+  stage_id varchar(128) not null references metadata.stage(stage_id) on delete cascade,
+  write_mode varchar(64) not null,
+  is_materialized boolean not null default false,
+  is_current boolean not null default true,
+  source_instance_id text,
+  created_at timestamp not null default current_timestamp,
+  unique (dataset_id, job_id, stage_id)
+);
+
+create table if not exists metadata.field_definition (
+  definition_id text primary key,
+  production_id text not null references metadata.dataset_production(production_id) on delete cascade,
+  field_id text not null references metadata.field(field_id) on delete cascade,
+  expression_id text references metadata.field_expression(expression_id) on delete cascade,
+  expression_sql text,
+  expression_type varchar(32),
+  ordinal_no int not null,
+  unique (production_id, field_id)
+);
+
+create table if not exists metadata.field_dependency (
+  edge_id text primary key,
+  target_definition_id text not null references metadata.field_definition(definition_id) on delete cascade,
+  source_field_id text not null references metadata.field(field_id) on delete cascade,
+  dependency_type varchar(32) not null,
+  lineage_type varchar(32) not null,
+  source_ordinal int not null,
+  unique (target_definition_id, source_field_id, dependency_type, lineage_type)
+);
+
 create table if not exists metadata.semantic_document (
   doc_id varchar(255) primary key,
   doc_type varchar(32) not null,
@@ -126,6 +164,11 @@ create index if not exists idx_stage_predicate_stage_id on metadata.stage_predic
 create index if not exists idx_stage_join_stage_id on metadata.stage_join(stage_id);
 create index if not exists idx_field_expression_stage_id on metadata.field_expression(stage_id);
 create index if not exists idx_field_lineage_target on metadata.field_lineage(target_field_id);
+create index if not exists idx_dataset_production_dataset on metadata.dataset_production(dataset_id);
+create index if not exists idx_dataset_production_job on metadata.dataset_production(job_id);
+create index if not exists idx_field_definition_field on metadata.field_definition(field_id);
+create index if not exists idx_field_dependency_target on metadata.field_dependency(target_definition_id);
+create index if not exists idx_field_dependency_source on metadata.field_dependency(source_field_id);
 
 -- ---- migration: 把旧库里仍是 varchar 的派生列就地扩成 text。
 -- 用无条件 ALTER(varchar→text 二进制兼容: 不重写表、不破坏 PK/FK/unique; text→text 为空操作),
