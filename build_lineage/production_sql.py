@@ -267,6 +267,7 @@ def _prune_query(query: exp.Expression, root_requirements: set[str]) -> None:
             "having",
             "qualify",
             "order",
+            "sort",
             "distribute",
         ):
             value = expression.args.get(key)

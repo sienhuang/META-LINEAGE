@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Production SQL Failures"
+  short_description: "审计、归因并逐项修复 production SQL 失败"
+  default_prompt: "Use $audit-production-sql-failures to run the full audit, triage every failure, apply safe minimal fixes, revalidate them, and record manual-review cases."

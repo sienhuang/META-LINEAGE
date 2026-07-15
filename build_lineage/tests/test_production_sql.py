@@ -58,6 +58,18 @@ DISTRIBUTE BY ABS(HASH(roleid, zoneid, os, device, ip_country)) % 20
 """
 
 
+SORT_BY_SQL = """
+INSERT OVERWRITE TABLE mt_ads.sorted_target
+SELECT accountid
+FROM (
+  SELECT accountid, event_time
+  FROM dm.account_events
+) events
+DISTRIBUTE BY accountid
+SORT BY event_time DESC
+"""
+
+
 UNQUALIFIED_STAR_SOURCE_SQL = """
 INSERT OVERWRITE TABLE mt_ads.star_join_target
 SELECT COALESCE(last_network_name, 'unknown') AS last_network_name
@@ -254,6 +266,27 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
         derived = next(parsed.find_all(sqlglot.exp.Subquery))
         self.assertEqual(
             ["roleid", "zoneid", "os", "device", "ip_country", "area_id", "appid"],
+            [item.alias_or_name for item in derived.this.selects],
+        )
+
+    def test_preserves_derived_outputs_used_only_by_sort_by(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            SORT_BY_SQL,
+            "accountid",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            SORT_BY_SQL,
+            "accountid",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertIn("SORT BY", result.sql)
+        parsed = sqlglot.parse_one(result.sql, read="hive")
+        derived = next(parsed.find_all(sqlglot.exp.Subquery))
+        self.assertEqual(
+            ["accountid", "event_time"],
             [item.alias_or_name for item in derived.this.selects],
         )
 
