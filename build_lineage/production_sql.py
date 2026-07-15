@@ -252,7 +252,15 @@ def _prune_query(query: exp.Expression, root_requirements: set[str]) -> None:
         expression.set("expressions", selected)
 
         reference_expressions = list(selected)
-        for key in ("joins", "where", "group", "having", "qualify", "order"):
+        for key in (
+            "joins",
+            "where",
+            "group",
+            "having",
+            "qualify",
+            "order",
+            "distribute",
+        ):
             value = expression.args.get(key)
             if isinstance(value, list):
                 reference_expressions.extend(value)
@@ -401,7 +409,8 @@ def _column_source_scope(
         source = scope.sources.get(column.table)
         return source if isinstance(source, Scope) else None
 
-    direct_sources = [source for _, source in scope.selected_sources.values()]
+    direct_entries = list(scope.selected_sources.items())
+    direct_sources = [source for _, (_, source) in direct_entries]
     candidates: list[Scope] = []
     for source in direct_sources:
         if not isinstance(source, Scope):
@@ -415,6 +424,24 @@ def _column_source_scope(
             candidates.append(source)
     if len(candidates) == 1:
         return candidates[0]
+    if not candidates:
+        star_candidates = [
+            (alias, source)
+            for alias, (_, source) in direct_entries
+            if isinstance(source, Scope)
+            and any(
+                _is_star_projection(item)
+                for item in original_selects.get(id(source), [])
+            )
+        ]
+        if len(star_candidates) == 1:
+            return star_candidates[0][1]
+        if len(star_candidates) > 1:
+            aliases = sorted(alias for alias, _ in star_candidates)
+            raise SqlStructureError(
+                f"ambiguous unqualified column {column.name!r}; "
+                f"multiple SELECT * sources may provide it: {aliases}"
+            )
     scoped_sources = [source for source in direct_sources if isinstance(source, Scope)]
     return (
         scoped_sources[0]

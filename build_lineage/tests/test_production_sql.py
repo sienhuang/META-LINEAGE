@@ -9,6 +9,7 @@ import sqlglot
 from build_lineage.column_tracer import SingleJobColumnTracer
 from build_lineage.production_sql import (
     ProductionSqlGenerator,
+    _prune_query,
     _validate_scope_contracts,
     write_production_sql,
 )
@@ -33,6 +34,30 @@ FROM (
   ) branches
   GROUP BY logymd
 ) a
+"""
+
+
+DISTRIBUTE_BY_SQL = """
+INSERT OVERWRITE TABLE mt_ads.distributed_target
+PARTITION(logymd='2026-07-15', appid)
+SELECT area_id, appid
+FROM (
+  SELECT roleid, zoneid, os, device, ip_country, area_id, appid
+  FROM dm.role_behavior
+) a
+DISTRIBUTE BY ABS(HASH(roleid, zoneid, os, device, ip_country)) % 20
+"""
+
+
+UNQUALIFIED_STAR_SOURCE_SQL = """
+INSERT OVERWRITE TABLE mt_ads.star_join_target
+SELECT COALESCE(last_network_name, 'unknown') AS last_network_name
+FROM (
+  SELECT roleid FROM dm.activity
+) activity
+LEFT JOIN (
+  SELECT * FROM dim.roles
+) role_dim ON activity.roleid = role_dim.roleid
 """
 
 
@@ -146,6 +171,67 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
         self.assertTrue(result.validated)
         self.assertEqual(("user_id", "login_cnt", "logymd"), result.output_columns)
         self.assertIn("SUM(login_cnt) AS login_cnt", result.sql)
+
+    def test_preserves_derived_outputs_used_by_distribute_by(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            DISTRIBUTE_BY_SQL,
+            "area_id",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            DISTRIBUTE_BY_SQL,
+            "area_id",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertIn("DISTRIBUTE BY", result.sql)
+        parsed = sqlglot.parse_one(result.sql, read="hive")
+        derived = next(parsed.find_all(sqlglot.exp.Subquery))
+        self.assertEqual(
+            ["roleid", "zoneid", "os", "device", "ip_country", "area_id", "appid"],
+            [item.alias_or_name for item in derived.this.selects],
+        )
+
+    def test_resolves_unqualified_column_to_unique_star_source(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            UNQUALIFIED_STAR_SOURCE_SQL,
+            "last_network_name",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            UNQUALIFIED_STAR_SOURCE_SQL,
+            "last_network_name",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertEqual(
+            ("dim.roles.last_network_name",),
+            result.value_sources,
+        )
+        parsed = sqlglot.parse_one(result.sql, read="hive")
+        role_dim = next(
+            item for item in parsed.find_all(sqlglot.exp.Subquery)
+            if item.alias_or_name == "role_dim"
+        )
+        self.assertEqual(
+            ["last_network_name", "roleid"],
+            [item.alias_or_name for item in role_dim.this.selects],
+        )
+
+    def test_rejects_ambiguous_unqualified_column_from_multiple_stars(self) -> None:
+        query = sqlglot.parse_one("""
+            SELECT COALESCE(metric, 0) AS metric
+            FROM (SELECT * FROM dm.source_a) a
+            JOIN (SELECT * FROM dm.source_b) b ON a.id = b.id
+        """, read="hive")
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "ambiguous unqualified column 'metric'",
+        ):
+            _prune_query(query, {"metric"})
 
 
 if __name__ == "__main__":
