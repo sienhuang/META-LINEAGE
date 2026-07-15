@@ -78,6 +78,17 @@ GROUP BY user_id
 """
 
 
+REUSED_ALIAS_STAR_SQL = """
+INSERT OVERWRITE TABLE mt_ads.alias_target
+SELECT nested.metric AS metric
+FROM (
+  SELECT a.metric AS metric, a.id AS id
+  FROM (SELECT * FROM dm.correct_source) a
+) nested
+LEFT JOIN (SELECT * FROM dm.wrong_source) a ON nested.id = a.id
+"""
+
+
 class _MetadataClient:
     def get_table_by_name(self, table_name: str) -> TableMetadata:
         if table_name != "db.target":
@@ -185,6 +196,17 @@ class SingleJobColumnTracerTests(unittest.TestCase):
                 "hive",
                 metadata_client=_MetadataClient(),
             ).trace(sql, "login_cnt")
+
+    def test_star_resolution_uses_node_local_scope_when_aliases_repeat(self) -> None:
+        result = SingleJobColumnTracer("hive").trace(
+            REUSED_ALIAS_STAR_SQL,
+            "metric",
+        )
+
+        self.assertEqual(
+            ["dm.correct_source.metric"],
+            [item.ref for item in result.value_sources],
+        )
 
 
 if __name__ == "__main__":

@@ -15,8 +15,10 @@ from .column_tracer import (
     _alias_query_output,
 )
 from .document import DEFAULT_OUTPUT_ROOT
+from .metadata import TableMetadataClient
 from .postgres import JobRecord
 from .sql_parser import PartitionColumn, SqlStructureError, SqlStructureParser
+from .union_star import expand_simple_union_stars
 
 
 Requirement = str | int
@@ -43,9 +45,14 @@ class ProductionSql:
 
 
 class ProductionSqlGenerator:
-    def __init__(self, dialect: str = "hive") -> None:
+    def __init__(
+        self,
+        dialect: str = "hive",
+        metadata_client: TableMetadataClient | None = None,
+    ) -> None:
         self.dialect = dialect
         self.structure_parser = SqlStructureParser(dialect)
+        self.metadata_client = metadata_client
 
     def generate(
         self,
@@ -62,6 +69,7 @@ class ProductionSqlGenerator:
         with_clause = insert.args.get("with_")
         if with_clause is not None:
             query.set("with_", with_clause.copy())
+        expand_simple_union_stars(query, self.metadata_client)
 
         if not any(
             item.alias_or_name.lower() == target_field.lower()
@@ -381,23 +389,37 @@ def _append_static_partitions(
     partitions: list[PartitionColumn],
     dialect: str,
 ) -> None:
-    if not isinstance(query, exp.Select):
-        if any(not partition.dynamic for partition in partitions):
-            raise SqlStructureError(
-                "static partition output requires a top-level SELECT"
-            )
+    static_partitions = [
+        partition for partition in partitions if not partition.dynamic
+    ]
+    if not static_partitions:
         return
-    existing = {item.alias_or_name.lower() for item in query.selects}
-    for partition in partitions:
-        if partition.dynamic or partition.name.lower() in existing:
-            continue
-        if not partition.value_sql:
+
+    if isinstance(query, exp.Select):
+        branches = [query]
+    elif isinstance(query, exp.Union):
+        branches = _flatten_union(query)
+    else:
+        raise SqlStructureError(
+            "static partition output requires a top-level SELECT or UNION"
+        )
+
+    for branch in branches:
+        if not isinstance(branch, exp.Select):
             raise SqlStructureError(
-                f"static partition {partition.name!r} has no value"
+                "static partition UNION branch is not a SELECT"
             )
-        value = sqlglot.parse_one(partition.value_sql, read=dialect)
-        query.append("expressions", exp.alias_(value, partition.name))
-        existing.add(partition.name.lower())
+        existing = {item.alias_or_name.lower() for item in branch.selects}
+        for partition in static_partitions:
+            if partition.name.lower() in existing:
+                continue
+            if not partition.value_sql:
+                raise SqlStructureError(
+                    f"static partition {partition.name!r} has no value"
+                )
+            value = sqlglot.parse_one(partition.value_sql, read=dialect)
+            branch.append("expressions", exp.alias_(value, partition.name))
+            existing.add(partition.name.lower())
 
 
 def _column_source_scope(
@@ -429,10 +451,12 @@ def _column_source_scope(
             (alias, source)
             for alias, (_, source) in direct_entries
             if isinstance(source, Scope)
-            and any(
-                _is_star_projection(item)
-                for item in original_selects.get(id(source), [])
-            )
+            and _scope_may_output(
+                source,
+                column.name,
+                original_selects,
+                frozenset(),
+            ) is not False
         ]
         if len(star_candidates) == 1:
             return star_candidates[0][1]
@@ -448,6 +472,63 @@ def _column_source_scope(
         if len(direct_sources) == 1 and len(scoped_sources) == 1
         else None
     )
+
+
+def _scope_may_output(
+    scope: Scope,
+    column_name: str,
+    original_selects: dict[int, list[exp.Expression]],
+    visiting: frozenset[tuple[int, str]],
+) -> bool | None:
+    """Return True/False when a derived output is known, or None if unknown."""
+    key = (id(scope), column_name.lower())
+    if key in visiting:
+        return None
+    visiting = visiting | {key}
+    projections = original_selects.get(id(scope), [])
+    if any(
+        projection.alias_or_name.lower() == column_name.lower()
+        for projection in projections
+        if projection.alias_or_name and not _is_star_projection(projection)
+    ):
+        return True
+
+    stars = [
+        projection for projection in projections
+        if _is_star_projection(projection)
+    ]
+    if not stars:
+        return False
+
+    statuses: list[bool | None] = []
+    for projection in stars:
+        value = projection.this if isinstance(projection, exp.Alias) else projection
+        if isinstance(value, exp.Column) and value.is_star and value.table:
+            sources = [scope.sources.get(value.table)]
+        else:
+            sources = [source for _, source in scope.selected_sources.values()]
+        if not sources:
+            statuses.append(None)
+            continue
+        for source in sources:
+            if isinstance(source, Scope):
+                statuses.append(_scope_may_output(
+                    source,
+                    column_name,
+                    original_selects,
+                    visiting,
+                ))
+            elif isinstance(source, exp.Table):
+                # Without physical schema metadata, a table star may expose it.
+                statuses.append(None)
+            else:
+                statuses.append(None)
+
+    if any(status is True for status in statuses):
+        return True
+    if any(status is None for status in statuses):
+        return None
+    return False
 
 
 def _add_requirements(
@@ -524,7 +605,10 @@ def _validate_scope_contracts(query: exp.Expression) -> None:
             alias: source
             for alias, (_, source) in scope.selected_sources.items()
         }
-        for column in scope.columns:
+        # Scope.columns also includes columns owned by nested scalar subqueries.
+        # Those subqueries are visited as their own scopes by traverse_scope, so
+        # validate only columns that belong to the current scope here.
+        for column in find_all_in_scope(scope.expression, exp.Column):
             if column.table:
                 source = direct.get(column.table)
                 if isinstance(source, Scope) and not _scope_outputs(source, column.name):

@@ -179,6 +179,31 @@ uv run python -m build_lineage audit-production-sql \
   --report-dir build_lineage/audit_runs/smoke
 ```
 
+业务任务包含多个 INSERT 时，可以直接传业务 ID；audit 会按 statement 顺序展开
+`job.<业务ID>_0`、`job.<业务ID>_1` 等精确任务：
+
+```bash
+uv run python -m build_lineage audit-production-sql \
+  --job-id 100000993
+```
+
+statement 会保守分类为 `data_write`、`snapshot_copy` 或
+`empty_overwrite`。静态空查询（例如顶层 `WHERE 1 > 1` 或 `LIMIT 0`）对应的
+空覆盖会写入任务摘要，但跳过普通字段 production SQL 审计。
+
+单字段生成传业务 ID 时，会为所有包含该目标字段且能生产数据的 INSERT 分别生成
+SQL，输出仍按精确 job ID 隔离；空覆盖和不包含目标字段的 statement 会跳过：
+
+```bash
+uv run python -m build_lineage build-production-sql \
+  --job-id 100000993 \
+  --column his_last_ip
+```
+
+需要只生成某一个 INSERT 时，仍可传
+`--job-id job.100000993_1`。业务 ID 展开为多个 INSERT 时不支持单一 `--output`
+路径，以免多个结果互相覆盖。
+
 全量扫描 PostgreSQL `lineage.job`：
 
 ```bash
@@ -203,6 +228,12 @@ uv run python -m build_lineage audit-production-sql \
 - `failures.jsonl`：每个问题列的任务、表、字段、阶段和错误；
 - `failure_groups.json`：按兼容问题类型聚合，并保留样例；
 - `tables.json`：按目标表汇总任务和列结果；
+- `tasks.json`：按业务任务汇总 statement 顺序、角色、目标分区和审计状态；
+- `diagnostics.jsonl`：SQLGlot 警告和捕获异常，包含 job、statement、阶段及字段；
 - `successes.jsonl`：成功列及值来源。
+
+audit 会把 `Invalid JSON path syntax`、`Unknown subquery scope` 等 SQLGlot
+诊断从终端重定向到 `diagnostics.jsonl`；终端仅保留进度和最终摘要。摘要中的
+`counts.diagnostic_events` 表示诊断事件数量。
 
 `audit_runs` 已加入忽略规则，不会把批量派生报告提交到 Git。

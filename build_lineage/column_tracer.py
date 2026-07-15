@@ -11,13 +11,13 @@ from sqlglot.lineage import Node, lineage
 from sqlglot.optimizer.scope import Scope, find_all_in_scope, traverse_scope
 
 from .metadata import TableMetadataClient
+from .output_schema import resolve_insert_output_schema
 from .sql_parser import (
-    OutputColumn,
-    ParsedInsert,
     SqlStructureError,
     SqlStructureParser,
     UnionGroup,
 )
+from .union_star import expand_simple_union_stars
 
 
 GENERATED_QUALIFIER = re.compile(r"\b_\d+\.")
@@ -129,19 +129,12 @@ class SingleJobColumnTracer:
         self.metadata_client = metadata_client
 
     def trace(self, raw_sql: str, target_field: str) -> ColumnTrace:
-        parsed = self.structure_parser.parse_insert(raw_sql)
+        raw_parsed = self.structure_parser.parse_insert(raw_sql)
+        parsed = resolve_insert_output_schema(raw_parsed, self.metadata_client)
         matches = [
             item for item in parsed.output_columns
             if item.name.lower() == target_field.lower() and not item.is_partition
         ]
-        resolved_by_schema = False
-        if not matches and self.metadata_client is not None:
-            matches = _resolve_target_by_schema(
-                parsed,
-                target_field,
-                self.metadata_client,
-            )
-            resolved_by_schema = bool(matches)
         if not matches:
             raise SqlStructureError(
                 f"target field {target_field!r} is not an INSERT output column"
@@ -150,6 +143,10 @@ class SingleJobColumnTracer:
             raise SqlStructureError(
                 f"target field {target_field!r} occurs more than once"
             )
+        original_output = raw_parsed.output_columns[matches[0].ordinal - 1]
+        resolved_by_schema = (
+            original_output.name.lower() != matches[0].name.lower()
+        )
 
         insert = sqlglot.parse_one(raw_sql, read=self.dialect)
         if not isinstance(insert, exp.Insert):
@@ -158,6 +155,7 @@ class SingleJobColumnTracer:
         with_clause = insert.args.get("with_")
         if with_clause is not None:
             query.set("with_", with_clause.copy())
+        expand_simple_union_stars(query, self.metadata_client)
         if resolved_by_schema:
             _alias_query_output(query, matches[0].ordinal, matches[0].name)
         star_resolver = StarColumnResolver(query)
@@ -221,45 +219,6 @@ class SingleJobColumnTracer:
         )
 
 
-def _resolve_target_by_schema(
-    parsed: ParsedInsert,
-    target_field: str,
-    metadata_client: TableMetadataClient,
-) -> list[OutputColumn]:
-    table = metadata_client.get_table_by_name(parsed.target_table)
-    schema_columns = list(table.data_columns)
-    dynamic_partition_count = sum(
-        1 for partition in parsed.partitions if partition.dynamic
-    )
-    query_data_column_count = len(parsed.output_columns) - dynamic_partition_count
-    if query_data_column_count != len(schema_columns):
-        raise SqlStructureError(
-            "INSERT output count does not match target table schema: "
-            f"query has {query_data_column_count} data columns, "
-            f"{parsed.target_table} has {len(schema_columns)}"
-        )
-
-    matches = [
-        (index, column)
-        for index, column in enumerate(schema_columns)
-        if column.name.lower() == target_field.lower()
-    ]
-    if not matches:
-        return []
-    if len(matches) > 1:
-        raise SqlStructureError(
-            f"target table schema contains duplicate field {target_field!r}"
-        )
-    index, column = matches[0]
-    original = parsed.output_columns[index]
-    return [OutputColumn(
-        ordinal=original.ordinal,
-        name=column.name,
-        expression_sql=original.expression_sql,
-        is_partition=False,
-    )]
-
-
 def _alias_query_output(
     query: exp.Expression,
     ordinal: int,
@@ -289,6 +248,9 @@ class StarColumnResolver:
         if not isinstance(node.expression, exp.Star) or "." not in node.name:
             return []
         alias, field_name = node.name.rsplit(".", 1)
+        local = self._resolve_node_source(node.source, field_name)
+        if local:
+            return local
         result: set[PhysicalColumn] = set()
         for scope in self.scopes:
             selected = scope.selected_sources.get(alias)
@@ -296,6 +258,36 @@ class StarColumnResolver:
                 continue
             result.update(self._resolve_source(
                 selected[1],
+                field_name,
+                frozenset(),
+            ))
+        return sorted(result)
+
+    def _resolve_node_source(
+        self,
+        source_expression: exp.Expression,
+        field_name: str,
+    ) -> list[PhysicalColumn]:
+        scopes = list(traverse_scope(source_expression))
+        if not scopes:
+            return []
+        root = scopes[-1]
+        selected_sources = [
+            source for _, source in root.selected_sources.values()
+        ]
+        if any(
+            isinstance(source, exp.Table)
+            and not source.db
+            and not source.catalog
+            for source in selected_sources
+        ):
+            # A node-local source may omit the outer WITH clause and expose a
+            # CTE as an unqualified table. The full-query scopes can resolve it.
+            return []
+        result: set[PhysicalColumn] = set()
+        for source in selected_sources:
+            result.update(self._resolve_source(
+                source,
                 field_name,
                 frozenset(),
             ))

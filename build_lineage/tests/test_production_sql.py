@@ -37,6 +37,15 @@ FROM (
 """
 
 
+STATIC_PARTITION_UNION_SQL = """
+INSERT OVERWRITE TABLE mt_ads.union_target
+PARTITION(logymd='2026-05-31')
+SELECT SUM(value) AS metric FROM dm.source_a
+UNION ALL
+SELECT SUM(value) AS metric FROM dm.source_b
+"""
+
+
 DISTRIBUTE_BY_SQL = """
 INSERT OVERWRITE TABLE mt_ads.distributed_target
 PARTITION(logymd='2026-07-15', appid)
@@ -111,6 +120,37 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
 
         _validate_scope_contracts(query)
 
+    def test_validates_scalar_subquery_columns_in_their_own_scope(self) -> None:
+        query = sqlglot.parse_one("""
+            WITH version_counts AS (
+              SELECT COUNT(*) AS version_count
+              FROM db.valid_versions
+            )
+            SELECT official_version, rn
+            FROM (
+              SELECT official_version, ROW_NUMBER() OVER () AS rn
+              FROM db.valid_versions
+            ) ranked_versions
+            WHERE rn <= (
+              SELECT CASE WHEN version_count > 1 THEN 2 ELSE 1 END
+              FROM version_counts
+            )
+        """, read="hive")
+
+        _validate_scope_contracts(query)
+
+    def test_rejects_a_genuinely_missing_derived_output(self) -> None:
+        query = sqlglot.parse_one("""
+            SELECT missing_metric
+            FROM (SELECT present_metric FROM db.source) derived
+        """, read="hive")
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "derived query does not output column 'missing_metric'",
+        ):
+            _validate_scope_contracts(query)
+
     def test_preserves_group_grain_and_appends_static_partitions(self) -> None:
         trace = SingleJobColumnTracer("hive").trace(
             STATIC_PARTITION_SQL,
@@ -133,6 +173,30 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
             "COALESCE(SUM(metric), 0) AS metric,\n    logymd",
             result.sql,
         )
+
+    def test_appends_static_partitions_to_every_union_branch(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            STATIC_PARTITION_UNION_SQL,
+            "metric",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            STATIC_PARTITION_UNION_SQL,
+            "metric",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertEqual(("metric", "logymd"), result.output_columns)
+        self.assertEqual(2, result.union_branch_count)
+        parsed = sqlglot.parse_one(result.sql, read="hive")
+        self.assertIsInstance(parsed, sqlglot.exp.Union)
+        branches = [parsed.this, parsed.expression]
+        self.assertTrue(all(
+            [item.alias_or_name for item in branch.selects]
+            == ["metric", "logymd"]
+            for branch in branches
+        ))
 
     def test_prunes_query_with_qualified_star_passthrough(self) -> None:
         trace = SingleJobColumnTracer("hive").trace(
@@ -218,6 +282,39 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
         self.assertEqual(
             ["last_network_name", "roleid"],
             [item.alias_or_name for item in role_dim.this.selects],
+        )
+
+    def test_ignores_nested_stars_that_cannot_output_unqualified_column(self) -> None:
+        query = sqlglot.parse_one("""
+            SELECT event_channel
+            FROM dm.events kk
+            LEFT JOIN (
+              SELECT * FROM (
+                SELECT resource_id FROM dim.prep_resources
+              ) nested
+            ) prep ON kk.resource_id = prep.resource_id
+            LEFT JOIN (
+              SELECT * FROM (
+                SELECT resource_id FROM dim.dataset_resources
+              ) nested
+            ) dataset ON kk.resource_id = dataset.resource_id
+            LEFT JOIN (
+              SELECT * FROM (
+                SELECT resource_id FROM dim.report_resources
+              ) nested
+            ) report ON kk.resource_id = report.resource_id
+            LEFT JOIN (
+              SELECT * FROM (
+                SELECT resource_id FROM dim.dashboard_resources
+              ) nested
+            ) dashboard ON kk.resource_id = dashboard.resource_id
+        """, read="hive")
+
+        _prune_query(query, {"event_channel"})
+
+        self.assertEqual(
+            ["event_channel"],
+            [item.alias_or_name for item in query.selects],
         )
 
     def test_rejects_ambiguous_unqualified_column_from_multiple_stars(self) -> None:

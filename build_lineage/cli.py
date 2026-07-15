@@ -14,6 +14,7 @@ from .audit_all_columns import (
     default_audit_report_dir,
     print_progress,
 )
+from .builder import SingleJobProductionBuilder
 from .column_tracer import SingleJobColumnTracer
 from .config import PostgresConfig
 from .document import (
@@ -24,11 +25,11 @@ from .document import (
 from .metadata import TableMetadataClient
 from .postgres import PostgresJobRepository
 from .production_sql import (
-    ProductionSqlGenerator,
     default_production_sql_path,
     write_production_sql,
 )
 from .sql_parser import SqlStructureParser
+from .statements import classify_statement, job_identity
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -175,7 +176,7 @@ def main(argv: list[str] | None = None) -> int:
                 "match_count": len(result.matches),
                 "unique": result.unique,
                 "jobs": [
-                    item.to_dict(include_sql=args.include_sql)
+                    _job_description(item, include_sql=args.include_sql)
                     for item in result.matches
                 ],
             }
@@ -194,11 +195,10 @@ def main(argv: list[str] | None = None) -> int:
                 }, stream=sys.stderr)
                 return 2
             if not result.unique:
-                _print_json({
-                    "ok": False,
-                    "error": "job reference is ambiguous; use an exact job_id",
-                    "candidate_job_ids": [item.job_id for item in result.matches],
-                }, stream=sys.stderr)
+                _print_json(
+                    _ambiguous_job_output(args.job_id, result.matches),
+                    stream=sys.stderr,
+                )
                 return 3
             job = result.matches[0]
             parsed = SqlStructureParser(dialect=job.engine).parse_insert(job.raw_sql)
@@ -218,11 +218,10 @@ def main(argv: list[str] | None = None) -> int:
                 }, stream=sys.stderr)
                 return 2
             if not result.unique:
-                _print_json({
-                    "ok": False,
-                    "error": "job reference is ambiguous; use an exact job_id",
-                    "candidate_job_ids": [item.job_id for item in result.matches],
-                }, stream=sys.stderr)
+                _print_json(
+                    _ambiguous_job_output(args.job_id, result.matches),
+                    stream=sys.stderr,
+                )
                 return 3
             job = result.matches[0]
             traced = SingleJobColumnTracer(
@@ -247,11 +246,10 @@ def main(argv: list[str] | None = None) -> int:
                 }, stream=sys.stderr)
                 return 2
             if not result.unique:
-                _print_json({
-                    "ok": False,
-                    "error": "job reference is ambiguous; use an exact job_id",
-                    "candidate_job_ids": [item.job_id for item in result.matches],
-                }, stream=sys.stderr)
+                _print_json(
+                    _ambiguous_job_output(args.job_id, result.matches),
+                    stream=sys.stderr,
+                )
                 return 3
             job = result.matches[0]
             traced = SingleJobColumnTracer(
@@ -287,38 +285,94 @@ def main(argv: list[str] | None = None) -> int:
                     "error": f"job not found: {args.job_id}",
                 }, stream=sys.stderr)
                 return 2
-            if not result.unique:
+            if result.unique:
+                output = _build_production_for_statement(
+                    result.matches[0],
+                    args.column,
+                    metadata_client,
+                    Path(args.output) if args.output else None,
+                )
                 _print_json({
-                    "ok": False,
-                    "error": "job reference is ambiguous; use an exact job_id",
-                    "candidate_job_ids": [item.job_id for item in result.matches],
-                }, stream=sys.stderr)
-                return 3
-            job = result.matches[0]
-            traced = SingleJobColumnTracer(
-                job.engine,
-                metadata_client=metadata_client,
-            ).trace(
-                job.raw_sql,
-                args.column,
+                    "ok": True,
+                    **output,
+                })
+                return 0
+
+            if args.output:
+                raise ValueError(
+                    "--output cannot be used when a business job expands to "
+                    "multiple INSERT statements"
+                )
+            statement_results = []
+            for job in sorted(result.matches, key=_statement_sort_key):
+                parsed = SqlStructureParser(job.engine).parse_insert(job.raw_sql)
+                classification = classify_statement(job, parsed)
+                base = {
+                    "job_id": job.job_id,
+                    "statement_index": classification.statement_index,
+                    "statement_role": classification.role,
+                    "target_table": classification.target_table,
+                    "partitions": dict(classification.partitions),
+                }
+                if classification.role == "empty_overwrite":
+                    statement_results.append({
+                        **base,
+                        "status": "skipped",
+                        "reason": "empty_overwrite does not produce rows",
+                    })
+                    continue
+                try:
+                    built = _build_production_for_statement(
+                        job,
+                        args.column,
+                        metadata_client,
+                        None,
+                    )
+                except ValueError as error:
+                    if "is not an INSERT output column" in str(error):
+                        statement_results.append({
+                            **base,
+                            "status": "skipped",
+                            "reason": "target field is not produced by this INSERT",
+                        })
+                    else:
+                        statement_results.append({
+                            **base,
+                            "status": "failed",
+                            "error_type": type(error).__name__,
+                            "error": str(error).strip(),
+                        })
+                    continue
+                statement_results.append({
+                    **base,
+                    "status": "generated",
+                    **built,
+                })
+
+            generated_count = sum(
+                item["status"] == "generated" for item in statement_results
             )
-            production = ProductionSqlGenerator(job.engine).generate(
-                job.raw_sql,
-                args.column,
-                traced,
+            failed_count = sum(
+                item["status"] == "failed" for item in statement_results
             )
-            output_path = (
-                default_production_sql_path(job, args.column)
-                if not args.output
-                else Path(args.output)
+            skipped_count = sum(
+                item["status"] == "skipped" for item in statement_results
             )
-            written = write_production_sql(production.sql, output_path)
-            _print_json({
-                "ok": True,
-                **production.summary(),
-                "output": str(written),
-            })
-            return 0
+            output = {
+                "ok": generated_count > 0 and failed_count == 0,
+                "business_job_id": args.job_id,
+                "column": args.column,
+                "statement_count": len(statement_results),
+                "generated_count": generated_count,
+                "skipped_count": skipped_count,
+                "failed_count": failed_count,
+                "statements": statement_results,
+            }
+            _print_json(
+                output,
+                stream=sys.stderr if failed_count or not generated_count else None,
+            )
+            return 0 if output["ok"] else 1
         if args.command == "audit-production-sql":
             if args.all_jobs:
                 jobs = repository.iter_jobs(
@@ -327,17 +381,17 @@ def main(argv: list[str] | None = None) -> int:
                     fetch_size=args.fetch_size,
                 )
             else:
-                selected = []
+                selected_by_id = {}
                 for job_ref in args.job_id:
                     result = repository.find_jobs(job_ref)
                     if not result.found:
                         raise ValueError(f"job not found: {job_ref}")
-                    if not result.unique:
-                        candidates = [item.job_id for item in result.matches]
-                        raise ValueError(
-                            f"ambiguous job {job_ref!r}; candidates: {candidates}"
-                        )
-                    selected.append(result.matches[0])
+                    for item in result.matches:
+                        selected_by_id.setdefault(item.job_id, item)
+                selected = sorted(
+                    selected_by_id.values(),
+                    key=_statement_sort_key,
+                )
                 jobs = iter(selected[args.offset:][:args.limit]) if args.limit else iter(
                     selected[args.offset:]
                 )
@@ -346,12 +400,15 @@ def main(argv: list[str] | None = None) -> int:
                 if args.report_dir
                 else default_audit_report_dir()
             )
-            auditor = ProductionSqlAuditor(AuditOptions(
-                report_dir=report_dir,
-                write_sql=args.write_sql,
-                max_columns_per_job=args.max_columns_per_job,
-                progress_every=args.progress_every,
-            ))
+            auditor = ProductionSqlAuditor(
+                AuditOptions(
+                    report_dir=report_dir,
+                    write_sql=args.write_sql,
+                    max_columns_per_job=args.max_columns_per_job,
+                    progress_every=args.progress_every,
+                ),
+                metadata_client=metadata_client,
+            )
             summary = auditor.run(jobs, progress=print_progress)
             _print_json(summary)
             return 0
@@ -367,6 +424,62 @@ def main(argv: list[str] | None = None) -> int:
 
 def _print_json(value: object, *, stream=None) -> None:
     print(json.dumps(value, ensure_ascii=False, indent=2), file=stream)
+
+
+def _job_description(job, *, include_sql: bool = False) -> dict[str, object]:
+    value = job.to_dict(include_sql=include_sql)
+    try:
+        parsed = SqlStructureParser(job.engine).parse_insert(job.raw_sql)
+        value.update(classify_statement(job, parsed).to_dict())
+    except ValueError as error:
+        value.update({
+            "statement_role": "unknown",
+            "classification_error": str(error),
+        })
+    return value
+
+
+def _ambiguous_job_output(job_ref: str, matches) -> dict[str, object]:
+    return {
+        "ok": False,
+        "error": "job reference contains multiple INSERT statements; use an exact job_id",
+        "job_ref": job_ref,
+        "candidate_jobs": [
+            _job_description(job, include_sql=False)
+            for job in sorted(matches, key=_statement_sort_key)
+        ],
+    }
+
+
+def _statement_sort_key(job) -> tuple[str, bool, int, str]:
+    business_job_id, statement_index = job_identity(job.job_id)
+    return (
+        business_job_id,
+        statement_index is None,
+        statement_index if statement_index is not None else 0,
+        job.job_id,
+    )
+
+
+def _build_production_for_statement(
+    job,
+    column: str,
+    metadata_client: TableMetadataClient,
+    output_path: Path | None,
+) -> dict[str, object]:
+    result = SingleJobProductionBuilder(
+        job.engine,
+        metadata_client,
+    ).build(job.raw_sql, column)
+    production = result.production
+    written = write_production_sql(
+        production.sql,
+        output_path or default_production_sql_path(job, column),
+    )
+    return {
+        **production.summary(),
+        "output": str(written),
+    }
 
 
 if __name__ == "__main__":
