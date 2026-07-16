@@ -39,7 +39,8 @@ Repeat until every baseline failure is either `verified` or `manual_review`:
 1. Select the next pending root-cause group, preferring higher-count groups,
    then one representative failure. Read
    [failure-taxonomy.md](references/failure-taxonomy.md) before diagnosing.
-2. Reproduce with the exact stored job when possible:
+2. Before any diagnosis, run this mandatory freshness check with the exact
+   stored job and column:
 
    ```bash
    uv run python -m build_lineage build-production-sql \
@@ -47,17 +48,27 @@ Repeat until every baseline failure is either `verified` or `manual_review`:
      --column <column>
    ```
 
-   For `parse_job` failures or a missing column, use `show-job --include-sql`
-   and `parse-job --include-expressions` instead.
-3. Trace the failure through the shared pipeline beginning at
+   - If it succeeds with `"validated": true` and the expected target, do not
+     analyze the stale baseline error. Record it as `verified` with reason
+     `resolved_by_prior_change` and preserve the command output as evidence,
+     then select the next pending failure.
+   - If it still fails, diagnose the current error, which may differ from the
+     baseline error. Preserve both errors as evidence.
+   - For `parse_job` failures or a missing column, run the analogous freshness
+     check with `show-job --include-sql` and `parse-job
+     --include-expressions`. If parsing now succeeds, verify the business job
+     with a targeted audit before recording it as resolved.
+3. Only after the freshness check confirms a current failure, trace it through
+   the shared pipeline beginning at
    `SingleJobProductionBuilder`. Confirm whether audit and the direct command
    truly use the same code path before proposing a fix.
 4. Identify the root cause, affected SQL shape, invariants, and counterexamples.
    Search the whole group for at least one structurally different sample.
 5. Decide between safe code repair and manual review using the gate below.
 
-Do not skip a failure because it resembles a previously fixed case. Re-run it
-and record evidence.
+Never start analysis from a baseline error without reproducing it against the
+current code. This check prevents failures already covered by an earlier repair
+from being diagnosed and fixed twice.
 
 ## Safe-change gate
 
@@ -119,11 +130,21 @@ changes. Preserve pre-existing user edits.
 
 1. Use `failure_queue.py summary` and require `pending = 0`; manual-review items
    count as handled but not fixed.
-2. Run a new full audit into `<run-dir>/final`. If it reports failures not
-   represented in the baseline state, add them to the active queue and continue.
-3. Compare baseline and final counts. Do not call the run complete while a final
-   failure is neither verified nor in `manual_review.jsonl`.
-4. Report fixed counts by root cause, remaining manual-review counts, regression
+2. Run a post-baseline full audit into `<run-dir>/final_1`. If it reports new or
+   still-current failures, add them to the active queue and process them with
+   the same mandatory freshness check and validation gates.
+3. After that queue returns to zero, one more full audit may be run into
+   `<run-dir>/final_2`. The hard upper limit is **two post-baseline full audit
+   rounds total**. Stop early when a round has no failures; never run
+   `final_3`.
+4. If `final_2` still contains failures, do not start another full scan. Record
+   every remaining item in `manual_review.jsonl` with reason
+   `full_reaudit_limit_reached`, the latest error, and both audit directories so
+   a human can continue deliberately.
+5. Compare baseline and latest-final counts. Do not call unresolved items fixed;
+   distinguish `verified`, `manual_review`, and failures deferred because the
+   two-round cap was reached.
+6. Report fixed counts by root cause, remaining manual-review counts, regression
    results, final audit directory, and changed files. Clearly distinguish static
    AST/lineage validation from execution on Hive.
 
