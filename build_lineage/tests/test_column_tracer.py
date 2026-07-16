@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from build_lineage.builder import SingleJobProductionBuilder
 from build_lineage.column_tracer import SingleJobColumnTracer
 from build_lineage.metadata import MetadataColumn, TableMetadata
 
@@ -78,6 +79,38 @@ GROUP BY user_id
 """
 
 
+DUPLICATE_ALIAS_INSERT_SQL = """
+INSERT OVERWRITE TABLE db.target PARTITION(logymd='2026-07-15')
+SELECT source.user_id AS user_id, source.login_cnt AS user_id
+FROM db.source
+"""
+
+
+PARENTHESIZED_INSERT_SQL = """
+WITH source AS (
+  SELECT * FROM db.source
+)
+INSERT OVERWRITE TABLE db.target PARTITION(logymd='2026-07-15')
+(SELECT user_id FROM source)
+"""
+
+
+PARENTHESIZED_UNQUALIFIED_STAR_JOIN_SQL = """
+WITH source AS (
+  SELECT * FROM db.source
+), counts AS (
+  SELECT user_id, COUNT(*) AS event_cnt
+  FROM source
+  GROUP BY user_id
+)
+INSERT OVERWRITE TABLE db.target PARTITION(logymd='2026-07-15')
+(SELECT user_id
+ FROM (SELECT source.*, counts.event_cnt
+       FROM source LEFT JOIN counts
+         ON source.user_id = counts.user_id) joined)
+"""
+
+
 REUSED_ALIAS_STAR_SQL = """
 INSERT OVERWRITE TABLE mt_ads.alias_target
 SELECT nested.metric AS metric
@@ -86,6 +119,42 @@ FROM (
   FROM (SELECT * FROM dm.correct_source) a
 ) nested
 LEFT JOIN (SELECT * FROM dm.wrong_source) a ON nested.id = a.id
+"""
+
+
+CTE_REUSED_ALIAS_STAR_SQL = """
+WITH correct_rows AS (
+  SELECT * FROM dm.correct_source
+), wrong_rows AS (
+  SELECT * FROM dm.wrong_source
+), nested AS (
+  SELECT t.metric AS metric, t.id AS id
+  FROM correct_rows t
+), unrelated AS (
+  SELECT t.metric AS metric, t.id AS id
+  FROM wrong_rows t
+)
+INSERT OVERWRITE TABLE mt_ads.alias_target
+SELECT t.metric AS metric
+FROM nested t
+LEFT JOIN unrelated u ON t.id = u.id
+"""
+
+
+CTE_JOIN_CONTEXT_STAR_SQL = """
+WITH newbies AS (
+  SELECT roleid FROM dm.newbies
+), battles AS (
+  SELECT a.roleid, a.battle_time
+  FROM dm.correct_source a
+  JOIN newbies b ON a.roleid = b.roleid
+), unrelated AS (
+  SELECT t.rank_metric, t.roleid FROM dm.wrong_source t
+)
+INSERT OVERWRITE TABLE mt_ads.alias_target
+SELECT t.battle_time AS battle_time
+FROM (SELECT * FROM battles) t
+LEFT JOIN unrelated u ON t.roleid = u.roleid
 """
 
 
@@ -169,6 +238,28 @@ class SingleJobColumnTracerTests(unittest.TestCase):
             [item.ref for item in result.value_sources],
         )
 
+    def test_traces_parenthesized_insert_query(self) -> None:
+        result = SingleJobColumnTracer("hive").trace(
+            PARENTHESIZED_INSERT_SQL,
+            "user_id",
+        )
+
+        self.assertEqual(
+            ["db.source.user_id"],
+            [item.ref for item in result.value_sources],
+        )
+
+    def test_resolves_unqualified_star_from_only_viable_join_source(self) -> None:
+        result = SingleJobColumnTracer("hive").trace(
+            PARENTHESIZED_UNQUALIFIED_STAR_JOIN_SQL,
+            "user_id",
+        )
+
+        self.assertEqual(
+            ["db.source.user_id"],
+            [item.ref for item in result.value_sources],
+        )
+
     def test_resolves_unaliased_output_by_target_schema_position(self) -> None:
         result = SingleJobColumnTracer(
             "hive",
@@ -185,6 +276,29 @@ class SingleJobColumnTracerTests(unittest.TestCase):
             "resolved from target table schema" in warning
             for warning in result.warnings
         ))
+
+    def test_resolves_duplicate_aliases_by_target_schema_position(self) -> None:
+        tracer = SingleJobColumnTracer(
+            "hive",
+            metadata_client=_MetadataClient(),
+        )
+
+        user_id = tracer.trace(DUPLICATE_ALIAS_INSERT_SQL, "user_id")
+        login_cnt = tracer.trace(DUPLICATE_ALIAS_INSERT_SQL, "login_cnt")
+
+        self.assertEqual(1, user_id.target_ordinal)
+        self.assertEqual(["db.source.user_id"], [x.ref for x in user_id.value_sources])
+        self.assertEqual(2, login_cnt.target_ordinal)
+        self.assertEqual(
+            ["db.source.login_cnt"],
+            [x.ref for x in login_cnt.value_sources],
+        )
+
+        production = SingleJobProductionBuilder(
+            "hive",
+            metadata_client=_MetadataClient(),
+        ).build(DUPLICATE_ALIAS_INSERT_SQL, "user_id").production
+        self.assertEqual(("user_id", "logymd"), production.output_columns)
 
     def test_schema_resolution_rejects_output_count_mismatch(self) -> None:
         sql = UNALIASED_INSERT_SQL.replace(
@@ -205,6 +319,28 @@ class SingleJobColumnTracerTests(unittest.TestCase):
 
         self.assertEqual(
             ["dm.correct_source.metric"],
+            [item.ref for item in result.value_sources],
+        )
+
+    def test_star_resolution_matches_full_scope_before_global_alias_fallback(self) -> None:
+        result = SingleJobColumnTracer("hive").trace(
+            CTE_REUSED_ALIAS_STAR_SQL,
+            "metric",
+        )
+
+        self.assertEqual(
+            ["dm.correct_source.metric"],
+            [item.ref for item in result.value_sources],
+        )
+
+    def test_star_resolution_matches_trimmed_join_context_with_cte(self) -> None:
+        result = SingleJobColumnTracer("hive").trace(
+            CTE_JOIN_CONTEXT_STAR_SQL,
+            "battle_time",
+        )
+
+        self.assertEqual(
+            ["dm.correct_source.battle_time"],
             [item.ref for item in result.value_sources],
         )
 

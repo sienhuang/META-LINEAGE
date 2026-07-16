@@ -13,6 +13,7 @@ from build_lineage.production_sql import (
     _validate_scope_contracts,
     write_production_sql,
 )
+from build_lineage.metadata import MetadataColumn, TableMetadata
 from build_lineage.tests.test_column_tracer import (
     SQL,
     STAR_PASSTHROUGH_SQL,
@@ -43,6 +44,23 @@ PARTITION(logymd='2026-05-31')
 SELECT SUM(value) AS metric FROM dm.source_a
 UNION ALL
 SELECT SUM(value) AS metric FROM dm.source_b
+"""
+
+
+PARENTHESIZED_STATIC_PARTITION_SQL = """
+WITH source AS (
+  SELECT value FROM dm.source_values
+)
+INSERT OVERWRITE TABLE mt_ads.target
+PARTITION(logymd='2026-05-31')
+(SELECT SUM(value) AS metric FROM source)
+"""
+
+
+RESERVED_STAR_COLUMN_SQL = """
+INSERT OVERWRITE TABLE db.target PARTITION(logymd='2026-07-15')
+SELECT `from`
+FROM (SELECT * FROM db.source) source
 """
 
 
@@ -80,6 +98,76 @@ LEFT JOIN (
   SELECT * FROM dim.roles
 ) role_dim ON activity.roleid = role_dim.roleid
 """
+
+
+CORRELATED_FILTER_SQL = """
+WITH current_rows AS (
+  SELECT event_time, adjust_id, appid
+  FROM db.events
+), history AS (
+  SELECT adjust_id, appid
+  FROM db.history
+)
+INSERT OVERWRITE TABLE db.target
+SELECT t1.event_time AS event_time
+FROM (
+  SELECT *, ROW_NUMBER() OVER (
+    PARTITION BY appid, adjust_id ORDER BY event_time
+  ) AS rn
+  FROM current_rows
+) t1
+WHERE rn = 1
+  AND NOT EXISTS (
+    SELECT 1 FROM history t2
+    WHERE t1.appid = t2.appid AND t1.adjust_id = t2.adjust_id
+  )
+"""
+
+
+UNION_DUPLICATE_LATER_BRANCH_NAME_SQL = """
+WITH combined AS (
+  SELECT id, table_name, user_name, tool_source, task_type, task_id
+  FROM db.first_source
+  UNION ALL
+  SELECT task_id, table_name, owner_email AS user_name,
+         tool_source, task_type, task_id
+  FROM db.second_source
+), projected AS (
+  SELECT task_id, id AS query_id
+  FROM combined
+)
+INSERT OVERWRITE TABLE db.target
+SELECT task_id FROM projected
+"""
+
+
+CASE_INSENSITIVE_DERIVED_ALIAS_SQL = """
+WITH metrics AS (
+  SELECT id, value AS metric FROM db.source
+)
+INSERT OVERWRITE TABLE db.target
+SELECT M.METRIC AS metric
+FROM metrics m
+"""
+
+
+class _StarMetadataClient:
+    def get_table(self, database_name: str, table_name: str) -> TableMetadata:
+        names = {
+            "left_source": ("id", "metric"),
+            "right_source": ("id", "description"),
+        }[table_name]
+        return TableMetadata(
+            database_name=database_name,
+            table_name=table_name,
+            full_table_name=f"{database_name}.{table_name}",
+            description=None,
+            table_type="external_table",
+            columns=tuple(
+                MetadataColumn(name, "string", index, None, False, True)
+                for index, name in enumerate(names, start=1)
+            ),
+        )
 
 
 class ProductionSqlGeneratorTests(unittest.TestCase):
@@ -151,6 +239,60 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
 
         _validate_scope_contracts(query)
 
+    def test_preserves_outer_columns_used_by_correlated_subquery(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            CORRELATED_FILTER_SQL,
+            "event_time",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            CORRELATED_FILTER_SQL,
+            "event_time",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertEqual(("db.events.event_time",), result.value_sources)
+        self.assertIn("adjust_id", result.sql)
+        self.assertIn("appid", result.sql)
+
+    def test_union_pruning_uses_ordinal_not_duplicate_later_branch_name(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            UNION_DUPLICATE_LATER_BRANCH_NAME_SQL,
+            "task_id",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            UNION_DUPLICATE_LATER_BRANCH_NAME_SQL,
+            "task_id",
+            trace,
+        )
+
+        query = sqlglot.parse_one(result.sql, read="hive")
+        union = next(query.find_all(sqlglot.exp.Union))
+        branches = [union.this, union.expression]
+        self.assertEqual([1, 1], [len(branch.selects) for branch in branches])
+        self.assertEqual(
+            ("db.first_source.task_id", "db.second_source.task_id"),
+            result.value_sources,
+        )
+
+    def test_derived_alias_lookup_is_case_insensitive_for_hive(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            CASE_INSENSITIVE_DERIVED_ALIAS_SQL,
+            "metric",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            CASE_INSENSITIVE_DERIVED_ALIAS_SQL,
+            "metric",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertEqual(("db.source.value",), result.value_sources)
+        self.assertIn("value AS metric", result.sql)
+
     def test_rejects_a_genuinely_missing_derived_output(self) -> None:
         query = sqlglot.parse_one("""
             SELECT missing_metric
@@ -209,6 +351,40 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
             == ["metric", "logymd"]
             for branch in branches
         ))
+
+    def test_unwraps_parenthesized_static_partition_query(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            PARENTHESIZED_STATIC_PARTITION_SQL,
+            "metric",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            PARENTHESIZED_STATIC_PARTITION_SQL,
+            "metric",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertEqual(("metric", "logymd"), result.output_columns)
+        parsed = sqlglot.parse_one(result.sql, read="hive")
+        self.assertIsInstance(parsed, sqlglot.exp.Select)
+        self.assertIn("'2026-05-31' AS logymd", result.sql)
+
+    def test_quotes_reserved_column_expanded_from_star(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            RESERVED_STAR_COLUMN_SQL,
+            "from",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            RESERVED_STAR_COLUMN_SQL,
+            "from",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertEqual(("from", "logymd"), result.output_columns)
+        self.assertIn("`from`", result.sql)
 
     def test_prunes_query_with_qualified_star_passthrough(self) -> None:
         trace = SingleJobColumnTracer("hive").trace(
@@ -316,6 +492,24 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
             ["last_network_name", "roleid"],
             [item.alias_or_name for item in role_dim.this.selects],
         )
+
+    def test_schema_rules_out_physical_star_that_lacks_unqualified_column(self) -> None:
+        query = sqlglot.parse_one("""
+            SELECT metric
+            FROM (SELECT * FROM db.left_source) a
+            LEFT JOIN (SELECT * FROM db.right_source) c ON a.id = c.id
+        """, read="hive")
+
+        _prune_query(query, {"metric"}, _StarMetadataClient())
+
+        sources = {
+            subquery.alias_or_name: [
+                item.alias_or_name for item in subquery.this.selects
+            ]
+            for subquery in query.find_all(sqlglot.exp.Subquery)
+        }
+        self.assertEqual(["id", "metric"], sources["a"])
+        self.assertEqual(["id"], sources["c"])
 
     def test_ignores_nested_stars_that_cannot_output_unqualified_column(self) -> None:
         query = sqlglot.parse_one("""

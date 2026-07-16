@@ -13,11 +13,21 @@ from sqlglot.optimizer.scope import Scope, find_all_in_scope, traverse_scope
 from .metadata import TableMetadataClient
 from .output_schema import resolve_insert_output_schema
 from .sql_parser import (
+    ParsedInsert,
     SqlStructureError,
     SqlStructureParser,
     UnionGroup,
 )
-from .union_star import expand_simple_union_stars
+from .sql_normalization import (
+    protect_lateral_explode_columns,
+    qualify_metadata_unique_columns,
+    qualify_single_source_shadowed_columns,
+)
+from .union_star import (
+    expand_derived_union_stars,
+    expand_insert_stars,
+    expand_simple_union_stars,
+)
 
 
 GENERATED_QUALIFIER = re.compile(r"\b_\d+\.")
@@ -129,6 +139,9 @@ class SingleJobColumnTracer:
         self.metadata_client = metadata_client
 
     def trace(self, raw_sql: str, target_field: str) -> ColumnTrace:
+        raw_sql = expand_insert_stars(
+            raw_sql, self.dialect, self.metadata_client
+        )
         raw_parsed = self.structure_parser.parse_insert(raw_sql)
         parsed = resolve_insert_output_schema(raw_parsed, self.metadata_client)
         matches = [
@@ -152,12 +165,20 @@ class SingleJobColumnTracer:
         if not isinstance(insert, exp.Insert):
             raise SqlStructureError("expected INSERT statement")
         query = insert.expression.copy()
+        if isinstance(query, exp.Subquery):
+            query = query.this
+        if not isinstance(query, exp.Query):
+            raise SqlStructureError("INSERT has no query expression")
         with_clause = insert.args.get("with_")
         if with_clause is not None:
             query.set("with_", with_clause.copy())
+        protect_lateral_explode_columns(query)
         expand_simple_union_stars(query, self.metadata_client)
+        expand_derived_union_stars(query, self.metadata_client)
         if resolved_by_schema:
-            _alias_query_output(query, matches[0].ordinal, matches[0].name)
+            _alias_resolved_query_outputs(query, raw_parsed, parsed)
+        qualify_metadata_unique_columns(query, self.metadata_client)
+        qualify_single_source_shadowed_columns(query)
         star_resolver = StarColumnResolver(query)
         try:
             root = lineage(
@@ -238,26 +259,155 @@ def _alias_query_output(
     owner.set("expressions", expressions)
 
 
+def _alias_resolved_query_outputs(
+    query: exp.Expression,
+    raw_parsed: ParsedInsert,
+    resolved_parsed: ParsedInsert,
+) -> None:
+    for raw_output, resolved_output in zip(
+        raw_parsed.output_columns,
+        resolved_parsed.output_columns,
+    ):
+        if raw_output.name.lower() == resolved_output.name.lower():
+            continue
+        _alias_query_output(
+            query,
+            resolved_output.ordinal,
+            resolved_output.name,
+        )
+
+
+def _scope_shape(expression: exp.Expression) -> str:
+    normalized = expression.copy()
+    if isinstance(normalized, exp.Query):
+        normalized.set("with_", None)
+    return normalized.sql(dialect="hive", comments=False)
+
+
+def _scope_context_shape(expression: exp.Expression) -> str:
+    if not isinstance(expression, exp.Select):
+        return ""
+    normalized = exp.Select(expressions=[exp.Star()])
+    for key in ("from_", "joins", "laterals"):
+        value = expression.args.get(key)
+        if isinstance(value, list):
+            normalized.set(key, [item.copy() for item in value])
+        elif isinstance(value, exp.Expression):
+            normalized.set(key, value.copy())
+    return normalized.sql(dialect="hive", comments=False)
+
+
+def _scope_source_key(scope: Scope) -> tuple[tuple[str, ...], int, int]:
+    return (
+        tuple(sorted(name.lower() for name in scope.selected_sources)),
+        len(scope.expression.args.get("joins") or []),
+        len(scope.expression.args.get("laterals") or []),
+    )
+
+
+def _case_insensitive_selected_source(
+    scope: Scope,
+    alias: str,
+) -> exp.Table | Scope | None:
+    exact = scope.selected_sources.get(alias)
+    if exact is not None:
+        return exact[1]
+    matches = [
+        source[1]
+        for name, source in scope.selected_sources.items()
+        if name.lower() == alias.lower()
+    ]
+    return matches[0] if len(matches) == 1 else None
+
+
 class StarColumnResolver:
     """Resolve a named column through qualified and unqualified star projections."""
 
     def __init__(self, query: exp.Expression) -> None:
         self.scopes = list(traverse_scope(query))
+        self.scopes_by_shape: dict[str, list[Scope]] = {}
+        self.scopes_by_context: dict[str, list[Scope]] = {}
+        self.scopes_by_sources: dict[
+            tuple[tuple[str, ...], int, int],
+            list[Scope],
+        ] = {}
+        for scope in self.scopes:
+            self.scopes_by_shape.setdefault(
+                _scope_shape(scope.expression),
+                [],
+            ).append(scope)
+            context = _scope_context_shape(scope.expression)
+            if context:
+                self.scopes_by_context.setdefault(context, []).append(scope)
+            self.scopes_by_sources.setdefault(
+                _scope_source_key(scope),
+                [],
+            ).append(scope)
 
     def resolve_node(self, node: Node) -> list[PhysicalColumn]:
-        if not isinstance(node.expression, exp.Star) or "." not in node.name:
+        if not isinstance(node.expression, exp.Star):
             return []
-        alias, field_name = node.name.rsplit(".", 1)
+        if "." in node.name:
+            alias, field_name = node.name.rsplit(".", 1)
+        else:
+            alias, field_name = "", node.name
         local = self._resolve_node_source(node.source, field_name)
         if local:
             return local
+        source_scopes = list(traverse_scope(node.source))
+        if source_scopes:
+            context_matches = self.scopes_by_context.get(
+                _scope_context_shape(source_scopes[-1].expression),
+                [],
+            )
+            if len(context_matches) != 1:
+                context_matches = self.scopes_by_sources.get(
+                    _scope_source_key(source_scopes[-1]),
+                    [],
+                )
+            if len(context_matches) == 1:
+                scoped = self._resolve_source(
+                    context_matches[0],
+                    field_name,
+                    frozenset(),
+                )
+                if scoped:
+                    return sorted(scoped)
+                resolved_sources = []
+                for _, source in context_matches[0].selected_sources.values():
+                    resolved = self._resolve_source(
+                        source,
+                        field_name,
+                        frozenset(),
+                    )
+                    if resolved:
+                        resolved_sources.append(resolved)
+                unique_sources = {frozenset(items) for items in resolved_sources}
+                if len(unique_sources) == 1:
+                    return sorted(next(iter(unique_sources)))
+            matches = self.scopes_by_shape.get(
+                _scope_shape(source_scopes[-1].expression),
+                [],
+            )
+            if alias and len(matches) == 1:
+                selected = _case_insensitive_selected_source(matches[0], alias)
+                if isinstance(selected, (exp.Table, Scope)):
+                    scoped = self._resolve_source(
+                        selected,
+                        field_name,
+                        frozenset(),
+                    )
+                    if scoped:
+                        return sorted(scoped)
+        if not alias:
+            return []
         result: set[PhysicalColumn] = set()
         for scope in self.scopes:
-            selected = scope.selected_sources.get(alias)
+            selected = _case_insensitive_selected_source(scope, alias)
             if selected is None:
                 continue
             result.update(self._resolve_source(
-                selected[1],
+                selected,
                 field_name,
                 frozenset(),
             ))
@@ -284,14 +434,19 @@ class StarColumnResolver:
             # A node-local source may omit the outer WITH clause and expose a
             # CTE as an unqualified table. The full-query scopes can resolve it.
             return []
-        result: set[PhysicalColumn] = set()
+        resolved_sources: list[set[PhysicalColumn]] = []
         for source in selected_sources:
-            result.update(self._resolve_source(
+            resolved = self._resolve_source(
                 source,
                 field_name,
                 frozenset(),
-            ))
-        return sorted(result)
+            )
+            if resolved:
+                resolved_sources.append(resolved)
+        unique_sources = {frozenset(items) for items in resolved_sources}
+        if len(unique_sources) != 1:
+            return []
+        return sorted(next(iter(unique_sources)))
 
     def _resolve_source(
         self,
@@ -419,7 +574,7 @@ def _physical_sources(
         seen.add(id(item))
         if isinstance(item.expression, exp.Table):
             dataset = _table_name(item.expression)
-            field_name = item.name.rsplit(".", 1)[-1]
+            field_name = _unquote_identifier(item.name.rsplit(".", 1)[-1])
             if dataset and field_name and field_name != "*":
                 sources.add(PhysicalColumn(dataset=dataset, field=field_name))
         elif star_resolver is not None:
@@ -557,6 +712,12 @@ def _display_expression(node: Node) -> str:
 
 def _display_name(name: str) -> str:
     return GENERATED_QUALIFIER.sub("", name)
+
+
+def _unquote_identifier(name: str) -> str:
+    if len(name) >= 2 and name[0] == name[-1] and name[0] in {'`', '"'}:
+        return name[1:-1]
+    return name
 
 
 def _clean_sql(value: str) -> str:

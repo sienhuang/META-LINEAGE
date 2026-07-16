@@ -7,18 +7,30 @@ from sqlglot import exp
 from sqlglot.errors import SqlglotError
 from sqlglot.lineage import Node, lineage
 from sqlglot.optimizer.scope import Scope, find_all_in_scope, traverse_scope
+from sqlglot.tokens import TokenType
 
 from .column_tracer import (
     ColumnTrace,
     PhysicalColumn,
     StarColumnResolver,
     _alias_query_output,
+    _alias_resolved_query_outputs,
 )
 from .document import DEFAULT_OUTPUT_ROOT
-from .metadata import TableMetadataClient
+from .metadata import MetadataServiceError, TableMetadataClient
+from .output_schema import resolve_insert_output_schema
 from .postgres import JobRecord
 from .sql_parser import PartitionColumn, SqlStructureError, SqlStructureParser
-from .union_star import expand_simple_union_stars
+from .sql_normalization import (
+    protect_lateral_explode_columns,
+    qualify_metadata_unique_columns,
+    qualify_single_source_shadowed_columns,
+)
+from .union_star import (
+    expand_derived_union_stars,
+    expand_insert_stars,
+    expand_simple_union_stars,
+)
 
 
 Requirement = str | int
@@ -60,16 +72,29 @@ class ProductionSqlGenerator:
         target_field: str,
         expected_trace: ColumnTrace,
     ) -> ProductionSql:
-        parsed = self.structure_parser.parse_insert(raw_sql)
+        raw_sql = expand_insert_stars(
+            raw_sql, self.dialect, self.metadata_client
+        )
+        raw_parsed = self.structure_parser.parse_insert(raw_sql)
+        parsed = resolve_insert_output_schema(raw_parsed, self.metadata_client)
         insert = sqlglot.parse_one(raw_sql, read=self.dialect)
         if not isinstance(insert, exp.Insert):
             raise SqlStructureError("expected INSERT statement")
 
         query = insert.expression.copy()
+        if isinstance(query, exp.Subquery):
+            query = query.this
+        if not isinstance(query, exp.Query):
+            raise SqlStructureError("INSERT has no query expression")
         with_clause = insert.args.get("with_")
         if with_clause is not None:
             query.set("with_", with_clause.copy())
+        protect_lateral_explode_columns(query)
         expand_simple_union_stars(query, self.metadata_client)
+        expand_derived_union_stars(query, self.metadata_client)
+        _alias_resolved_query_outputs(query, raw_parsed, parsed)
+        qualify_metadata_unique_columns(query, self.metadata_client)
+        qualify_single_source_shadowed_columns(query)
 
         if not any(
             item.alias_or_name.lower() == target_field.lower()
@@ -87,7 +112,12 @@ class ProductionSqlGenerator:
             target_field,
             [item.name for item in parsed.partitions if item.dynamic],
         )
-        _prune_query(query, set(output_names))
+        _prune_query(
+            query,
+            set(output_names),
+            self.metadata_client,
+            self.dialect,
+        )
         _append_static_partitions(query, parsed.partitions, self.dialect)
         output_names = [item.alias_or_name for item in query.selects]
         production_sql = query.sql(dialect=self.dialect, pretty=True) + ";\n"
@@ -208,7 +238,12 @@ def _production_output_names(
     return output
 
 
-def _prune_query(query: exp.Expression, root_requirements: set[str]) -> None:
+def _prune_query(
+    query: exp.Expression,
+    root_requirements: set[str],
+    metadata_client: TableMetadataClient | None = None,
+    dialect: str = "hive",
+) -> None:
     scopes = list(traverse_scope(query))
     if not scopes:
         raise SqlStructureError("cannot build SQL scope for production query")
@@ -227,6 +262,21 @@ def _prune_query(query: exp.Expression, root_requirements: set[str]) -> None:
         for child in scope.union_scopes
     }
     queue = [root_scope]
+    queued_ids = {id(root_scope)}
+    for nested_scope in scopes:
+        for column in nested_scope.external_columns:
+            if not column.table:
+                continue
+            ancestor = nested_scope.parent
+            while ancestor is not None:
+                source = _scope_source(ancestor, column.table)
+                if isinstance(source, Scope):
+                    requirements.setdefault(id(source), set()).add(column.name)
+                    if id(source) not in queued_ids:
+                        queue.append(source)
+                        queued_ids.add(id(source))
+                    break
+                ancestor = ancestor.parent
 
     while queue:
         scope = queue.pop(0)
@@ -235,10 +285,22 @@ def _prune_query(query: exp.Expression, root_requirements: set[str]) -> None:
         original = original_selects.get(id(scope), [])
         if isinstance(expression, exp.SetOperation):
             positions = _required_positions(original, required)
-            child_needed: set[Requirement] = set(positions) | {
+            required_names = {
                 item for item in required if isinstance(item, str)
             }
             for child in scope.union_scopes:
+                child_outputs = original_selects.get(id(child), [])
+                child_needed: set[Requirement] = set(positions)
+                # Explicit UNION projections obey the first branch's ordinal
+                # contract. Forwarding names as well can retain an unrelated
+                # same-named projection at another ordinal in a later branch.
+                # Names remain necessary only for an unresolved star position.
+                if any(
+                    position >= len(child_outputs)
+                    or _is_star_projection(child_outputs[position])
+                    for position in positions
+                ):
+                    child_needed.update(required_names)
                 if _add_requirements(requirements, child, child_needed):
                     queue.append(child)
             continue
@@ -256,12 +318,13 @@ def _prune_query(query: exp.Expression, root_requirements: set[str]) -> None:
                 f"projection pruning removed every output from {expression.sql()[:120]}"
             )
         if id(scope) not in union_child_ids:
-            selected = _expand_star_projections(selected, required)
+            selected = _expand_star_projections(selected, required, dialect)
         expression.set("expressions", selected)
 
         reference_expressions = list(selected)
         for key in (
             "joins",
+            "laterals",
             "where",
             "group",
             "having",
@@ -281,7 +344,12 @@ def _prune_query(query: exp.Expression, root_requirements: set[str]) -> None:
 
         child_requirements: dict[int, set[Requirement]] = {}
         for column in columns:
-            child = _column_source_scope(scope, column, original_selects)
+            child = _column_source_scope(
+                scope,
+                column,
+                original_selects,
+                metadata_client,
+            )
             if child is None:
                 continue
             child_requirements.setdefault(id(child), set()).add(column.name)
@@ -332,6 +400,7 @@ def _required_positions(
 def _expand_star_projections(
     projections: list[exp.Expression],
     requirements: set[Requirement],
+    dialect: str,
 ) -> list[exp.Expression]:
     explicit_names = {
         projection.alias_or_name.lower()
@@ -352,10 +421,19 @@ def _expand_star_projections(
         value = projection.this if isinstance(projection, exp.Alias) else projection
         qualifier = value.table if isinstance(value, exp.Column) else ""
         result.extend(
-            exp.column(name, table=qualifier or None)
+            exp.column(
+                name,
+                table=qualifier or None,
+                quoted=_requires_quoted_identifier(name, dialect),
+            )
             for name in missing_names
         )
     return result
+
+
+def _requires_quoted_identifier(name: str, dialect: str) -> bool:
+    tokens = sqlglot.Dialect.get_or_raise(dialect).tokenizer().tokenize(name)
+    return len(tokens) != 1 or tokens[0].token_type != TokenType.VAR
 
 
 def _group_output_positions(
@@ -423,13 +501,35 @@ def _append_static_partitions(
             existing.add(partition.name.lower())
 
 
+def _scope_source(
+    scope: Scope,
+    alias: str,
+) -> exp.Table | Scope | None:
+    return _mapping_source(scope.sources, alias)
+
+
+def _mapping_source(
+    sources: dict[str, exp.Table | Scope],
+    alias: str,
+) -> exp.Table | Scope | None:
+    exact = sources.get(alias)
+    if exact is not None:
+        return exact
+    matches = [
+        source for name, source in sources.items()
+        if name.lower() == alias.lower()
+    ]
+    return matches[0] if len(matches) == 1 else None
+
+
 def _column_source_scope(
     scope: Scope,
     column: exp.Column,
     original_selects: dict[int, list[exp.Expression]],
+    metadata_client: TableMetadataClient | None = None,
 ) -> Scope | None:
     if column.table:
-        source = scope.sources.get(column.table)
+        source = _scope_source(scope, column.table)
         return source if isinstance(source, Scope) else None
 
     direct_entries = list(scope.selected_sources.items())
@@ -457,6 +557,7 @@ def _column_source_scope(
                 column.name,
                 original_selects,
                 frozenset(),
+                metadata_client,
             ) is not False
         ]
         if len(star_candidates) == 1:
@@ -480,6 +581,7 @@ def _scope_may_output(
     column_name: str,
     original_selects: dict[int, list[exp.Expression]],
     visiting: frozenset[tuple[int, str]],
+    metadata_client: TableMetadataClient | None = None,
 ) -> bool | None:
     """Return True/False when a derived output is known, or None if unknown."""
     key = (id(scope), column_name.lower())
@@ -505,7 +607,7 @@ def _scope_may_output(
     for projection in stars:
         value = projection.this if isinstance(projection, exp.Alias) else projection
         if isinstance(value, exp.Column) and value.is_star and value.table:
-            sources = [scope.sources.get(value.table)]
+            sources = [_scope_source(scope, value.table)]
         else:
             sources = [source for _, source in scope.selected_sources.values()]
         if not sources:
@@ -518,10 +620,14 @@ def _scope_may_output(
                     column_name,
                     original_selects,
                     visiting,
+                    metadata_client,
                 ))
             elif isinstance(source, exp.Table):
-                # Without physical schema metadata, a table star may expose it.
-                statuses.append(None)
+                statuses.append(_table_may_output(
+                    source,
+                    column_name,
+                    metadata_client,
+                ))
             else:
                 statuses.append(None)
 
@@ -530,6 +636,23 @@ def _scope_may_output(
     if any(status is None for status in statuses):
         return None
     return False
+
+
+def _table_may_output(
+    table: exp.Table,
+    column_name: str,
+    metadata_client: TableMetadataClient | None,
+) -> bool | None:
+    if metadata_client is None or not table.db or table.catalog:
+        return None
+    try:
+        metadata = metadata_client.get_table(table.db, table.name)
+    except (MetadataServiceError, ValueError):
+        return None
+    return column_name.lower() in {
+        column.name.lower()
+        for column in metadata.data_columns + metadata.partition_columns
+    }
 
 
 def _add_requirements(
@@ -566,6 +689,12 @@ def _lineage_source_refs(
                 if part
             )
             field = node.name.rsplit(".", 1)[-1]
+            if (
+                len(field) >= 2
+                and field[0] == field[-1]
+                and field[0] in {'`', '"'}
+            ):
+                field = field[1:-1]
             if field != "*":
                 result.add(f"{dataset}.{field}")
         elif star_resolver is not None:
@@ -590,7 +719,7 @@ def _star_source_scopes(
 ) -> list[Scope]:
     value = projection.this if isinstance(projection, exp.Alias) else projection
     if isinstance(value, exp.Column) and value.is_star and value.table:
-        source = scope.sources.get(value.table)
+        source = _scope_source(scope, value.table)
         return [source] if isinstance(source, Scope) else []
     direct = [source for _, source in scope.selected_sources.values()]
     return (
@@ -611,7 +740,7 @@ def _validate_scope_contracts(query: exp.Expression) -> None:
         # validate only columns that belong to the current scope here.
         for column in find_all_in_scope(scope.expression, exp.Column):
             if column.table:
-                source = direct.get(column.table)
+                source = _mapping_source(direct, column.table)
                 if isinstance(source, Scope) and not _scope_outputs(source, column.name):
                     raise SqlStructureError(
                         f"generated SQL source {column.table!r} does not output "

@@ -182,6 +182,16 @@ def _parse_table_metadata(
 
     columns: list[MetadataColumn] = []
     for index, item in enumerate(raw_columns, start=1):
+        if (
+            isinstance(item, dict)
+            and item.get("is_partition_key") is True
+            and not str(item.get("name") or "").strip()
+        ):
+            # Some non-partitioned Hive tables are returned with a null-named
+            # partition sentinel (and partitionKeys=[null]). It cannot be a
+            # usable SQL column, while the named data-column schema remains
+            # deterministic, so omit only this narrow service artifact.
+            continue
         if not isinstance(item, dict) or not str(item.get("name") or "").strip():
             raise MetadataServiceError(f"metadata column {index} has no name")
         try:

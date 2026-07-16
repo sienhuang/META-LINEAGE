@@ -82,6 +82,59 @@ class TableMetadataClientTests(unittest.TestCase):
         with self.assertRaisesRegex(MetadataServiceError, "not found"):
             client.get_table_by_name("db.missing")
 
+    def test_ignores_null_named_partition_sentinel(self) -> None:
+        def opener(request, *, timeout):
+            return _Response(json.dumps({
+                "code": 0,
+                "data": {
+                    "databaseName": "db",
+                    "tableName": "mapping",
+                    "columns": [
+                        {
+                            "name": "view_name",
+                            "position": 1,
+                            "is_partition_key": False,
+                        },
+                        {
+                            "name": None,
+                            "position": 1,
+                            "is_partition_key": True,
+                        },
+                    ],
+                    "partitionKeys": [None],
+                },
+            }).encode())
+
+        table = TableMetadataClient(
+            "http://metadata.test",
+            opener=opener,
+        ).get_table_by_name("db.mapping")
+
+        self.assertEqual(["view_name"], [c.name for c in table.data_columns])
+        self.assertEqual([], list(table.partition_columns))
+
+    def test_rejects_null_named_data_column(self) -> None:
+        def opener(request, *, timeout):
+            return _Response(json.dumps({
+                "code": 0,
+                "data": {
+                    "databaseName": "db",
+                    "tableName": "broken",
+                    "columns": [{
+                        "name": None,
+                        "position": 1,
+                        "is_partition_key": False,
+                    }],
+                },
+            }).encode())
+
+        client = TableMetadataClient(
+            "http://metadata.test",
+            opener=opener,
+        )
+        with self.assertRaisesRegex(MetadataServiceError, "has no name"):
+            client.get_table_by_name("db.broken")
+
 
 if __name__ == "__main__":
     unittest.main()

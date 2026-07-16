@@ -178,6 +178,35 @@ class ProductionSqlAuditorTests(unittest.TestCase):
             self.assertIn("Invalid JSON path", diagnostics[0]["message"])
             self.assertEqual(len(diagnostics), summary["counts"]["diagnostic_events"])
 
+    def test_resolves_unaliased_null_placeholder_from_target_schema(self) -> None:
+        job = JobRecord(
+            "job.null_0",
+            "null__0",
+            "hive",
+            "insert_overwrite",
+            """
+            INSERT OVERWRITE TABLE db.target PARTITION(logymd='2026-07-15')
+            SELECT user_id, NULL FROM db.source
+            """,
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            report_dir = Path(directory) / "audit"
+            summary = ProductionSqlAuditor(
+                AuditOptions(report_dir=report_dir),
+                metadata_client=_MetadataClient(),
+            ).run([job])
+
+            self.assertEqual(2, summary["counts"]["columns_discovered"])
+            self.assertEqual(2, summary["counts"]["columns_succeeded"])
+            successes = [
+                json.loads(line)
+                for line in (report_dir / "successes.jsonl").read_text().splitlines()
+            ]
+            self.assertEqual(
+                ["user_id", "login_cnt"],
+                [item["column"] for item in successes],
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
