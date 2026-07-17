@@ -17,7 +17,7 @@ from .builder import SingleJobProductionBuilder
 from .metadata import TableMetadataClient
 from .postgres import JobRecord
 from .production_sql import write_production_sql
-from .statements import classify_statement, job_identity
+from .statements import classify_statement, is_select_only_validation, job_identity
 
 
 DEFAULT_AUDIT_ROOT = Path(__file__).resolve().parent / "audit_runs"
@@ -257,6 +257,23 @@ class ProductionSqlAuditor:
         try:
             parsed = builder.inspect(job.raw_sql)
         except Exception as error:  # batch boundary: one bad job must not stop the run
+            if is_select_only_validation(job, error):
+                counters["statements_skipped"] += 1
+                return {
+                    "business_job_id": business_job_id,
+                    "statement_index": statement_index,
+                    "statement_role": "select_only",
+                    "classification_reason": "stored validation SELECT",
+                    "produces_rows": False,
+                    "audit_status": "skipped_select_only",
+                    "target_table": None,
+                    "partitions": {},
+                    "source_datasets": [],
+                    "columns_discovered": 0,
+                    "columns_attempted": 0,
+                    "columns_succeeded": 0,
+                    "columns_failed": 0,
+                }
             diagnostic_log.exception(error)
             counters["jobs_failed"] += 1
             issue = _issue(job, None, None, "parse_job", error)

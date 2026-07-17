@@ -151,6 +151,60 @@ FROM metrics m
 """
 
 
+WINDOW_OUTPUT_FILTER_SQL = """
+WITH ranked AS (
+  SELECT accountid,
+         RANK() OVER (PARTITION BY deviceid ORDER BY active_days DESC) AS ranknum
+  FROM db.accounts
+), flagged AS (
+  SELECT accountid, 1 AS small_account_flag
+  FROM ranked
+  WHERE ranknum > 1
+)
+INSERT OVERWRITE TABLE db.target
+SELECT small_account_flag FROM flagged
+"""
+
+
+WINDOW_OUTPUT_FILTER_UNION_SQL = """
+WITH login AS (
+  SELECT deviceid, roleid AS accountid, MAX(activedays) AS activedays,
+         MAX(level) AS level, MIN(usercreatetime) AS usercreatetime
+  FROM db.login GROUP BY roleid, deviceid
+), battle AS (
+  SELECT accountid, COUNT(*) AS battle_count FROM db.battle GROUP BY accountid
+), adv AS (SELECT accountid, first_mt_country FROM db.adv),
+login_battle AS (
+  SELECT deviceid, login.accountid, activedays, level, usercreatetime,
+         COALESCE(battle_count, 0) AS battle_count
+  FROM login LEFT JOIN battle ON login.accountid = battle.accountid
+), base_data AS (
+  SELECT deviceid, login_battle.accountid, activedays, level, usercreatetime,
+         battle_count, first_mt_country
+  FROM adv RIGHT JOIN login_battle ON adv.accountid = login_battle.accountid
+), ranknum_data AS (
+  SELECT accountid, first_mt_country,
+         RANK() OVER (PARTITION BY deviceid ORDER BY activedays DESC, level DESC,
+                      battle_count DESC, usercreatetime ASC) AS ranknum
+  FROM base_data
+), small_account AS (
+  SELECT accountid, first_mt_country, 1 AS small_account_flag
+  FROM ranknum_data WHERE ranknum > 1 GROUP BY accountid, first_mt_country
+), flag_account AS (
+  SELECT accountid, first_mt_country, 0 AS small_account_flag
+  FROM ranknum_data AS a
+  WHERE NOT EXISTS (SELECT accountid FROM small_account AS b
+                    WHERE a.accountid = b.accountid)
+  GROUP BY accountid, first_mt_country
+  UNION
+  SELECT accountid, first_mt_country, 1 AS small_account_flag FROM small_account
+)
+INSERT OVERWRITE TABLE db.target
+SELECT accountid, COALESCE(first_mt_country, 'unknown') AS first_mt_country,
+       small_account_flag FROM flag_account
+"""
+
+
 class _StarMetadataClient:
     def get_table(self, database_name: str, table_name: str) -> TableMetadata:
         names = {
@@ -292,6 +346,38 @@ class ProductionSqlGeneratorTests(unittest.TestCase):
         self.assertTrue(result.validated)
         self.assertEqual(("db.source.value",), result.value_sources)
         self.assertIn("value AS metric", result.sql)
+
+    def test_preserves_window_output_used_by_downstream_filter(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            WINDOW_OUTPUT_FILTER_SQL,
+            "small_account_flag",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            WINDOW_OUTPUT_FILTER_SQL,
+            "small_account_flag",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertIn("RANK() OVER", result.sql)
+        self.assertIn("ranknum > 1", result.sql)
+
+    def test_preserves_window_output_used_by_union_branch_filter(self) -> None:
+        trace = SingleJobColumnTracer("hive").trace(
+            WINDOW_OUTPUT_FILTER_UNION_SQL,
+            "small_account_flag",
+        )
+
+        result = ProductionSqlGenerator("hive").generate(
+            WINDOW_OUTPUT_FILTER_UNION_SQL,
+            "small_account_flag",
+            trace,
+        )
+
+        self.assertTrue(result.validated)
+        self.assertIn("RANK() OVER", result.sql)
+        self.assertIn("ranknum > 1", result.sql)
 
     def test_rejects_a_genuinely_missing_derived_output(self) -> None:
         query = sqlglot.parse_one("""

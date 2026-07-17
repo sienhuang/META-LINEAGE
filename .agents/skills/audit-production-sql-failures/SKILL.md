@@ -26,15 +26,20 @@ calls it `failure.json`.
 4. Read `summary.json`, `failure_groups.json`, `failures.jsonl`, and relevant
    entries in `diagnostics.jsonl`. Do not infer a job from a bare sqlglot
    warning; use the diagnostic context.
-5. Initialize or inspect the queue with
-   `scripts/failure_queue.py`. Keep `remediation_state.jsonl` and
-   `manual_review.jsonl` beside the baseline directory.
+5. Initialize or inspect the queue with `scripts/failure_queue.py`. Keep these
+   append-only records beside the baseline directory:
+   - `remediation_state.jsonl`: authoritative latest state of every failure;
+   - `verified_cases.jsonl`: self-contained cases successfully revalidated;
+   - `unresolved_cases.jsonl`: self-contained cases that could not be repaired
+     safely at the minimum reusable scope;
+   - `manual_review.jsonl`: backward-compatible subset requiring human review.
 6. When resuming, use the original baseline plus the latest state log. Never
    overwrite the baseline audit.
 
 ## Process the queue
 
-Repeat until every baseline failure is either `verified` or `manual_review`:
+Repeat until every baseline failure is either `verified`, `unresolved`, or
+`manual_review`:
 
 1. Select the next pending root-cause group, preferring higher-count groups,
    then one representative failure. Read
@@ -64,7 +69,27 @@ Repeat until every baseline failure is either `verified` or `manual_review`:
    truly use the same code path before proposing a fix.
 4. Identify the root cause, affected SQL shape, invariants, and counterexamples.
    Search the whole group for at least one structurally different sample.
-5. Decide between safe code repair and manual review using the gate below.
+5. Decide between safe code repair and an unresolved outcome using the gate
+   below.
+
+## Continuous-processing invariant
+
+A single unrepairable failure must never end, pause, or return from the overall
+remediation task. If the safe-change gate cannot be satisfied after reasonable
+diagnosis:
+
+1. Record the exact case immediately as `unresolved`, including the baseline
+   error, current reproduced error, diagnosis, evidence, why no minimum-scope
+   safe change exists, and a concrete human follow-up when applicable.
+2. Confirm that it is excluded from the pending queue.
+3. Invoke `next` and continue with the next pending failure without asking the
+   user to restart the task.
+
+Do not repeatedly retry or widen a change merely to make one case pass. Continue
+until the whole queue has a terminal recorded outcome. Only a queue-wide
+infrastructure failure that prevents all remaining freshness checks may block
+the run; an individual SQL shape, missing schema, ambiguous intent, or failed
+repair attempt is not a queue-wide blocker.
 
 Never start analysis from a baseline error without reproducing it against the
 current code. This check prevents failures already covered by an earlier repair
@@ -87,11 +112,14 @@ Prefer the smallest reusable change in the canonical builder path. Do not add a
 job-ID special case, rewrite stored SQL, weaken value-source validation, silently
 drop branches, or accept generated SQL merely because it parses.
 
-If any condition fails, do not change production code. Record `manual_review`
-with the original failure, diagnosis, missing authority or information, and a
-concrete human action. Typical reasons include invalid/ambiguous SQL, unavailable
-or contradictory schema, business-semantic choices, engine behavior requiring
-runtime data, and a genuine value-source change.
+If any condition fails, do not change production code. Record `unresolved` with
+the original failure, current failure, diagnosis, missing authority or
+information, and a concrete human action, then immediately continue to the next
+queue item. Use `manual_review` only when the case specifically needs a human
+business or data decision; it is also written to `unresolved_cases.jsonl` for a
+complete unsuccessful-case ledger. Typical reasons include invalid/ambiguous
+SQL, unavailable or contradictory schema, business-semantic choices, engine
+behavior requiring runtime data, and a genuine value-source change.
 
 ## Validate a code repair
 
@@ -121,15 +149,17 @@ Require every gate below before marking any failure `verified`:
    Compare the verification failures with the baseline group and investigate
    any new failure rather than declaring success.
 6. Record each actually revalidated failure as `verified`, including test and
-   command evidence. Do not mark the whole category solely from one sample.
+   command evidence. This appends the full case to `verified_cases.jsonl`. Do
+   not mark the whole category solely from one sample.
 
 If a repair fails a gate, continue diagnosing or revert only the repair's own
 changes. Preserve pre-existing user edits.
 
 ## Close the run
 
-1. Use `failure_queue.py summary` and require `pending = 0`; manual-review items
-   count as handled but not fixed.
+1. Use `failure_queue.py summary` and require `pending = 0`; `unresolved` and
+   manual-review items count as handled but not fixed. Report them separately
+   from verified successes.
 2. Run a post-baseline full audit into `<run-dir>/final_1`. If it reports new or
    still-current failures, add them to the active queue and process them with
    the same mandatory freshness check and validation gates.
@@ -160,12 +190,26 @@ python scripts/failure_queue.py \
 
 python scripts/failure_queue.py ... next
 
+python scripts/failure_queue.py ... sync-cases
+
 python scripts/failure_queue.py ... record \
   --job-id job.123_1 --column metric --phase build_production_sql \
   --status verified --reason "narrow UNION star expansion" \
   --evidence "47 unit tests passed" --evidence "exact build validated"
+
+python scripts/failure_queue.py ... record \
+  --job-id job.456_0 --column metric --phase build_production_sql \
+  --status unresolved --reason "ambiguous business source; no safe minimum-scope repair" \
+  --evidence "freshness check still fails" --evidence "two sources provide metric"
 ```
 
-Use `--status manual_review` to also append a self-contained record to
-`manual_review.jsonl`. State logs are append-only so the latest event for one
-failure identity is authoritative.
+`verified` appends a self-contained record to `verified_cases.jsonl`.
+`unresolved` appends one to `unresolved_cases.jsonl`. Use `manual_review` when
+human input is specifically required; it appends to both
+`unresolved_cases.jsonl` and `manual_review.jsonl`. State and case logs are
+append-only, and the latest `remediation_state.jsonl` event for one failure
+identity is authoritative. After recording any unsuccessful case, always run
+`next` and keep processing; do not end the task because that case was not fixed.
+Run `sync-cases` when resuming an older run to backfill terminal events recorded
+before the separate case ledgers existed; it is idempotent and preserves the
+append-only logs.

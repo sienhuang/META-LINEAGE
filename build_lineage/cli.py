@@ -29,7 +29,7 @@ from .production_sql import (
     write_production_sql,
 )
 from .sql_parser import SqlStructureParser
-from .statements import classify_statement, job_identity
+from .statements import classify_statement, is_select_only_validation, job_identity
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -305,15 +305,41 @@ def main(argv: list[str] | None = None) -> int:
                 )
             statement_results = []
             for job in sorted(result.matches, key=_statement_sort_key):
-                parsed = SqlStructureParser(job.engine).parse_insert(job.raw_sql)
-                classification = classify_statement(job, parsed)
+                _, statement_index = job_identity(job.job_id)
                 base = {
                     "job_id": job.job_id,
+                    "statement_index": statement_index,
+                    "statement_role": "unknown",
+                    "target_table": None,
+                    "partitions": {},
+                }
+                try:
+                    parsed = SqlStructureParser(job.engine).parse_insert(job.raw_sql)
+                    classification = classify_statement(job, parsed)
+                except ValueError as error:
+                    if is_select_only_validation(job, error):
+                        statement_results.append({
+                            **base,
+                            "statement_role": "select_only",
+                            "status": "skipped",
+                            "reason": (
+                                "validation SELECT does not produce a target table"
+                            ),
+                        })
+                    else:
+                        statement_results.append({
+                            **base,
+                            "status": "failed",
+                            "error_type": type(error).__name__,
+                            "error": str(error).strip(),
+                        })
+                    continue
+                base.update({
                     "statement_index": classification.statement_index,
                     "statement_role": classification.role,
                     "target_table": classification.target_table,
                     "partitions": dict(classification.partitions),
-                }
+                })
                 if classification.role == "empty_overwrite":
                     statement_results.append({
                         **base,
@@ -432,13 +458,24 @@ def _job_description(job, *, include_sql: bool = False) -> dict[str, object]:
         parsed = SqlStructureParser(job.engine).parse_insert(job.raw_sql)
         value.update(classify_statement(job, parsed).to_dict())
     except ValueError as error:
-        value.update({
-            "statement_role": "unknown",
-            "classification_error": str(error),
-        })
+        if is_select_only_validation(job, error):
+            business_job_id, statement_index = job_identity(job.job_id)
+            value.update({
+                "business_job_id": business_job_id,
+                "statement_index": statement_index,
+                "statement_role": "select_only",
+                "classification_reason": "stored validation SELECT",
+                "produces_rows": False,
+                "target_table": None,
+                "partitions": {},
+                "source_datasets": [],
+            })
+        else:
+            value.update({
+                "statement_role": "unknown",
+                "classification_error": str(error),
+            })
     return value
-
-
 def _ambiguous_job_output(job_ref: str, matches) -> dict[str, object]:
     return {
         "ok": False,

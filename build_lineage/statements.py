@@ -48,6 +48,14 @@ def job_identity(job_id: str) -> tuple[str, int | None]:
     return match.group("business"), int(match.group("index"))
 
 
+def is_select_only_validation(job: JobRecord, error: Exception) -> bool:
+    """Recognize a stored validation SELECT without hiding other parse errors."""
+    return (
+        job.write_mode == "select_only"
+        and "expected INSERT statement, found Select" in str(error)
+    )
+
+
 def classify_statement(
     job: JobRecord,
     parsed: ParsedInsert | None = None,

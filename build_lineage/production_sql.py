@@ -264,6 +264,22 @@ def _prune_query(
     queue = [root_scope]
     queued_ids = {id(root_scope)}
     for nested_scope in scopes:
+        # A correlated scalar/EXISTS subquery is evaluated for each outer row,
+        # yet its source scope is not reachable from the parent SELECT's
+        # ordinary column references.  Seed its projected outputs so its WHERE
+        # and join dependencies are propagated before pruning.  Without this,
+        # a CTE used only by a correlated subquery can lose a window output
+        # that the subquery's filter still reads.
+        if nested_scope.is_correlated_subquery:
+            outputs = {
+                item.alias_or_name
+                for item in original_selects.get(id(nested_scope), [])
+                if item.alias_or_name
+            }
+            if outputs and _add_requirements(requirements, nested_scope, outputs):
+                if id(nested_scope) not in queued_ids:
+                    queue.append(nested_scope)
+                    queued_ids.add(id(nested_scope))
         for column in nested_scope.external_columns:
             if not column.table:
                 continue

@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 
-HANDLED_STATUSES = {"verified", "manual_review"}
+HANDLED_STATUSES = {"verified", "unresolved", "manual_review"}
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -19,9 +19,15 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--failures", required=True, type=Path)
     parser.add_argument("--state", required=True, type=Path)
     parser.add_argument("--manual-review-file", type=Path)
+    parser.add_argument("--verified-file", type=Path)
+    parser.add_argument("--unresolved-file", type=Path)
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("summary")
     subparsers.add_parser("next")
+    subparsers.add_parser(
+        "sync-cases",
+        help="backfill terminal state events into the success/unresolved ledgers",
+    )
     record = subparsers.add_parser("record")
     record.add_argument("--job-id", required=True)
     record.add_argument("--column", required=True)
@@ -29,7 +35,7 @@ def _parser() -> argparse.ArgumentParser:
     record.add_argument(
         "--status",
         required=True,
-        choices=("verified", "manual_review", "pending"),
+        choices=("verified", "unresolved", "manual_review", "pending"),
     )
     record.add_argument("--reason", required=True)
     record.add_argument("--evidence", action="append", default=[])
@@ -97,9 +103,14 @@ def _summary(
         for row in failures
     )
     groups = Counter(_group_key(row) for row in pending)
+    verified = statuses.get("verified", 0)
+    unsuccessful = statuses.get("unresolved", 0) + statuses.get("manual_review", 0)
     return {
         "failures": len(failures),
         "pending": len(pending),
+        "handled": verified + unsuccessful,
+        "verified": verified,
+        "unsuccessful": unsuccessful,
         "statuses": dict(sorted(statuses.items())),
         "pending_groups": [
             {"signature": signature, "count": count}
@@ -134,6 +145,26 @@ def _append(path: Path, row: dict[str, Any]) -> None:
         output.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
+def _event_identity(row: dict[str, Any]) -> tuple[Any, ...]:
+    return (*_identity(row), row.get("status"), row.get("recorded_at"))
+
+
+def _sync_case_file(path: Path, events: list[dict[str, Any]]) -> int:
+    existing = {
+        _event_identity(row)
+        for row in _read_jsonl(path, missing_ok=True)
+    }
+    appended = 0
+    for event in events:
+        key = _event_identity(event)
+        if key in existing:
+            continue
+        _append(path, event)
+        existing.add(key)
+        appended += 1
+    return appended
+
+
 def main() -> int:
     args = _parser().parse_args()
     failures = _read_jsonl(args.failures)
@@ -142,6 +173,28 @@ def main() -> int:
         result = _summary(failures, state_rows)
     elif args.command == "next":
         result = _next(failures, state_rows)
+    elif args.command == "sync-cases":
+        verified_path = args.verified_file or (
+            args.state.parent / "verified_cases.jsonl"
+        )
+        unresolved_path = args.unresolved_file or (
+            args.state.parent / "unresolved_cases.jsonl"
+        )
+        result = {
+            "verified_file": str(verified_path),
+            "verified_appended": _sync_case_file(
+                verified_path,
+                [row for row in state_rows if row.get("status") == "verified"],
+            ),
+            "unresolved_file": str(unresolved_path),
+            "unresolved_appended": _sync_case_file(
+                unresolved_path,
+                [
+                    row for row in state_rows
+                    if row.get("status") in {"unresolved", "manual_review"}
+                ],
+            ),
+        }
     else:
         column = None if args.column in {"-", "null", "None"} else args.column
         wanted = (args.job_id, column, args.phase)
@@ -159,12 +212,27 @@ def main() -> int:
             "recorded_at": datetime.now(UTC).isoformat(),
         }
         _append(args.state, event)
+        case_path = None
+        if args.status == "verified":
+            case_path = args.verified_file or (
+                args.state.parent / "verified_cases.jsonl"
+            )
+            _append(case_path, event)
+        elif args.status in {"unresolved", "manual_review"}:
+            case_path = args.unresolved_file or (
+                args.state.parent / "unresolved_cases.jsonl"
+            )
+            _append(case_path, event)
         if args.status == "manual_review":
             manual_path = args.manual_review_file or (
                 args.state.parent / "manual_review.jsonl"
             )
             _append(manual_path, event)
-        result = {"recorded": _display_identity(event), "status": args.status}
+        result = {
+            "recorded": _display_identity(event),
+            "status": args.status,
+            "case_file": str(case_path) if case_path else None,
+        }
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 

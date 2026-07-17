@@ -18,6 +18,40 @@ from build_lineage.tests.test_column_tracer import (
 
 
 class ProductionSqlAuditorTests(unittest.TestCase):
+    def test_skips_select_only_validation_statement_without_failure(self) -> None:
+        jobs = [
+            JobRecord(
+                "job.validation_0",
+                "validation__0",
+                "hive",
+                "insert_overwrite",
+                "INSERT OVERWRITE TABLE dm.target SELECT metric FROM dm.source",
+            ),
+            JobRecord(
+                "job.validation_1",
+                "validation__1",
+                "hive",
+                "select_only",
+                "SELECT COUNT(*) FROM dm.target",
+            ),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            report_dir = Path(directory) / "audit"
+            summary = ProductionSqlAuditor(AuditOptions(
+                report_dir=report_dir,
+            )).run(jobs)
+
+            self.assertEqual(2, summary["counts"]["jobs_seen"])
+            self.assertEqual(1, summary["counts"]["jobs_parsed"])
+            self.assertEqual(0, summary["counts"]["jobs_failed"])
+            self.assertEqual(1, summary["counts"]["statements_skipped"])
+            self.assertEqual(0, summary["issues_total"])
+            tasks = json.loads((report_dir / "tasks.json").read_text())
+            self.assertEqual(
+                "skipped_select_only",
+                tasks[0]["statements"][1]["audit_status"],
+            )
+
     def test_writes_success_failure_group_table_and_summary_reports(self) -> None:
         jobs = [
             JobRecord(
